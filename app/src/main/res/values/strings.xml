@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Starvelater</string>
+    <string name="home">Home</string>
+    <string name="trending_food">Trending Food</string>
+
+    <!--Strings for on-boarding screens-->
+    <!--titles-->
+    <string name="first_slide_title">Preorder Food</string>
+    <string name="second_slide_title">Multi-Utility Food Ordering</string>
+    <string name="third_slide_title">Safety Dine-In</string>
+    <!--Description-->
+    <string name="first_slide_description">Getting late for Meeting? Now Pre-Order Food at Favorite Restaurant and Avoid Food Waiting Time!!!</string>
+    <string name="second_slide_description">Single Platform for ordering Food from Restaurants, College Canteens and Corporate Cafeterias</string>
+    <string name="third_slide_description">We at Starvelater ensure Safety of you and provide you the finest Dine-In Experience</string>
+    <!--buttons-->
+    <string name="skip_btn">Skip</string>
+    <string name="lets_get_started">Lets Get Started</string>
+
+    <!--Strings for Dashboard-->
+    <!--Categories-->
+    <string name="restaurants">Restaurants</string>
+    <!--Titles and Descriptions-->
+    <string name="featured_restaurants">Featured Restaurants</string>
+    <string name="featured_restaurants_description">All the Restaurants that are featured have the Top Demand in Town.</string>
+    <string name="most_popular">Most Popular</string>
+    <string name="multi_utility">Multi-Utility</string>
+    <string name="view_all">View All</string>
+    <string name="search_restaurants">Search Restaurants</string>
+    <string name="tag_line">For Fastest and Safest Dine-In</string>
+    <string name="search_by_location">Search by Location</string>
+    <string name="nearby_restaurants">Nearby Restaurants</string>
+    <string name="help_support">Help and Support</string>
+    <string name="terms_conditions">Terms and Conditions</string>
+    <string name="rate_us_on_playstore">Rate us on Playstore</string>
+    <string name="log_out">Log Out</string>
+    <string name="college">College</string>
+    <string name="corporate">Corporate Cafes</string>
+    <string name="share">Share</string>
+
+</resources>
