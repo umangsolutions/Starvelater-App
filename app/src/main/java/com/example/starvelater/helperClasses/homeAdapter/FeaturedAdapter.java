@@ -47,10 +47,10 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.Featur
         return featuredRestaurants.size();
     }
 
-    public static class FeaturedViewHolder extends RecyclerView.ViewHolder{
+    public static class FeaturedViewHolder extends RecyclerView.ViewHolder {
 
         ImageView image;
-        TextView title,description;
+        TextView title, description;
 
         public FeaturedViewHolder(@NonNull View itemView) {
             super(itemView);

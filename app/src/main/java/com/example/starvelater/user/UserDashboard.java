@@ -1,4 +1,4 @@
-package com.example.starvelater;
+package com.example.starvelater.user;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.example.starvelater.R;
 import com.example.starvelater.helperClasses.homeAdapter.FeaturedAdapter;
 import com.example.starvelater.helperClasses.homeAdapter.FeaturedHelperClass;
 import com.example.starvelater.helperClasses.homeAdapter.PopularAdapter;

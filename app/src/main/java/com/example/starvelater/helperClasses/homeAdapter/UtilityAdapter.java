@@ -46,7 +46,7 @@ public class UtilityAdapter extends RecyclerView.Adapter<UtilityAdapter.UtilityV
         return utility.size();
     }
 
-    public static class UtilityViewHolder extends RecyclerView.ViewHolder{
+    public static class UtilityViewHolder extends RecyclerView.ViewHolder {
 
         ImageView image;
         TextView title;

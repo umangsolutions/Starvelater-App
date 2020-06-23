@@ -9,32 +9,32 @@
         android:id="@+id/menu_slogan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/tag_line"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
         android:fontFamily="@font/calligraffitti"
-        android:layout_marginBottom="10dp" />
-    
+        android:text="@string/tag_line" />
+
     <TextView
         android:id="@+id/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:fontFamily="@font/montaga"
-        android:textStyle="bold"
-        android:textSize="24sp"
         android:layout_above="@id/menu_slogan"
-        android:textColor="#000"/>
-    
+        android:fontFamily="@font/montaga"
+        android:text="@string/app_name"
+        android:textColor="#000"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
     <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/foodorder"
-        android:layout_above="@id/app_name"/>
+        android:layout_above="@id/app_name"
+        android:src="@drawable/foodorder" />
 
     <ImageView
         android:layout_width="160dp"
         android:layout_height="175dp"
-        android:src="@drawable/logo"
         android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/logo" />
 </RelativeLayout>

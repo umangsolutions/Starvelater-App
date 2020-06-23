@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".common.OnBoarding"/>
+        <activity android:name=".user.AllCategories"></activity>
+        <activity android:name=".common.OnBoarding" />
         <activity android:name=".common.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UserDashboard"/>
+        <activity android:name=".user.UserDashboard" />
 
         <meta-data
             android:name="preloaded_fonts"
