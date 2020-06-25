@@ -33,9 +33,11 @@
     <string name="terms_conditions">Terms and Conditions</string>
     <string name="rate_us_on_playstore">Rate us on Playstore</string>
     <string name="log_out">Log Out</string>
-    <string name="college">College</string>
+    <string name="college">College Canteens</string>
     <string name="corporate">Corporate Cafes</string>
     <string name="share">Share</string>
-    <string name="categories">Categories</string>
+    <string name="categories">All Categories</string>
+    <string name="expand">EXPAND</string>
+    <string name="all_categories">All Categories</string>
 
 </resources>
