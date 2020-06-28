@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Starvelater</string>
+    <string name="app_name">Starve\nLater</string>
     <string name="home">Home</string>
     <string name="trending_food">Trending Food</string>
 
@@ -39,5 +39,12 @@
     <string name="categories">All Categories</string>
     <string name="expand">EXPAND</string>
     <string name="all_categories">All Categories</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign up</string>
+    <string name="enter_username">Enter Username</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="remember_me">Remember Me</string>
+    <string name="forget_password">Forget Password</string>
+    <string name="create_account">Create Account</string>
 
 </resources>
