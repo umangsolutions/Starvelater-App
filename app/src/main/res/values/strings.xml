@@ -46,5 +46,15 @@
     <string name="remember_me">Remember Me</string>
     <string name="forget_password">Forget Password</string>
     <string name="create_account">Create Account</string>
+    <string name="enter_full_name">enter_full_name</string>
+    <string name="user_name">user_name</string>
+    <string name="password">password</string>
+    <string name="conform_password">conform_password</string>
+    <string name="enter_mail_id">enter_mail_id</string>
+    <string name="enter_phone_number">enter phone number</string>
+    <string name="conform_pwd">conform password</string>
+    <string name="enter_mailid">enter mail id</string>
+    <string name="signup">SIGN UP</string>
+    <string name="create_acc">create account</string>
 
 </resources>

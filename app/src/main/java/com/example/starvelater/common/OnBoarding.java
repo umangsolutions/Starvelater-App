@@ -119,7 +119,11 @@ public class OnBoarding extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
-                        startActivity(intent);
+                        Pair[] pairs = new Pair[1];
+                        pairs[0] = new Pair<View,String>(findViewById(R.id.signup),"transition_signup");
+
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(OnBoarding.this,pairs);
+                        startActivity(intent,options.toBundle());
                     }
                 });
             }
