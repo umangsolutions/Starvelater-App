@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:cardCornerRadius="5dp"
-    app:cardElevation="1dp"
+    app:cardElevation="4dp"
     app:cardMaxElevation="5dp"
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="true">
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/most_popular_image"
-            android:fontFamily="@font/alegreya"
+            android:fontFamily="@font/muli_black"
             android:text="Paradise Biryani"
             android:textColor="@color/colorAccent"
             android:textSize="20sp"
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/most_popular_title"
             android:layout_toRightOf="@id/most_popular_image"
-            android:fontFamily="@font/montaga"
+            android:fontFamily="@font/muli"
             android:padding="10dp"
             android:text="Known For:\nLegendary Biryani"
             android:textSize="15sp" />

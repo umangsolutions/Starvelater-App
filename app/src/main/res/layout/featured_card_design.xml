@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="160dp"
-    android:layout_height="300dp"
+    android:layout_width="170dp"
+    android:layout_height="280dp"
     android:layout_margin="10dp"
     app:cardCornerRadius="2dp"
     app:cardElevation="4dp">
@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:fontFamily="@font/alegreya"
+            android:fontFamily="@font/muli_black"
             android:text="Chutneys"
             android:textColor="@color/colorAccent"
             android:textSize="12sp"
@@ -37,10 +37,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:fontFamily="@font/montaga"
-            android:text="Known For: \n Authentic South Indian Food \n Well Sanitized Kitchen"
+            android:fontFamily="@font/muli"
+            android:text="@string/known_for_n_authentic_south_indian_food_n_well_sanitized_kitchen"
             android:textSize="10sp" />
-
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

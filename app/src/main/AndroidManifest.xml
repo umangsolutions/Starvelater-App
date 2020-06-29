@@ -10,8 +10,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".common.loginsignup.SignUpActivity"></activity>
-        <activity android:name=".common.loginsignup.LoginActivity" />
+        <activity android:name=".common.loginsignup.StartUpScreen"></activity>
+        <activity
+            android:name=".common.loginsignup.SignUpActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".common.loginsignup.LoginActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".user.AllCategories" />
         <activity android:name=".common.OnBoarding" />
         <activity android:name=".common.SplashScreen">

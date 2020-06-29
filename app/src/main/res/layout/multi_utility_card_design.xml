@@ -4,7 +4,7 @@
     android:layout_width="270dp"
     android:layout_height="150dp"
     app:cardCornerRadius="5dp"
-    app:cardElevation="1dp"
+    app:cardElevation="4dp"
     app:cardMaxElevation="5dp"
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="true">
@@ -12,14 +12,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#e0e0e0"
+        android:background="#fff"
         android:padding="15dp">
 
         <TextView
             android:id="@+id/multi_utility_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/alegreya"
+            android:fontFamily="@font/muli"
             android:text="@string/restaurants"
             android:textSize="20sp"
             android:textStyle="bold" />

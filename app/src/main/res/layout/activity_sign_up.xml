@@ -4,18 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="30dp"
+    android:padding="20dp"
+    android:background="#fff"
+    android:transitionName="transition_signup"
     tools:context=".common.loginsignup.SignUpActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="wrap_content"
-        android:padding="30dp">
+        android:padding="25dp">
 
         <ImageView
             android:id="@+id/signup_back_button"
             android:layout_width="wrap_content"
+            android:contentDescription="@string/back_button"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow_back_black_24dp"
             android:padding="5dp" />
@@ -40,11 +43,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:hint="@string/user_name"
+                android:hint="@string/enter_your_name"
                 app:hintTextColor="#000"
                 app:boxStrokeColor="#000"
                 app:boxStrokeWidthFocused="2dp"
-                app:startIconDrawable="@drawable/ic_person_black_24dp"
+                app:startIconDrawable="@drawable/ic_edit_black_24dp"
                 app:startIconTint="#000"
                 app:endIconMode="clear_text"
                 app:endIconTint="#000">
@@ -84,7 +87,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:hint="@string/password"
+                android:hint="@string/enter_password"
                 app:hintTextColor="#000"
                 app:boxStrokeColor="#000"
                 app:boxStrokeWidthFocused="2dp"
@@ -152,10 +155,10 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#000"
+                android:background="@color/colorPrimary"
                 android:text="@string/signup"
                 android:textColor="#fff"
-                android:layout_marginTop="20dp" />
+                android:layout_marginTop="30dp" />
 
             <!--<Button
                 android:layout_width="wrap_content"

@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.starvelater.R;
+import com.example.starvelater.common.loginsignup.StartUpScreen;
 import com.example.starvelater.helperClasses.homeAdapter.FeaturedAdapter;
 import com.example.starvelater.helperClasses.homeAdapter.FeaturedHelperClass;
 import com.example.starvelater.helperClasses.homeAdapter.PopularAdapter;
@@ -130,6 +131,11 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
                 Intent intent = new Intent(UserDashboard.this, AllCategories.class);
                 startActivity(intent);
                 break;
+            case R.id.nav_get_started:
+                Intent intent1 = new Intent(UserDashboard.this, StartUpScreen.class);
+                startActivity(intent1);
+                break;
+
 
         }
         return true;

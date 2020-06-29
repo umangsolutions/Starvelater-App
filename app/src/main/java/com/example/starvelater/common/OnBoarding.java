@@ -29,7 +29,7 @@ public class OnBoarding extends AppCompatActivity {
     LinearLayout dotsLayout;
     SliderAdapter sliderAdapter;
     TextView[] dots;
-    Button btnLogin,btnSignUp;
+    Button letsgetstarted;
     Animation animation;
     int currentPosition;
 
@@ -42,8 +42,8 @@ public class OnBoarding extends AppCompatActivity {
         //Hooks
         viewPager = findViewById(R.id.slider);
         dotsLayout = findViewById(R.id.dots);
-        btnLogin = findViewById(R.id.login);
-        btnSignUp=findViewById(R.id.signup);
+        letsgetstarted = findViewById(R.id.get_started_btn);
+
 
 
         //Call Adapter
@@ -88,20 +88,17 @@ public class OnBoarding extends AppCompatActivity {
             addDots(position);
             currentPosition = position;
             if (position == 0) {
-                btnLogin.setVisibility(View.INVISIBLE);
-                btnSignUp.setVisibility(View.INVISIBLE);
+                letsgetstarted.setVisibility(View.INVISIBLE);
             } else if (position == 1) {
-                btnLogin.setVisibility(View.INVISIBLE);
-                btnSignUp.setVisibility(View.INVISIBLE);
+                letsgetstarted.setVisibility(View.INVISIBLE);
             } else {
                 animation = AnimationUtils.loadAnimation(OnBoarding.this, R.anim.bottom_anim);
-                btnLogin.setAnimation(animation);
-                btnSignUp.setAnimation(animation);
+                letsgetstarted.setAnimation(animation);
 
-                btnLogin.setVisibility(View.VISIBLE);
-                btnSignUp.setVisibility(View.VISIBLE);
+                letsgetstarted.setVisibility(View.VISIBLE);
 
-                btnLogin.setOnClickListener(new View.OnClickListener() {
+
+               /* btnLogin.setOnClickListener(new View.OnClickListener() {
                     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                     @Override
                     public void onClick(View v) {
@@ -119,13 +116,21 @@ public class OnBoarding extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
-                        Pair[] pairs = new Pair[1];
-                        pairs[0] = new Pair<View,String>(findViewById(R.id.signup),"transition_signup");
+                        Pair[] pairs1 = new Pair[1];
+                        pairs1[0] = new Pair<View,String>(findViewById(R.id.signup),"transition_signup");
 
-                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(OnBoarding.this,pairs);
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(OnBoarding.this,pairs1);
                         startActivity(intent,options.toBundle());
                     }
-                });
+                });*/
+
+               letsgetstarted.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View v) {
+                       Intent intent = new Intent(getApplicationContext(),UserDashboard.class);
+                       startActivity(intent);
+                   }
+               });
             }
         }
 

@@ -5,13 +5,13 @@
 
     <!--Strings for on-boarding screens-->
     <!--titles-->
-    <string name="first_slide_title">Preorder Food</string>
+    <string name="first_slide_title">Pre Order Food</string>
     <string name="second_slide_title">Multi-Utility Food Ordering</string>
     <string name="third_slide_title">Safety Dine-In</string>
     <!--Description-->
     <string name="first_slide_description">Getting late for Meeting? Now Pre-Order Food at Favorite Restaurant and Avoid Food Waiting Time!!!</string>
     <string name="second_slide_description">Single Platform for ordering Food from Restaurants, College Canteens and Corporate Cafeterias</string>
-    <string name="third_slide_description">We at Starvelater ensure Safety of you and provide you the finest Dine-In Experience</string>
+    <string name="third_slide_description">We at StarveLater ensure Safety of you and provide you the finest Dine-In Experience</string>
     <!--buttons-->
     <string name="skip_btn">Skip</string>
     <string name="lets_get_started">Lets Get Started</string>
@@ -31,7 +31,7 @@
     <string name="nearby_restaurants">Nearby Restaurants</string>
     <string name="help_support">Help and Support</string>
     <string name="terms_conditions">Terms and Conditions</string>
-    <string name="rate_us_on_playstore">Rate us on Playstore</string>
+    <string name="rate_us_on_playstore">Rate us on Play Store</string>
     <string name="log_out">Log Out</string>
     <string name="college">College Canteens</string>
     <string name="corporate">Corporate Cafes</string>
@@ -50,11 +50,17 @@
     <string name="user_name">user_name</string>
     <string name="password">password</string>
     <string name="conform_password">conform_password</string>
-    <string name="enter_mail_id">enter_mail_id</string>
-    <string name="enter_phone_number">enter phone number</string>
-    <string name="conform_pwd">conform password</string>
-    <string name="enter_mailid">enter mail id</string>
+    <string name="enter_phone_number">Enter Phone Number</string>
+    <string name="conform_pwd">Confirm Password</string>
+    <string name="enter_mailid">Enter Mail ID</string>
     <string name="signup">SIGN UP</string>
     <string name="create_acc">create account</string>
+    <string name="enter_your_name">Enter your Name</string>
+    <string name="back_button">back_button</string>
+    <string name="safest_dining_experience">Safest Dining Experience</string>
+    <string name="lorem_ipsum_lorem_ipsum_lorem_ipsum_lorem_ipsum_lorem_ipsum_lorem">Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem</string>
+    <string name="get_started">Get Started</string>
+    <string name="starvelater">StarveLater</string>
+    <string name="known_for_n_authentic_south_indian_food_n_well_sanitized_kitchen">Known For: \n Authentic South Indian Food \n Well Sanitized Kitchen</string>
 
 </resources>

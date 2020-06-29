@@ -6,10 +6,10 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/home"
             android:title="@string/home" />
-        <item
+        <!--<item
             android:id="@+id/nav_trending_food"
             android:icon="@drawable/trendingfood"
-            android:title="@string/trending_food" />
+            android:title="@string/trending_food" />-->
         <item
             android:id="@+id/nav_all_categories"
             android:icon="@drawable/categorymenu"
@@ -18,13 +18,18 @@
             android:id="@+id/nav_search_by_location"
             android:icon="@drawable/searchbylocation"
             android:title="@string/search_by_location" />
+
         <item
+            android:id="@+id/nav_get_started"
+            android:icon="@drawable/login"
+            android:title="@string/get_started" />
+        <!--<item
             android:id="@+id/nav_find_nearby_restaurants"
             android:icon="@drawable/nearbyrestaurants"
-            android:title="@string/nearby_restaurants" />
+            android:title="@string/nearby_restaurants" />-->
     </group>
 
-    <item android:title="Profile">
+   <!-- <item android:title="Profile">
         <menu>
             <group android:checkableBehavior="single">
                 <item
@@ -45,7 +50,7 @@
                     android:title="@string/log_out" />
             </group>
         </menu>
-    </item>
+    </item>-->
 
     <item android:title="Help and Rating">
         <menu>
@@ -62,7 +67,7 @@
         </menu>
     </item>
 
-    <item android:title="Categories">
+    <!--<item android:title="Categories">
         <menu>
             <group android:checkableBehavior="single">
                 <item
@@ -79,7 +84,7 @@
                     android:title="@string/corporate" />
             </group>
         </menu>
-    </item>
+    </item>-->
 
     <item android:title="Share">
         <menu>
