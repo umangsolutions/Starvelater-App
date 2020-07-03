@@ -13,10 +13,13 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.starvelater.R;
+import com.example.starvelater.ResturanteGalery;
+import com.example.starvelater.common.loginsignup.LoginActivity;
 import com.example.starvelater.common.loginsignup.StartUpScreen;
 import com.example.starvelater.helperClasses.homeAdapter.FeaturedAdapter;
 import com.example.starvelater.helperClasses.homeAdapter.FeaturedHelperClass;
@@ -42,6 +45,7 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
     NavigationView navigationView;
     ImageView menuIcon;
     LinearLayout contentView;
+    ImageView qr_icon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,16 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
         navigationView = findViewById(R.id.navigation_view);
         menuIcon = findViewById(R.id.menu_icon);
         contentView = findViewById(R.id.content);
+        qr_icon=findViewById(R.id.qr_icon);
+        qr_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ResturanteGalery.class);
+                startActivity(intent);
+
+            }
+        });
+
 
         navigationDrawer();
 
@@ -66,6 +80,7 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
         popularRecycler();
         utilityRecycler();
     }
+
 
     //Navigation Drawer Functions
     private void navigationDrawer() {
