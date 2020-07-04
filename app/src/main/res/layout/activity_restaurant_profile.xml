@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RestaurantProfile">
+
+    <!--<com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginEnd="64dp"
+            app:expandedTitleMarginStart="48dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_scrollFlags="scroll|enterAlways"></androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>-->
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       android:padding="5dp">
+
+       <ImageView
+           android:id="@+id/back_button"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:src="@drawable/ic_arrow_back_black_24dp"
+           android:padding="5dp" />
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Tandoori House"
+           android:padding="5dp"
+           android:layout_marginTop="15dp"
+           android:fontFamily="@font/muli_black"
+           android:textColor="#000"
+           android:textSize="19dp" />
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="RTC | 3kms"
+           android:padding="5dp"
+           android:fontFamily="@font/muli"
+           android:textSize="14dp" />
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center"
+           android:padding="5dp"
+           android:layout_marginTop="5dp"
+           android:text="@string/dots" />
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:weightSum="3"
+           android:padding="10dp">
+
+           <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:weightSum="2"
+               android:layout_weight="1"
+               android:gravity="center"
+               android:orientation="vertical">
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="3.7"
+                   android:fontFamily="@font/muli"
+                   android:textStyle="bold"
+                   android:layout_weight="1"
+                   android:drawablePadding="5dp"
+                   android:drawableStart="@drawable/ic_star"
+                   android:layout_gravity="center"
+                   android:textSize="16dp"
+                   android:textColor="#000" />
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Users Rating"
+                   android:padding="5dp"
+                   android:layout_weight="1"
+                   android:fontFamily="@font/muli"
+                   android:textSize="14dp" />
+           </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:weightSum="2"
+               android:layout_weight="1"
+               android:gravity="center"
+               android:orientation="vertical">
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="28 mins"
+                   android:fontFamily="@font/muli"
+                   android:textStyle="bold"
+                   android:layout_weight="1"
+                   android:layout_gravity="center"
+                   android:textSize="16dp"
+                   android:textColor="#000" />
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Average Time"
+                   android:padding="5dp"
+                   android:layout_weight="2"
+                   android:fontFamily="@font/muli"
+                   android:textSize="14dp" />
+           </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:weightSum="2"
+               android:layout_weight="1"
+               android:gravity="center"
+               android:orientation="vertical">
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="₹ 250"
+                   android:fontFamily="@font/muli"
+                   android:textStyle="bold"
+                   android:layout_weight="1"
+                   android:layout_gravity="center"
+                   android:textSize="16dp"
+                   android:textColor="#000" />
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="For Two"
+                   android:padding="5dp"
+                   android:layout_weight="2"
+                   android:fontFamily="@font/muli"
+                   android:textSize="14dp" />
+           </LinearLayout>
+       </LinearLayout>
+
+       <View
+           android:layout_width="match_parent"
+           android:layout_height="15dp"
+           android:background="#e0e0e0"/>
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Recommended"
+           android:padding="5dp"
+           android:layout_marginStart="16dp"
+           android:layout_marginTop="15dp"
+           android:fontFamily="@font/muli_black"
+           android:textColor="#F5000000"
+           android:textSize="19dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/datalist"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp" />
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Tandoori Appetizers"
+           android:padding="5dp"
+           android:layout_marginStart="16dp"
+           android:layout_marginTop="15dp"
+           android:fontFamily="@font/muli_black"
+           android:textColor="#F5000000"
+           android:textSize="19dp" />
+
+       <androidx.recyclerview.widget.RecyclerView
+           android:id="@+id/itemlist"
+           android:layout_marginTop="5dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginStart="16dp"
+           android:layout_marginEnd="8dp"
+           android:layout_marginBottom="8dp" />
+
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

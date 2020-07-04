@@ -12,14 +12,11 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.starvelater.R;
-import com.example.starvelater.ResturanteGalery;
-import com.example.starvelater.common.loginsignup.LoginActivity;
+import com.example.starvelater.RestaurantProfile;
 import com.example.starvelater.common.loginsignup.StartUpScreen;
 import com.example.starvelater.helperClasses.homeAdapter.FeaturedAdapter;
 import com.example.starvelater.helperClasses.homeAdapter.FeaturedHelperClass;
@@ -67,7 +64,7 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
         qr_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ResturanteGalery.class);
+                Intent intent = new Intent(getApplicationContext(), RestaurantProfile.class);
                 startActivity(intent);
 
             }

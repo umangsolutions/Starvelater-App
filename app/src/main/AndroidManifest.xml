@@ -10,8 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Custom_Gridlayout"></activity>
-        <activity android:name=".ResturanteGalery" />
+        <activity android:name=".helperClasses.CustomGridLayout"></activity>
+        <activity android:name=".Custom_Gridlayout" />
+        <activity android:name=".RestaurantProfile" />
         <activity android:name=".common.loginsignup.StartUpScreen" />
         <activity
             android:name=".common.loginsignup.SignUpActivity"
