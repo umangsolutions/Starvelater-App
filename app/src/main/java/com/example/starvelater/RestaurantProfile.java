@@ -48,7 +48,6 @@ public class RestaurantProfile extends AppCompatActivity {
         });
 
 
-
         titles = new ArrayList<>();
         images = new ArrayList<>();
         prices = new ArrayList<>();

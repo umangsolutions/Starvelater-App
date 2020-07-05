@@ -51,10 +51,12 @@
     <string name="enter_your_name">Enter your Name</string>
     <string name="back_button">back_button</string>
     <string name="safest_dining_experience">Safest Dining Experience</string>
-    <string name="lorem_ipsum_lorem_ipsum_lorem_ipsum_lorem_ipsum_lorem_ipsum_lorem">Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem</string>
+    <string name="lorem_ipsum_lorem_ipsum_lorem_ipsum_lorem_ipsum_lorem_ipsum_lorem">Visit StarveLater Inns for Fastest Safest and Best Dining Experience</string>
     <string name="get_started">Get Started</string>
     <string name="starvelater">StarveLater</string>
     <string name="known_for_n_authentic_south_indian_food_n_well_sanitized_kitchen">Known For: \n Authentic South Indian Food \n Well Sanitized Kitchen</string>
     <string name="textview">TextView</string>
+    <string name="all_restaurants">All Restaurants</string>
+    <string name="venkat_nagar_kakinada">Venkat Nagar, Kakinada</string>
 
 </resources>

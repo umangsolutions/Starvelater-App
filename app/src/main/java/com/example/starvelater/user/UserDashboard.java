@@ -177,7 +177,7 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
         popularRecycler.setLayoutManager(new LinearLayoutManager(UserDashboard.this, LinearLayoutManager.HORIZONTAL, false));
         ArrayList<PopularHelperClass> popularRestaurants = new ArrayList<>();
         popularRestaurants.add(new PopularHelperClass(R.drawable.paradise, "Paradise", "Known For:\n" + "Legendary Biryani"));
-        popularRestaurants.add(new PopularHelperClass(R.drawable.swathi, "New Swathi", "Known For:\n" + "North-Indian Cuisine\n" + "South-Indian Cuisine"));
+        popularRestaurants.add(new PopularHelperClass(R.drawable.bbqnation, "New Swathi", "Known For:\n" + "North-Indian Cuisine\n" + "South-Indian Cuisine"));
         popularRestaurants.add(new PopularHelperClass(R.drawable.paaka, "Paaka", "Known For:\n" + "Organic Cafe\n" + "Cultural Space"));
 
 
@@ -192,9 +192,9 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
         featuredRecycler.setHasFixedSize(true);
         featuredRecycler.setLayoutManager(new LinearLayoutManager(UserDashboard.this, LinearLayoutManager.HORIZONTAL, false));
         ArrayList<FeaturedHelperClass> featuredRestaurants = new ArrayList<>();
-        featuredRestaurants.add(new FeaturedHelperClass(R.drawable.chutneys, "Chutneys", "Known For:\n" + "Authentic South Indian Food Well Sanitized Kitchen"));
-        featuredRestaurants.add(new FeaturedHelperClass(R.drawable.bbqnation, "Barbeque Nation", "Known For:\n" + "Indoor Barbeque concept 'Do-It-Yourself' grilling"));
-        featuredRestaurants.add(new FeaturedHelperClass(R.drawable.taj, "Taj Krishna", "Known For:\n" + "Regal Ambiance Reminiscent Of The Days Of The Nizams"));
+        featuredRestaurants.add(new FeaturedHelperClass(R.drawable.chutneys, "Chutneys", "Venkat Nagar,\nKakinada"));
+        featuredRestaurants.add(new FeaturedHelperClass(R.drawable.bbqnation, "Barbeque Nation", "Bhilai,\nChattisgarh"));
+        featuredRestaurants.add(new FeaturedHelperClass(R.drawable.taj, "Taj Krishna", "Gachibowli,\nHyderabad"));
 
 
         adapter = new FeaturedAdapter(featuredRestaurants);

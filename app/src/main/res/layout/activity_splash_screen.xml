@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splashscreen"
+    android:background="@drawable/splash"
     tools:context=".common.SplashScreen">
 
     <!--<ImageView
@@ -12,6 +12,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/splashscreen" />-->
-
 
 </LinearLayout>
