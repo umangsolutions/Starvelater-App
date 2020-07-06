@@ -1,12 +1,17 @@
 package com.example.starvelater;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,6 +19,7 @@ import android.widget.LinearLayout;
 import com.example.starvelater.helperClasses.RecycleGridAdapter;
 import com.example.starvelater.helperClasses.RestaurantItemAdapter;
 import com.example.starvelater.user.UserDashboard;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import java.util.ArrayList;
@@ -28,6 +34,7 @@ public class RestaurantProfile extends AppCompatActivity {
     RecycleGridAdapter  adapter;
     RestaurantItemAdapter itemAdapter;
     ImageView backbutton;
+    Toolbar restaurantToolBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +42,31 @@ public class RestaurantProfile extends AppCompatActivity {
         setContentView(R.layout.activity_restaurant_profile);
         datalist=findViewById(R.id.datalist);
         itemlist = findViewById(R.id.itemlist);
+        restaurantToolBar = findViewById(R.id.restaurantToolBar);
+        setSupportActionBar(restaurantToolBar);
+        /*final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.restaurantAppBar);
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            boolean isShow = true;
+            int scrollRange = -1;
+
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (scrollRange == -1) {
+                    scrollRange = appBarLayout.getTotalScrollRange();
+                }
+                if (scrollRange + verticalOffset == 0) {
+                    collapsingToolbarLayout.setTitle("Tandoori House");
+                    isShow = true;
+                } else if(isShow) {
+                    collapsingToolbarLayout.setTitle(" ");//careful there should a space between double quote otherwise it wont work
+                    isShow = false;
+                }
+            }
+        });*/
+        final ActionBar restaurantActionBar = getSupportActionBar();
+        restaurantActionBar.setDisplayShowCustomEnabled(true); // enable overriding the default toolbar layout
+        restaurantActionBar.setDisplayShowTitleEnabled(false);
 
         backbutton = (ImageView) findViewById(R.id.back_button);
 
@@ -46,7 +78,6 @@ public class RestaurantProfile extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
         titles = new ArrayList<>();
         images = new ArrayList<>();
@@ -102,4 +133,5 @@ public class RestaurantProfile extends AppCompatActivity {
         datalist.setLayoutManager(gridLayoutManager);
         datalist.setAdapter((RecyclerView.Adapter) adapter);
     }
+
 }

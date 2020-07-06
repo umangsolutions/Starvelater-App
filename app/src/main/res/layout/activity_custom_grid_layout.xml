@@ -25,20 +25,20 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/corporatemenu"-->
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:layout_marginStart="2dp"
-        android:shadowColor="#ffffff"
-        android:text="@string/textview"
-        android:textAllCaps="true"
-        android:textColor="#000"
-        android:textSize="10dp"
-        android:drawablePadding="5dp"
-        android:drawableStart="@drawable/veg"
-        android:fontFamily="@font/muli"/>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="2dp"
+            android:shadowColor="#ffffff"
+            android:text="@string/textview"
+            android:textAllCaps="true"
+            android:textColor="#000"
+            android:textSize="10dp"
+            android:drawablePadding="5dp"
+            android:drawableStart="@drawable/veg"
+            android:fontFamily="@font/muli"/>
         <!--app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -46,5 +46,14 @@
         app:layout_constraintTop_toTopOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.94" -->
 
+        <Button
+            android:layout_width="65dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="2dp"
+            android:text="ADD"
+            android:textColor="@color/colorPrimary"
+            android:background="#fff"
+            android:textSize="10dp" />
 
 </LinearLayout>
