@@ -1,4 +1,4 @@
-package com.example.starvelater.user;
+package com.example.starvelater.activities.user;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,16 +14,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.starvelater.R;
-import com.example.starvelater.RestaurantProfile;
-import com.example.starvelater.common.loginsignup.StartUpScreen;
-import com.example.starvelater.helperClasses.homeAdapter.FeaturedAdapter;
-import com.example.starvelater.helperClasses.homeAdapter.FeaturedHelperClass;
-import com.example.starvelater.helperClasses.homeAdapter.PopularAdapter;
-import com.example.starvelater.helperClasses.homeAdapter.PopularHelperClass;
-import com.example.starvelater.helperClasses.homeAdapter.UtilityAdapter;
-import com.example.starvelater.helperClasses.homeAdapter.UtilityHelperClass;
+import com.example.starvelater.activities.restaurant.All_Restaurants;
+import com.example.starvelater.activities.loginsignup.StartUpScreen;
+import com.example.starvelater.adapters.homeAdapter.FeaturedAdapter;
+import com.example.starvelater.adapters.homeAdapter.FeaturedHelperClass;
+import com.example.starvelater.adapters.homeAdapter.PopularAdapter;
+import com.example.starvelater.adapters.homeAdapter.PopularHelperClass;
+import com.example.starvelater.adapters.homeAdapter.UtilityAdapter;
+import com.example.starvelater.adapters.homeAdapter.UtilityHelperClass;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -43,6 +45,7 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
     ImageView menuIcon;
     LinearLayout contentView;
     ImageView qr_icon;
+    TextView txtViewAll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,8 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
         popularRecycler = findViewById(R.id.popular_recycler);
         utilityRecycler = findViewById(R.id.utility_recycler);
 
+        txtViewAll = (TextView) findViewById(R.id.restaurantsViewAll);
+
         //Menu Hooks
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
@@ -64,9 +69,16 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
         qr_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), RestaurantProfile.class);
-                startActivity(intent);
+                Toast.makeText(UserDashboard.this, "Sorry! Not Yet Implemented", Toast.LENGTH_SHORT).show();
 
+            }
+        });
+
+        txtViewAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(UserDashboard.this,All_Restaurants.class);
+                startActivity(intent1);
             }
         });
 
@@ -139,6 +151,10 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
 
         switch (item.getItemId()) {
 
+            case R.id.nav_home:
+                Intent intent2 = new Intent(UserDashboard.this, UserDashboard.class);
+                startActivity(intent2);
+                break;
             case R.id.nav_all_categories:
                 Intent intent = new Intent(UserDashboard.this, AllCategories.class);
                 startActivity(intent);

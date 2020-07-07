@@ -1,11 +1,9 @@
-package com.example.starvelater.helperClasses;
+package com.example.starvelater.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,16 +13,16 @@ import com.example.starvelater.R;
 
 import java.util.List;
 
-public class RecycleGridAdapter extends RecyclerView.Adapter<RecycleGridAdapter.ViewHolder> {
+public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAdapter.ViewHolder> {
 
     List<String> titles;
-    List<Integer> images;
+    List<String> prices;
 
     LayoutInflater inflater;
 
-    public RecycleGridAdapter(Context ctx, List<String> titles, List<Integer> images){
+    public RestaurantItemAdapter(Context ctx, List<String> titles, List<String> prices){
         this.titles = titles;
-        this.images = images;
+        this.prices = prices;
         this.inflater = LayoutInflater.from(ctx);
     }
 
@@ -33,15 +31,17 @@ public class RecycleGridAdapter extends RecyclerView.Adapter<RecycleGridAdapter.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.activity_custom_grid_layout,parent,false);
+        View view = inflater.inflate(R.layout.item_card_design,parent,false);
         return new ViewHolder(view);
     }
+
+
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         holder.title.setText(titles.get(position));
-        holder.gridIcon.setImageResource(images.get(position));
+        holder.price.setText(prices.get(position));
 
     }
 
@@ -53,12 +53,12 @@ public class RecycleGridAdapter extends RecyclerView.Adapter<RecycleGridAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView title;
-        ImageView gridIcon;
+        TextView price;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.textView);
-            gridIcon = itemView.findViewById(R.id.imageView);
+            price = itemView.findViewById(R.id.price);
         }
     }
 }

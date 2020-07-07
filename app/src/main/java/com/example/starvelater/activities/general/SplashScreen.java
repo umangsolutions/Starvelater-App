@@ -1,4 +1,4 @@
-package com.example.starvelater.common;
+package com.example.starvelater.activities.general;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,7 +9,7 @@ import android.os.Handler;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-import com.example.starvelater.user.UserDashboard;
+import com.example.starvelater.activities.user.UserDashboard;
 import com.example.starvelater.R;
 
 public class SplashScreen extends AppCompatActivity {

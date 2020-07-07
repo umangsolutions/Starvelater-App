@@ -10,26 +10,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".helperClasses.CustomGridLayout"></activity>
+        <activity android:name=".activities.corporate_cafe.All_CorporateCafe"></activity>
+        <activity android:name=".activities.college_canteen.All_CollegeCanteen" />
+        <activity android:name=".activities.restaurant.All_Restaurants" />
+        <activity android:name=".adapters.CustomGridLayout" />
         <activity android:name=".Custom_Gridlayout" />
-        <activity android:name=".RestaurantProfile" />
-        <activity android:name=".common.loginsignup.StartUpScreen" />
+        <activity android:name=".activities.restaurant.RestaurantProfile" />
+        <activity android:name=".activities.loginsignup.StartUpScreen" />
         <activity
-            android:name=".common.loginsignup.SignUpActivity"
+            android:name=".activities.loginsignup.SignUpActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".common.loginsignup.LoginActivity"
+            android:name=".activities.loginsignup.LoginActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".user.AllCategories" />
-        <activity android:name=".common.OnBoarding" />
-        <activity android:name=".common.SplashScreen">
+        <activity android:name=".activities.user.AllCategories" />
+        <activity android:name=".activities.general.OnBoarding" />
+        <activity android:name=".activities.general.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".user.UserDashboard" />
+        <activity android:name=".activities.user.UserDashboard" />
 
         <meta-data
             android:name="preloaded_fonts"

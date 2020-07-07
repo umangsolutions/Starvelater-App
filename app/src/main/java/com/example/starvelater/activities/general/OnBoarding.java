@@ -1,15 +1,11 @@
-package com.example.starvelater.common;
+package com.example.starvelater.activities.general;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Pair;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -17,10 +13,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.starvelater.common.loginsignup.LoginActivity;
-import com.example.starvelater.common.loginsignup.SignUpActivity;
-import com.example.starvelater.helperClasses.SliderAdapter;
-import com.example.starvelater.user.UserDashboard;
+import com.example.starvelater.adapters.SliderAdapter;
+import com.example.starvelater.activities.user.UserDashboard;
 import com.example.starvelater.R;
 
 public class OnBoarding extends AppCompatActivity {

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context=".helperClasses.CustomGridLayout"
+    tools:context=".adapters.CustomGridLayout"
     android:layout_weight="2"
     android:orientation="vertical">
 

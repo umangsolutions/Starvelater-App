@@ -1,4 +1,4 @@
-package com.example.starvelater.helperClasses.homeAdapter;
+package com.example.starvelater.adapters.homeAdapter;
 
 public class FeaturedHelperClass {
 

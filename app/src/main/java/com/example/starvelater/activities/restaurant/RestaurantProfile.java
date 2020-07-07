@@ -1,6 +1,5 @@
-package com.example.starvelater;
+package com.example.starvelater.activities.restaurant;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -10,17 +9,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
-import com.example.starvelater.helperClasses.RecycleGridAdapter;
-import com.example.starvelater.helperClasses.RestaurantItemAdapter;
-import com.example.starvelater.user.UserDashboard;
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.example.starvelater.R;
+import com.example.starvelater.adapters.RecycleGridAdapter;
+import com.example.starvelater.adapters.RestaurantItemAdapter;
+import com.example.starvelater.activities.user.UserDashboard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +23,14 @@ import java.util.List;
 public class RestaurantProfile extends AppCompatActivity {
     RecyclerView datalist;
     RecyclerView itemlist;
+
     List<String> titles;
     List<Integer> images;
     List<String> prices;
+
     RecycleGridAdapter  adapter;
     RestaurantItemAdapter itemAdapter;
+
     ImageView backbutton;
     Toolbar restaurantToolBar;
 
@@ -40,8 +38,10 @@ public class RestaurantProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_profile);
+
         datalist=findViewById(R.id.datalist);
         itemlist = findViewById(R.id.itemlist);
+
         restaurantToolBar = findViewById(R.id.restaurantToolBar);
         setSupportActionBar(restaurantToolBar);
         /*final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
@@ -78,6 +78,7 @@ public class RestaurantProfile extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
 
         titles = new ArrayList<>();
         images = new ArrayList<>();

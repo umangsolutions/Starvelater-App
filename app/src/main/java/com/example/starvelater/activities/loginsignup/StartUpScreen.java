@@ -1,4 +1,4 @@
-package com.example.starvelater.common.loginsignup;
+package com.example.starvelater.activities.loginsignup;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.starvelater.R;
-import com.google.android.material.badge.BadgeUtils;
 
 public class StartUpScreen extends AppCompatActivity {
 

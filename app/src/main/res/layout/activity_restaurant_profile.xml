@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RestaurantProfile">
+    tools:context=".activities.restaurant.RestaurantProfile">
 
     <!-- <androidx.coordinatorlayout.widget.CoordinatorLayout
          android:layout_width="match_parent"
@@ -56,13 +56,14 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
+                
                 <ImageView
                     android:id="@+id/back_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:src="@drawable/ic_arrow_back_black_24dp" />
+
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -74,28 +75,6 @@
                     android:src="@drawable/ic_search" />
 
             </FrameLayout>
-            <!--
-                      <RelativeLayout
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content">
-
-                          <ImageView
-                              android:id="@+id/back_button"
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:padding="5dp"
-                              android:src="@drawable/ic_arrow_back_black_24dp" />
-
-                          <ImageView
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:layout_alignParentEnd="true"
-                              android:layout_gravity="right"
-                              android:padding="5dp"
-                              android:src="@drawable/ic_search" />
-
-                      </RelativeLayout>-->
-
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -135,7 +114,6 @@
                 android:layout_marginLeft="10dp"
                 android:background="#000" />
 
-
             <!--<TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -143,7 +121,6 @@
                 android:padding="5dp"
                 android:layout_marginTop="5dp"
                 android:text="@string/dots" />-->
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -244,6 +221,7 @@
                         android:padding="5dp"
                         android:text="For Two"
                         android:textSize="11dp" />
+
                 </LinearLayout>
             </LinearLayout>
 
@@ -312,8 +290,8 @@
             android:layout_height="40dp"
             android:orientation="horizontal"
             android:layout_marginTop="15dp"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="20dp">
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="0dp">
 
             <TextView
                 android:id="@+id/bookMark"
@@ -324,12 +302,12 @@
                 android:text="@string/love_us"
                 android:textColor="#000"
                 android:textSize="14dp"
+                android:layout_marginEnd="10dp"
                 android:fontFamily="@font/muli" />
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/restaurantlike"
-               android:layout_marginLeft="40dp" />
+                android:src="@drawable/restaurantlike" />
 
         </LinearLayout>
 

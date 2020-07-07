@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="2"
+    android:fitsSystemWindows="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="10dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="25dp"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="2dp"
+        app:cardElevation="5dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/restaurant_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/bbqnation"
+                android:scaleType="centerCrop"
+                />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/restaurant_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/muli_black"
+            android:text="Barbeque Nation"
+            android:textColor="@color/colorAccent"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/restaurant_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/muli"
+            android:text="@string/venkat_nagar_kakinada"
+            android:textSize="13dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4.8"
+                android:layout_weight="1"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/muli"
+                android:textStyle="bold"
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/ic_star"
+                android:layout_gravity="left"
+                android:textSize="12dp"
+                android:textColor="#000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="37 mins"
+                android:layout_weight="1"
+                android:fontFamily="@font/muli"
+                android:textStyle="bold"
+                android:drawableTintMode="multiply"
+                android:drawableTint="@color/colorHeadingEnd"
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/ic_baseline_access_time_24"
+                android:layout_gravity="left"
+                android:textSize="12dp"
+                android:textColor="#000" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

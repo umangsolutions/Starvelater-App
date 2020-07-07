@@ -1,5 +1,6 @@
-package com.example.starvelater.helperClasses.homeAdapter;
+package com.example.starvelater.adapters.homeAdapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.starvelater.R;
+import com.example.starvelater.activities.restaurant.RestaurantProfile;
 
 import java.util.ArrayList;
 
@@ -31,12 +33,29 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.Featur
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FeaturedViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final FeaturedViewHolder holder, final int position) {
 
-        FeaturedHelperClass featuredHelperClass = featuredRestaurants.get(position);
+        final FeaturedHelperClass featuredHelperClass = featuredRestaurants.get(position);
         holder.image.setImageResource(featuredHelperClass.getImage());
         holder.title.setText(featuredHelperClass.getTitle());
         holder.description.setText(featuredHelperClass.getDescription());
+
+        holder.image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), RestaurantProfile.class);
+                holder.image.getContext().startActivity(intent);
+            }
+        });
+
+        holder.title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), RestaurantProfile.class);
+                holder.title.getContext().startActivity(intent);
+            }
+        });
+
 
 
     }

@@ -1,4 +1,4 @@
-package com.example.starvelater.helperClasses;
+package com.example.starvelater.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
