@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.starvelater">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
@@ -10,11 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.corporate_cafe.All_CorporateCafe"></activity>
+        <activity android:name=".activities.user.Qr_scan"></activity>
+        <activity android:name=".activities.corporate_cafe.All_CorporateCafe" />
         <activity android:name=".activities.college_canteen.All_CollegeCanteen" />
         <activity android:name=".activities.restaurant.All_Restaurants" />
         <activity android:name=".adapters.CustomGridLayout" />
-        <activity android:name=".Custom_Gridlayout" />
         <activity android:name=".activities.restaurant.RestaurantProfile" />
         <activity android:name=".activities.loginsignup.StartUpScreen" />
         <activity

@@ -39,6 +39,7 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
     RecyclerView.Adapter adapter;
     private GradientDrawable gradient1, gradient2, gradient3;
 
+
     //Drawer Menu
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -69,7 +70,9 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
         qr_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(UserDashboard.this, "Sorry! Not Yet Implemented", Toast.LENGTH_SHORT).show();
+                /*Toast.makeText(UserDashboard.this, "Sorry! Not Yet Implemented", Toast.LENGTH_SHORT).show();*/
+                Intent intent2= new Intent(UserDashboard.this,Qr_scan.class);
+                startActivity(intent2);
 
             }
         });
