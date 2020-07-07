@@ -10,7 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.starvelater.R;
 import com.example.starvelater.adapters.RecycleGridAdapter;
@@ -34,6 +39,12 @@ public class RestaurantProfile extends AppCompatActivity {
     ImageView backbutton;
     Toolbar restaurantToolBar;
 
+    TextView txtRestaurantName,txtRestaurantLocation;
+
+    Switch aSwitch;
+
+    LinearLayout linearLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +53,37 @@ public class RestaurantProfile extends AppCompatActivity {
         datalist=findViewById(R.id.datalist);
         itemlist = findViewById(R.id.itemlist);
 
+        linearLayout = findViewById(R.id.linearLayout);
+
+        txtRestaurantName = findViewById(R.id.restaurant_name);
+        txtRestaurantLocation = findViewById(R.id.restaurant_location);
+
         restaurantToolBar = findViewById(R.id.restaurantToolBar);
         setSupportActionBar(restaurantToolBar);
+
+        aSwitch = findViewById(R.id.toggleswitch);
+
+        Bundle bundle = getIntent().getExtras();
+        assert bundle != null;
+        String restaurantName = bundle.getString("name");
+        String restaurantLocation = bundle.getString("location");
+
+        txtRestaurantName.setText(restaurantName);
+        txtRestaurantLocation.setText(restaurantLocation);
+
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    Toast.makeText(RestaurantProfile.this, "Show Vegetarian Items Only", Toast.LENGTH_SHORT).show();
+                }
+                if(!isChecked) {
+                    Toast.makeText(RestaurantProfile.this, "Show All Items", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
         /*final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.restaurantAppBar);
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {

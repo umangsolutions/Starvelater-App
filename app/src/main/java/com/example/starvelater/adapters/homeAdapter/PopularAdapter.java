@@ -1,6 +1,7 @@
 package com.example.starvelater.adapters.homeAdapter;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,10 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularV
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), RestaurantProfile.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("name",holder.title.getText().toString());
+                bundle.putString("location",holder.description.getText().toString());
+                intent.putExtras(bundle);
                 holder.image.getContext().startActivity(intent);
             }
         });
@@ -54,6 +59,10 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularV
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), RestaurantProfile.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("name",holder.title.getText().toString());
+                bundle.putString("location",holder.description.getText().toString());
+                intent.putExtras(bundle);
                 holder.title.getContext().startActivity(intent);
             }
         });

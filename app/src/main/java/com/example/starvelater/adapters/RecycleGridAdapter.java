@@ -4,8 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,10 +42,16 @@ public class RecycleGridAdapter extends RecyclerView.Adapter<RecycleGridAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
         holder.title.setText(titles.get(position));
         holder.gridIcon.setImageResource(images.get(position));
+        holder.btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "Button Clicked !", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
@@ -53,11 +64,15 @@ public class RecycleGridAdapter extends RecyclerView.Adapter<RecycleGridAdapter.
 
         TextView title;
         ImageView gridIcon;
+        Button btnAdd;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.textView);
             gridIcon = itemView.findViewById(R.id.imageView);
+            btnAdd = itemView.findViewById(R.id.btnAdd);
         }
+
+
     }
 }

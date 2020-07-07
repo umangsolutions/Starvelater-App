@@ -48,7 +48,7 @@
             android:layout_height="25dp"
             android:text="ADD"
             android:textColor="@color/colorPrimary"
-            android:background="#fff"
+            android:background="@drawable/image_border"
             android:textSize="10dp" />
     </LinearLayout>
 
