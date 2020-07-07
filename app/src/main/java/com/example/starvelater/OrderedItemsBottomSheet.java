@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.example.starvelater.adapters.OrderedItemsAdapter;
 import com.example.starvelater.adapters.RestaurantItemAdapter;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class OrderedItemsBottomSheet extends AppCompatActivity {
     RecyclerView itemsList;
     List<String> titles;
     List<String> prices;
-    RestaurantItemAdapter itemAdapter;
+    OrderedItemsAdapter itemAdapter;
     LinearLayout linearLayout;
 
     @Override
@@ -44,7 +45,7 @@ public class OrderedItemsBottomSheet extends AppCompatActivity {
         prices.add("₹ 400");
         prices.add("₹ 128");
 
-        itemAdapter = new RestaurantItemAdapter(this,titles,prices);
+        itemAdapter = new OrderedItemsAdapter(OrderedItemsBottomSheet.this,titles,prices);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         itemsList.setLayoutManager(linearLayoutManager);
