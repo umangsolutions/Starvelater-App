@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,6 +23,7 @@ import com.example.starvelater.R;
 import com.example.starvelater.adapters.RecycleGridAdapter;
 import com.example.starvelater.adapters.RestaurantItemAdapter;
 import com.example.starvelater.activities.user.UserDashboard;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,13 +36,14 @@ public class RestaurantProfile extends AppCompatActivity {
     List<Integer> images;
     List<String> prices;
 
-    RecycleGridAdapter  adapter;
+    RecycleGridAdapter adapter;
     RestaurantItemAdapter itemAdapter;
 
     ImageView backbutton;
     Toolbar restaurantToolBar;
 
-    TextView txtRestaurantName,txtRestaurantLocation;
+
+    TextView txtRestaurantName, txtRestaurantLocation;
 
     Switch aSwitch;
 
@@ -50,7 +54,7 @@ public class RestaurantProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_profile);
 
-        datalist=findViewById(R.id.datalist);
+        datalist = findViewById(R.id.datalist);
         itemlist = findViewById(R.id.itemlist);
 
         linearLayout = findViewById(R.id.linearLayout);
@@ -63,6 +67,7 @@ public class RestaurantProfile extends AppCompatActivity {
 
         aSwitch = findViewById(R.id.toggleswitch);
 
+
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         String restaurantName = bundle.getString("name");
@@ -74,10 +79,10 @@ public class RestaurantProfile extends AppCompatActivity {
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
+                if (isChecked) {
                     Toast.makeText(RestaurantProfile.this, "Show Vegetarian Items Only", Toast.LENGTH_SHORT).show();
                 }
-                if(!isChecked) {
+                if (!isChecked) {
                     Toast.makeText(RestaurantProfile.this, "Show All Items", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -114,7 +119,7 @@ public class RestaurantProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(RestaurantProfile.this, UserDashboard.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });
@@ -162,15 +167,15 @@ public class RestaurantProfile extends AppCompatActivity {
         images.add(R.drawable.photo11);*/
 
 
-         adapter = new RecycleGridAdapter(this,titles,images);
+        adapter = new RecycleGridAdapter(this, titles, images);
 
-         itemAdapter = new RestaurantItemAdapter(this,titles,prices);
+        itemAdapter = new RestaurantItemAdapter(this, titles, prices);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         itemlist.setLayoutManager(linearLayoutManager);
         itemlist.setAdapter((RecyclerView.Adapter) itemAdapter);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2,GridLayoutManager.VERTICAL,false);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
         datalist.setLayoutManager(gridLayoutManager);
         datalist.setAdapter((RecyclerView.Adapter) adapter);
     }

@@ -44,6 +44,7 @@
         android:gravity="right"
         android:orientation="vertical">
         <Button
+            android:id="@+id/add_item"
             android:layout_width="65dp"
             android:layout_height="25dp"
             android:text="ADD"
