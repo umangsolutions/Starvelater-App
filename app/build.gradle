@@ -38,4 +38,5 @@ dependencies {
     implementation 'com.karumi:dexter:6.0.0'
     implementation 'com.budiyev.android:code-scanner:2.1.0'
 
+
 }

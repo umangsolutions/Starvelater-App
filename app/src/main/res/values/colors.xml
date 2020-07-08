@@ -5,8 +5,6 @@
     <color name="colorLightWhite">#FAFAFA</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBackground">#EBEBEB</color>
-    <color name="colorHeadingStart">#da2f73</color>
-    <color name="colorHeadingCenter">#6c2775</color>
     <color name="colorHeadingEnd">#179fd6</color>
     <color name="colorDashboard">#00005c</color>
     <color name="colorDimGrey">#696969</color>

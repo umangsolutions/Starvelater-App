@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RestaurantProfile extends AppCompatActivity {
+
     RecyclerView datalist;
     RecyclerView itemlist;
 
@@ -49,6 +50,7 @@ public class RestaurantProfile extends AppCompatActivity {
 
     List<String> itemNameList;
     List<String> itemCostList;
+    List<String> itemCountList;
 
     RecycleGridAdapter adapter;
     RestaurantItemAdapter itemAdapter;
@@ -56,9 +58,7 @@ public class RestaurantProfile extends AppCompatActivity {
     ImageView backbutton;
     Toolbar restaurantToolBar;
 
-    int itemCost,totalCost;
-
-
+    int itemCost,totalCost, itemCount;
 
     TextView txtRestaurantName, txtRestaurantLocation,txtTotalCost;
 
@@ -97,6 +97,7 @@ public class RestaurantProfile extends AppCompatActivity {
 
         itemNameList = new ArrayList<>();
         itemCostList = new ArrayList<>();
+        itemCountList = new ArrayList<>();
 
         titles.add("Beverages");
         titles.add("Biriyani north india");
@@ -261,17 +262,26 @@ public class RestaurantProfile extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             // Get extra data included in the Intent
             String ItemName = intent.getStringExtra("item-name");
-            String qty = intent.getStringExtra("item-cost");
+            String cost = intent.getStringExtra("item-cost");
+            String costnumber = cost.substring(2);
+            //String count = intent.getStringExtra("each-item-count");
 
-            String number = qty.substring(2);
-
-            assert qty != null;
-            itemCost = Integer.parseInt(number);
+            assert cost != null;
+            //assert count != null;
+            itemCost = Integer.parseInt(costnumber);
+            //itemCount = Integer.parseInt(count);
 
             itemNameList.add(ItemName);
-            itemCostList.add(qty);
+            itemCostList.add(cost);
+            //itemCountList.add(count);
 
             totalCost = totalCost + itemCost;
+            /*for(int i=0;i<itemCountList.size();i++)
+            {
+                int price = Integer.parseInt(itemCostList.get(i));
+                int qty = Integer.parseInt(itemCountList.get(i));
+                totalCost = totalCost + qty * price;
+            }*/
 
             txtTotalCost.setText("₹ "+totalCost+ ".00");
 
