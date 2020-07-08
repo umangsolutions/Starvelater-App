@@ -48,9 +48,25 @@
             android:layout_width="65dp"
             android:layout_height="25dp"
             android:text="ADD"
+            android:layout_marginEnd="15dp"
             android:textColor="@color/colorPrimary"
             android:background="@drawable/image_border"
             android:textSize="10dp" />
+        <TextView
+            android:id="@+id/ordered_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Added to Cart"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:padding="10dp"
+            android:visibility="gone"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:textColor="#fff"
+            android:background="@color/colorPrimary"
+            android:textSize="12dp"
+            />
     </LinearLayout>
 
 

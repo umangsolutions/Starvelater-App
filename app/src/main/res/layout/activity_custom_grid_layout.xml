@@ -39,18 +39,33 @@
             android:drawablePadding="5dp"
             android:drawableStart="@drawable/veg"
             android:fontFamily="@font/muli"/>
-        <!--app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.94" -->
+
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginStart="12dp"
+        android:shadowColor="#ffffff"
+        android:text="Rs. 550"
+        android:textAllCaps="true"
+        android:textColor="#000"
+        android:textSize="10dp"
+        android:fontFamily="@font/muli"/>
+
+    <!--app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toStartOf="@+id/imageView"
+    app:layout_constraintTop_toTopOf="@+id/imageView"
+    app:layout_constraintVertical_bias="0.94" -->
 
         <Button
             android:id="@+id/btnAdd"
             android:layout_width="65dp"
             android:layout_height="25dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="15dp"
             android:layout_marginStart="2dp"
             android:layout_marginBottom="5dp"
             android:text="ADD"
@@ -58,5 +73,23 @@
             android:textColor="@color/colorPrimary"
             android:background="@drawable/image_border"
             android:textSize="10dp" />
+
+      <TextView
+          android:id="@+id/ordered_text_view"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="Added to Cart"
+          android:visibility="gone"
+          android:background="@color/colorPrimary"
+          android:layout_marginTop="15dp"
+          android:layout_marginStart="5dp"
+          android:layout_marginEnd="5dp"
+          android:layout_marginBottom="5dp"
+          android:textStyle="bold"
+          android:gravity="center"
+          android:textColor="#fff"
+          android:padding="5dp"
+          android:textSize="12dp" />
+
 
 </LinearLayout>

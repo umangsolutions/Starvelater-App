@@ -1,20 +1,19 @@
 package com.example.starvelater.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.starvelater.R;
-import com.example.starvelater.activities.restaurant.RestaurantProfile;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.List;
 
@@ -43,7 +42,7 @@ public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAd
 
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
         holder.title.setText(titles.get(position));
         holder.price.setText(prices.get(position));
@@ -51,22 +50,23 @@ public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAd
             @Override
             public void onClick(View v) {
 
-                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
-                        v.getContext(), R.style.BottomSheetDialogTheme);
-                View bottomSheetView = LayoutInflater.from(v.getContext())
-                        .inflate(
-                                R.layout.activity_ordered_items_bottom_sheet,
-                                (LinearLayout) v.findViewById(R.id.menuBottomSheet)
-                        );
-                bottomSheetView.findViewById(R.id.checkOut).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(v.getContext(), "Received Order", Toast.LENGTH_SHORT).show();
-                        bottomSheetDialog.dismiss();
-                    }
-                });
-                bottomSheetDialog.setContentView(bottomSheetView);
-                bottomSheetDialog.show();
+
+                String itemName = holder.title.getText().toString();
+                String itemCost = holder.price.getText().toString();
+
+                Intent intent = new Intent("item-details");
+                intent.putExtra("item-name",itemName);
+                intent.putExtra("item-cost",itemCost);
+
+                LocalBroadcastManager.getInstance(v.getContext()).sendBroadcast(intent);
+
+                holder.addItem.setVisibility(View.GONE);
+                holder.txtOrderedText.setVisibility(View.VISIBLE);
+
+
+                Toast.makeText(v.getContext(), "Item Added Successfully !", Toast.LENGTH_SHORT).show();
+
+
             }
         });
 
@@ -82,12 +82,14 @@ public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAd
         Button addItem;
         TextView title;
         TextView price;
+        TextView txtOrderedText;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.textView);
             price = itemView.findViewById(R.id.price);
             addItem = itemView.findViewById(R.id.add_item);
+            txtOrderedText = itemView.findViewById(R.id.ordered_text_view);
 
         }
     }

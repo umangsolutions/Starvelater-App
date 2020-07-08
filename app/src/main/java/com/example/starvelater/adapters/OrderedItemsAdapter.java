@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.starvelater.R;
 import com.example.starvelater.activities.restaurant.RestaurantProfile;
+import com.example.starvelater.control.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.List;
@@ -23,12 +24,12 @@ public class OrderedItemsAdapter extends RecyclerView.Adapter<OrderedItemsAdapte
     List<String> titles;
     List<String> prices;
 
-    LayoutInflater inflater;
+    com.example.starvelater.control.BottomSheetBehavior inflater;
 
-    public OrderedItemsAdapter(Context ctx, List<String> titles, List<String> prices){
+    public OrderedItemsAdapter(BottomSheetBehavior bottomSheetBehavior, List<String> titles, List<String> prices){
         this.titles = titles;
         this.prices = prices;
-        this.inflater = LayoutInflater.from(ctx);
+        this.inflater = bottomSheetBehavior;
     }
 
 
@@ -36,7 +37,7 @@ public class OrderedItemsAdapter extends RecyclerView.Adapter<OrderedItemsAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.item_card_design,parent,false);
+        View view =LayoutInflater.from(parent.getContext()).inflate(R.layout.item_card_design,parent,false);
         return new ViewHolder(view);
     }
 

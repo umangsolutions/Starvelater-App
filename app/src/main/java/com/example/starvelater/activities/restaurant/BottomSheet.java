@@ -1,33 +1,41 @@
-package com.example.starvelater;
+package com.example.starvelater.activities.restaurant;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.LinearLayout;
 
+import com.example.starvelater.R;
 import com.example.starvelater.adapters.OrderedItemsAdapter;
-import com.example.starvelater.adapters.RestaurantItemAdapter;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderedItemsBottomSheet extends AppCompatActivity {
+public class BottomSheet extends AppCompatActivity {
 
     RecyclerView itemsList;
     List<String> titles;
     List<String> prices;
     OrderedItemsAdapter itemAdapter;
-    LinearLayout linearLayout;
+    private CardView cardView;
+    private BottomSheetBehavior bottomSheetBehavior;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ordered_items_bottom_sheet);
-        itemsList = findViewById(R.id.itemlist);
-        linearLayout = findViewById(R.id.menuBottomSheet);
+        setContentView(R.layout.activity_bottom_sheet);
+
+        itemsList = findViewById(R.id.ordereditems);
+
+        /*cardView = (CardView) findViewById(R.id.ordered_menu_dialog);*/
+
+        bottomSheetBehavior = BottomSheetBehavior.from(cardView);
+
+
+
         titles = new ArrayList<>();
         prices = new ArrayList<>();
 
@@ -45,9 +53,9 @@ public class OrderedItemsBottomSheet extends AppCompatActivity {
         prices.add("₹ 400");
         prices.add("₹ 128");
 
-        itemAdapter = new OrderedItemsAdapter(OrderedItemsBottomSheet.this,titles,prices);
+        /*itemAdapter = new OrderedItemsAdapter(bottomSheetBehavior,titles,prices);*/
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getParent(),LinearLayoutManager.VERTICAL,false);
         itemsList.setLayoutManager(linearLayoutManager);
         itemsList.setAdapter((RecyclerView.Adapter) itemAdapter);
     }

@@ -60,7 +60,7 @@
     <string name="venkat_nagar_kakinada">Venkat Nagar, Kakinada</string>
     <string name="love_us">Love us? Give us a chance to serve you again!</string>
     <string name="lorem_ipsum_lorem_ipsum_lorem_ipsum_lorem_ipsum_lorem_ipsum_lorem_ipsum_lorem_ipsum_lorem_ipsum">Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum</string>
-    <string name="ordered">Ordered</string>
+    <string name="ordered">Drag to See Ordered Items</string>
     <string name="total_cost">Total Cost</string>
 
 </resources>
