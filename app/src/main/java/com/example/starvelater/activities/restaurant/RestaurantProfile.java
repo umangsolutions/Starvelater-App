@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.BroadcastReceiver;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -37,7 +38,10 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class RestaurantProfile extends AppCompatActivity {
 
@@ -49,8 +53,11 @@ public class RestaurantProfile extends AppCompatActivity {
     List<String> prices;
 
     List<String> itemNameList;
-    List<String> itemCostList;
-    List<String> itemCountList;
+    List<Integer> itemPriceList;
+    List<Integer> itemCountList;
+
+    HashMap<String,Integer> nameCountList;
+    HashMap<String,Integer> namePriceList;
 
     RecycleGridAdapter adapter;
     RestaurantItemAdapter itemAdapter;
@@ -84,6 +91,9 @@ public class RestaurantProfile extends AppCompatActivity {
         datalist = findViewById(R.id.datalist);
         itemlist = findViewById(R.id.itemlist);
 
+        nameCountList = new HashMap<>();
+        namePriceList = new HashMap<>();
+
 
         txtRestaurantName = findViewById(R.id.restaurant_name);
         txtRestaurantLocation = findViewById(R.id.restaurant_location);
@@ -96,7 +106,7 @@ public class RestaurantProfile extends AppCompatActivity {
         prices = new ArrayList<>();
 
         itemNameList = new ArrayList<>();
-        itemCostList = new ArrayList<>();
+        itemPriceList = new ArrayList<>();
         itemCountList = new ArrayList<>();
 
         titles.add("Beverages");
@@ -166,6 +176,7 @@ public class RestaurantProfile extends AppCompatActivity {
 
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,new IntentFilter("item-details"));
+        //LocalBroadcastManager.getInstance(this).registerReceiver(mItemCountReciever,new IntentFilter("item-count-details"));
 
             Bundle bundle = getIntent().getExtras();
             assert bundle != null;
@@ -200,7 +211,6 @@ public class RestaurantProfile extends AppCompatActivity {
                 }
             }
         });
-
 
         /*final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.restaurantAppBar);
@@ -237,13 +247,6 @@ public class RestaurantProfile extends AppCompatActivity {
             }
         });
 
-
-        for (int i=0;i<itemNameList.size();i++) {
-            Log.d("Name",itemNameList.get(i));
-        }
-
-
-
         adapter = new RecycleGridAdapter(this, titles, images,prices);
 
         itemAdapter = new RestaurantItemAdapter(this, titles, prices);
@@ -260,34 +263,112 @@ public class RestaurantProfile extends AppCompatActivity {
     public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+
             // Get extra data included in the Intent
             String ItemName = intent.getStringExtra("item-name");
             String cost = intent.getStringExtra("item-cost");
+            String count = intent.getStringExtra("item-count");
             String costnumber = cost.substring(2);
-            //String count = intent.getStringExtra("each-item-count");
 
-            assert cost != null;
-            //assert count != null;
+            assert costnumber != null;
             itemCost = Integer.parseInt(costnumber);
-            //itemCount = Integer.parseInt(count);
+            assert count != null;
+            itemCount = Integer.parseInt(count);
 
-            itemNameList.add(ItemName);
-            itemCostList.add(cost);
-            //itemCountList.add(count);
+            if(!itemNameList.contains(ItemName) && !itemPriceList.contains(itemCost)) {
+                //Addition of New Item to Array List
+                itemNameList.add(ItemName);
+                itemPriceList.add(itemCost);
 
-            totalCost = totalCost + itemCost;
-            /*for(int i=0;i<itemCountList.size();i++)
-            {
-                int price = Integer.parseInt(itemCostList.get(i));
-                int qty = Integer.parseInt(itemCountList.get(i));
-                totalCost = totalCost + qty * price;
+                //add to hashmap both itemname and count default 1
+               nameCountList.put(ItemName,itemCount);
+               namePriceList.put(ItemName,itemCost);
+
+                totalCost = totalCost + ((int) nameCountList.get(ItemName) * (int) namePriceList.get(ItemName));
+
+
+            } else {
+                int price = 0;
+                price = totalCost - (int) namePriceList.get(ItemName);
+                //old item already present in array list
+                nameCountList.put(ItemName,nameCountList.get(ItemName) + 1);
+                totalCost = price + ((int) nameCountList.get(ItemName) * (int) namePriceList.get(ItemName));
+
+                //Toast.makeText(context, ""+ namePriceList + "\n name Count List" + nameCountList, Toast.LENGTH_LONG).show();
+            }
+
+
+
+/*            for (Map.Entry mapElement : namePriceList.entrySet()) {
+                String key = (String) mapElement.getKey();
+                Log.d("Total",key + " " + (int) namePriceList.get(key) + (int) nameCountList.get(key));
+                Toast.makeText(context,key + " " + (int) namePriceList.get(key) + (int) nameCountList.get(key) , Toast.LENGTH_LONG).show();
+                totalCost = totalCost +  ((int) nameCountList.get(key) * (int) namePriceList.get(key));
             }*/
+
+
+
+
+            /*if(itemCount == 1) {
+                totalCost = totalCost + itemCost;
+            }
+            else if(itemCount ==2) {
+                int price =0;
+                price = totalCost - itemCost;
+                totalCost = price + itemCost * 2;
+            } else if(itemCount ==3) {
+                int price =0;
+                price = totalCost - itemCost;
+                totalCost = price + itemCost * 3;
+            } else if(itemCount ==4) {
+                int price=0;
+                price = totalCost - itemCost;
+                totalCost = price + itemCost * 4;
+            } else if(itemCount ==5) {
+                int price=0;
+                price = totalCost - itemCost;
+                totalCost = price + itemCost * 5;
+            }
+*/
+            /*switch (itemCount) {
+                case 1 : totalCost = totalCost + itemCost;
+                         break;
+                case 2 :
+
+            }*/
+
+            //totalCost = totalCost + itemCost * (itemCount);
 
             txtTotalCost.setText("₹ "+totalCost+ ".00");
 
-            mOrderedItemsAdapter = new OrderedItemsAdapter(mBottomSheetBehavior,itemNameList,itemCostList);
+            mOrderedItemsAdapter = new OrderedItemsAdapter(mBottomSheetBehavior,itemNameList,itemPriceList);
             mBottomSheetRecycler.setAdapter(mOrderedItemsAdapter);
         }
     };
+
+   /* public BroadcastReceiver mItemCountReciever = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+
+            int count = Integer.parseInt(Objects.requireNonNull(intent.getStringExtra("each-item-count")));
+
+           itemCountList.add(count);
+
+           for(int i=0;i<itemCountList.size();i++)
+            {
+                int price = itemPriceList.get(i);
+                int qty = itemCountList.get(i);
+                totalCost = totalCost + qty * price;
+            }
+
+            txtTotalCost.setText("₹ "+totalCost+ ".00");
+
+            mOrderedItemsAdapter = new OrderedItemsAdapter(mBottomSheetBehavior,itemNameList,itemPriceList);
+            mBottomSheetRecycler.setAdapter(mOrderedItemsAdapter);
+        }
+    };*/
+
+
 
 }

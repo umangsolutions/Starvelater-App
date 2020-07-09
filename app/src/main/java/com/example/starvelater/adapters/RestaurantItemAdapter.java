@@ -14,6 +14,9 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.starvelater.R;
+import com.travijuu.numberpicker.library.Enums.ActionEnum;
+import com.travijuu.numberpicker.library.Interface.ValueChangedListener;
+import com.travijuu.numberpicker.library.NumberPicker;
 
 import java.util.List;
 
@@ -48,25 +51,34 @@ public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAd
         holder.price.setText(prices.get(position));
         holder.addItem.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
 
 
-                String itemName = holder.title.getText().toString();
-                String itemCost = holder.price.getText().toString();
+                final String itemName = holder.title.getText().toString();
+                final String itemCost = holder.price.getText().toString();
 
-                Intent intent = new Intent("item-details");
+                final Intent intent = new Intent("item-details");
                 intent.putExtra("item-name",itemName);
                 intent.putExtra("item-cost",itemCost);
 
-                LocalBroadcastManager.getInstance(v.getContext()).sendBroadcast(intent);
-
                 holder.addItem.setVisibility(View.GONE);
-                holder.txtOrderedText.setVisibility(View.VISIBLE);
+                holder.numberPicker.setVisibility(View.VISIBLE);
 
+                intent.putExtra("item-count","1");
+
+                holder.numberPicker.setValueChangedListener(new ValueChangedListener() {
+                    @Override
+                    public void valueChanged(int value, ActionEnum action) {
+                        intent.putExtra("item-name",itemName);
+                        intent.putExtra("item-cost",itemCost);
+                        intent.putExtra("item-count",Integer.toString(value));
+                        LocalBroadcastManager.getInstance(v.getContext()).sendBroadcast(intent);
+                    }
+                });
 
                 Toast.makeText(v.getContext(), "Item Added Successfully !", Toast.LENGTH_SHORT).show();
 
-
+                LocalBroadcastManager.getInstance(v.getContext()).sendBroadcast(intent);
             }
         });
 
@@ -82,14 +94,15 @@ public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAd
         Button addItem;
         TextView title;
         TextView price;
-        TextView txtOrderedText;
+        NumberPicker numberPicker;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.textView);
             price = itemView.findViewById(R.id.price);
             addItem = itemView.findViewById(R.id.add_item);
-            txtOrderedText = itemView.findViewById(R.id.ordered_text_view);
+            //txtOrderedText = itemView.findViewById(R.id.ordered_text_view);
+            numberPicker = itemView.findViewById(R.id.number_picker);
 
         }
     }

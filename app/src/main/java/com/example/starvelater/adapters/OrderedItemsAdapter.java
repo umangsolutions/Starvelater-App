@@ -18,17 +18,21 @@ import com.example.starvelater.R;
 import com.example.starvelater.activities.restaurant.RestaurantProfile;
 import com.example.starvelater.control.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.travijuu.numberpicker.library.Enums.ActionEnum;
+import com.travijuu.numberpicker.library.Interface.ValueChangedListener;
+import com.travijuu.numberpicker.library.NumberPicker;
 
+import java.nio.charset.IllegalCharsetNameException;
 import java.util.List;
 
 public class OrderedItemsAdapter extends RecyclerView.Adapter<OrderedItemsAdapter.ViewHolder> {
 
     List<String> titles;
-    List<String> prices;
+    List<Integer> prices;
 
     com.example.starvelater.control.BottomSheetBehavior inflater;
 
-    public OrderedItemsAdapter(BottomSheetBehavior bottomSheetBehavior, List<String> titles, List<String> prices){
+    public OrderedItemsAdapter(BottomSheetBehavior bottomSheetBehavior, List<String> titles, List<Integer> prices){
         this.titles = titles;
         this.prices = prices;
         this.inflater = bottomSheetBehavior;
@@ -49,40 +53,24 @@ public class OrderedItemsAdapter extends RecyclerView.Adapter<OrderedItemsAdapte
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
         holder.title.setText(titles.get(position));
-        holder.price.setText(prices.get(position));
-        holder.increment.setOnClickListener(new View.OnClickListener() {
+        holder.price.setText(Integer.toString(prices.get(position)));
+
+        holder.number_picker.setValueChangedListener(new ValueChangedListener() {
             @Override
-            public void onClick(View v) {
+            public void valueChanged(int value, ActionEnum action) {
 
-                String count = holder.itemCount.getText().toString();
-                int itemCount = Integer.parseInt(count) + 1;
-                holder.itemCount.setText(""+itemCount);
-                /*Intent intent = new Intent("item-count");
-                intent.putExtra("each-item-count",""+itemCount);
-                LocalBroadcastManager.getInstance(v.getContext()).sendBroadcast(intent);*/
+                String itemCount = Integer.toString(value);
 
+                Intent intent = new Intent("item-count-details");
+                intent.putExtra("each-item-count",itemCount);
+
+
+                LocalBroadcastManager.getInstance(holder.number_picker.getContext()).sendBroadcast(intent);
+
+                //Toast.makeText(holder.number_picker.getContext(), ""+ value, Toast.LENGTH_SHORT).show();
             }
         });
-        holder.decrement.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                String count = holder.itemCount.getText().toString();
-                int itemCount = Integer.parseInt(count);
-                if(itemCount == 0)
-                {
-                    Toast.makeText(v.getContext(), "You have selected 0 Items", Toast.LENGTH_SHORT).show();
-                }
-                else{
-
-                    int newitemCount = Integer.parseInt(count) - 1;
-                    holder.itemCount.setText(""+newitemCount);
-                    /*Intent intent = new Intent("item-count");
-                    intent.putExtra("each-item-count",""+itemCount);
-                    LocalBroadcastManager.getInstance(v.getContext()).sendBroadcast(intent);*/
-                }
-            }
-        });
 
 
     }
@@ -94,22 +82,19 @@ public class OrderedItemsAdapter extends RecyclerView.Adapter<OrderedItemsAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        Button addItem;
         TextView title;
         TextView price;
-        Button decrement;
-        Button increment;
-        TextView itemCount;
+        NumberPicker number_picker;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
             title = itemView.findViewById(R.id.textView);
             price = itemView.findViewById(R.id.price);
-            addItem = itemView.findViewById(R.id.add_item);
-            decrement = itemView.findViewById(R.id.decrement);
-            increment = itemView.findViewById(R.id.increment);
-            itemCount = itemView.findViewById(R.id.itemCount);
+            number_picker = itemView.findViewById(R.id.number_picker);
 
         }
     }
 }
+
+
