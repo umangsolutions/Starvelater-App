@@ -12,7 +12,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.restaurant.BottomSheet"></activity>
         <activity android:name=".activities.user.Qr_scan" />
         <activity android:name=".activities.corporate_cafe.All_CorporateCafe" />
         <activity android:name=".activities.college_canteen.All_CollegeCanteen" />

@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#fff"
-    android:orientation="vertical"
-    android:backgroundTint="@color/colorPrimary"
     android:layout_height="match_parent"
+    android:background="#fff"
+    android:backgroundTint="@color/colorPrimary"
+    android:orientation="vertical"
     tools:context=".activities.college_canteen.All_CollegeCanteen">
 
     <LinearLayout
@@ -33,8 +33,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:tint="#fff"
-                    android:src="@drawable/ic_arrow_back_black_24dp" />
+                    android:src="@drawable/ic_arrow_back_black_24dp"
+                    android:tint="#fff" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -44,8 +44,8 @@
                     android:layout_marginEnd="20dp"
                     android:padding="5dp"
 
-                    android:tint="#fff"
-                    android:src="@drawable/ic_search" />
+                    android:src="@drawable/ic_search"
+                    android:tint="#fff" />
 
             </FrameLayout>
 
@@ -54,31 +54,31 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="2"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="2">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="5dp">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="20dp"
                     android:layout_gravity="left"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="8dp"
                     app:cardPreventCornerOverlap="true"
-                    app:cardUseCompatPadding="true"
-                    app:cardElevation="8dp">
+                    app:cardUseCompatPadding="true">
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                       >
+                        android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/featured_image"
@@ -97,32 +97,32 @@
                     android:layout_width="4dp"
                     android:layout_height="90dp"
                     android:layout_margin="10dp"
-                    android:requiresFadingEdge="vertical"
-                    android:background="#039BE5" />
+                    android:background="#039BE5"
+                    android:requiresFadingEdge="vertical" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="College Canteen"
                     android:layout_gravity="right|center_vertical"
-                    android:textStyle="bold"
                     android:fontFamily="@font/muli_black"
+                    android:text="College Canteen"
+                    android:textColor="#fff"
                     android:textSize="22dp"
-                    android:textColor="#fff" />
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:textColor="#fff"
-                android:fontFamily="@font/muli"
-                android:textSize="15dp"
-                android:padding="5dp"
-                android:layout_marginBottom="2dp"
                 android:layout_gravity="center"
+                android:layout_marginBottom="2dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/muli"
+                android:gravity="center"
+                android:padding="5dp"
                 android:text="Enjoy your Favorite Food at StarveLater College Canteen with Express Food Preparation Service. "
-                android:gravity="center" />
+                android:textColor="#fff"
+                android:textSize="15dp" />
         </LinearLayout>
 
     </LinearLayout>
@@ -130,14 +130,15 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardElevation="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="-25dp"
-        app:cardCornerRadius="30dp">
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp">
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -146,11 +147,11 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/restaurant_List"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="40dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_marginBottom="40dp" />
 
             </LinearLayout>
         </ScrollView>

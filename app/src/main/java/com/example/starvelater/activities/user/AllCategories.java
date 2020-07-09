@@ -16,7 +16,7 @@ import com.example.starvelater.activities.restaurant.All_Restaurants;
 public class AllCategories extends AppCompatActivity {
 
     ImageView backButton;
-    RelativeLayout restaurants,canteens,corporatecafe;
+    RelativeLayout restaurants, canteens, corporatecafe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +36,8 @@ public class AllCategories extends AppCompatActivity {
         });
 
         restaurants = findViewById(R.id.restaurants);
-        canteens=findViewById(R.id.canteens);
-        corporatecafe=findViewById(R.id.corporatecafe);
+        canteens = findViewById(R.id.canteens);
+        corporatecafe = findViewById(R.id.corporatecafe);
 
         restaurants.setOnClickListener(new View.OnClickListener() {
             @Override

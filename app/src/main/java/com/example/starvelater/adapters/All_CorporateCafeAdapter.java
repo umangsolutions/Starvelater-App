@@ -26,7 +26,7 @@ public class All_CorporateCafeAdapter extends RecyclerView.Adapter<All_Corporate
 
     LayoutInflater inflater;
 
-    public All_CorporateCafeAdapter(Context ctx, List<String> restauarantNames, List<String> restaurantLocation,List<Integer> restaurantImages){
+    public All_CorporateCafeAdapter(Context ctx, List<String> restauarantNames, List<String> restaurantLocation, List<Integer> restaurantImages) {
         this.restauarantNames = restauarantNames;
         this.restaurantLocation = restaurantLocation;
         this.restaurantImages = restaurantImages;
@@ -34,14 +34,12 @@ public class All_CorporateCafeAdapter extends RecyclerView.Adapter<All_Corporate
     }
 
 
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.all_restaurants_card,parent,false);
+        View view = inflater.inflate(R.layout.all_restaurants_card, parent, false);
         return new ViewHolder(view);
     }
-
 
 
     @Override
@@ -56,8 +54,8 @@ public class All_CorporateCafeAdapter extends RecyclerView.Adapter<All_Corporate
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), RestaurantProfile.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("name",holder.restName.getText().toString());
-                bundle.putString("location",holder.restLocation.getText().toString());
+                bundle.putString("name", holder.restName.getText().toString());
+                bundle.putString("location", holder.restLocation.getText().toString());
                 intent.putExtras(bundle);
                 holder.restImage.getContext().startActivity(intent);
             }
@@ -66,10 +64,10 @@ public class All_CorporateCafeAdapter extends RecyclerView.Adapter<All_Corporate
         holder.restName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),RestaurantProfile.class);
+                Intent intent = new Intent(v.getContext(), RestaurantProfile.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("name",holder.restName.getText().toString());
-                bundle.putString("location",holder.restLocation.getText().toString());
+                bundle.putString("name", holder.restName.getText().toString());
+                bundle.putString("location", holder.restLocation.getText().toString());
                 intent.putExtras(bundle);
                 holder.restName.getContext().startActivity(intent);
             }
@@ -82,7 +80,7 @@ public class All_CorporateCafeAdapter extends RecyclerView.Adapter<All_Corporate
         return restauarantNames.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView restName;
         TextView restLocation;

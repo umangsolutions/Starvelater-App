@@ -2,28 +2,29 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/parent_container"
     tools:context=".activities.restaurant.RestaurantProfile">
 
-   <!--Main Content -->
+    <!--Main Content -->
     <RelativeLayout
         android:id="@+id/main_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_height="wrap_content">
+            android:layout_alignParentEnd="true">
 
             <LinearLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:id="@+id/linearLayout"
                 android:padding="5dp">
 
                 <androidx.appcompat.widget.Toolbar
@@ -217,12 +218,12 @@
                     android:id="@+id/toggleswitch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Vegetarian Items"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
+                    android:checked="false"
                     android:fontFamily="@font/muli"
                     android:switchPadding="5dp"
-                    android:checked="false"
+                    android:text="Vegetarian Items"
                     android:textSize="14dp" />
 
                 <TextView
@@ -280,23 +281,24 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="15dp"
-                    android:gravity="center_horizontal"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginBottom="0dp">
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="0dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/bookMark"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/muli"
                         android:shadowColor="#ffffff"
                         android:text="@string/love_us"
                         android:textColor="#000"
-                        android:textSize="14dp"
-                        android:layout_marginEnd="10dp"
-                        android:fontFamily="@font/muli" />
+                        android:textSize="14dp" />
+
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
@@ -307,19 +309,19 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:layout_marginTop="-15dp"
                     android:layout_marginBottom="50dp"
-                    android:layout_marginTop="-15dp">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/muli"
                         android:shadowColor="#ffffff"
                         android:text="User Rating"
                         android:textColor="#000"
-                        android:textSize="14dp"
-                        android:fontFamily="@font/muli" />
+                        android:textSize="14dp" />
 
                     <!--<RatingBar
                         android:id="@+id/rating"
@@ -335,10 +337,10 @@
                         android:id="@+id/rating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:saveEnabled="true"
-                        android:layout_marginTop="10dp"
                         android:layout_gravity="center_horizontal"
-                        android:numStars="5"/>
+                        android:layout_marginTop="10dp"
+                        android:numStars="5"
+                        android:saveEnabled="true" />
 
                 </LinearLayout>
 
@@ -346,7 +348,7 @@
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </RelativeLayout>
-    
+
     <!--Bottom Sheet Content-->
     <RelativeLayout
         android:id="@+id/main_bottomsheet"
@@ -355,154 +357,151 @@
         android:clipToPadding="true"
         app:layout_behavior="com.example.starvelater.control.BottomSheetBehavior">
 
-       <androidx.cardview.widget.CardView
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           app:cardCornerRadius="25dp"
-           android:layout_marginBottom="-15dp"
-           app:cardElevation="15dp">
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="-15dp"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="15dp">
 
-           <RelativeLayout
-               android:layout_width="match_parent"
-               android:layout_height="match_parent">
-               <!--Title Bar-->
-               <RelativeLayout
-                   android:id="@+id/title"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:layout_alignParentStart="true"
-                   android:layout_alignParentTop="true"
-                   android:layout_alignParentEnd="true"
-                   android:background="@color/colorPrimary"
-                   android:padding="15dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <!--Title Bar-->
+                <RelativeLayout
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:background="@color/colorPrimary"
+                    android:padding="15dp">
 
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:layout_gravity="center_horizontal"
-                       android:layout_centerHorizontal="true"
-                       android:fontFamily="@font/muli"
-                       android:drawableTint="#fff"
-                       android:drawablePadding="20dp"
-                       android:drawableStart="@drawable/ic_baseline_check_circle_24"
-                       android:text="@string/ordered"
-                       android:textColor="#fff"
-                       android:textSize="18dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center_horizontal"
+                        android:drawableStart="@drawable/ic_baseline_check_circle_24"
+                        android:drawablePadding="20dp"
+                        android:drawableTint="#fff"
+                        android:fontFamily="@font/muli"
+                        android:text="@string/ordered"
+                        android:textColor="#fff"
+                        android:textSize="18dp" />
 
-               </RelativeLayout>
-
-
-
-               <androidx.core.widget.NestedScrollView
-                   android:id="@+id/scroll_view"
-                   android:layout_below="@id/title"
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent">
+                </RelativeLayout>
 
 
-                   <RelativeLayout
-                       android:id="@+id/recycler_view"
-                       android:layout_width="match_parent"
-                       android:layout_height="match_parent"
-                       android:background="#fff">
-
-                       <!--Recycler View should be in Co-ordinator Layout-->
-                       <androidx.recyclerview.widget.RecyclerView
-                           android:id="@+id/ordereditems_list"
-                           android:layout_width="match_parent"
-                           android:layout_height="180dp"
-                           android:layout_marginStart="16dp"
-                           android:layout_marginTop="16dp"
-                           android:fitsSystemWindows="true"
-                           android:layout_alignParentEnd="true"
-                           android:layout_alignParentStart="true"
-                           android:layout_marginEnd="8dp" />
-
-                       <!--Footer of Dialog-->
-                       <RelativeLayout
-                           android:layout_below="@id/ordereditems_list"
-                           android:layout_alignParentBottom="true"
-                           android:layout_alignParentStart="true"
-                           android:layout_width="match_parent"
-                           android:layout_height="match_parent"
-                           android:orientation="horizontal"
-                           android:padding="15dp"
-                           android:layout_alignParentEnd="true"
-                           android:layout_marginBottom="20dp"
-                           android:weightSum="2">
-
-                           <TextView
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:layout_alignParentTop="true"
-                               android:layout_alignParentBottom="false"
-                               android:layout_gravity="left"
-                               android:layout_marginStart="16dp"
-                               android:layout_marginBottom="20dp"
-                               android:layout_weight="1"
-                               android:drawableEnd="@drawable/ic_baseline_check_circle_24"
-                               android:drawablePadding="10dp"
-                               android:drawableTint="@color/colorAccent"
-                               android:fontFamily="@font/muli_black"
-                               android:text="@string/total_cost"
-                               android:textColor="#000"
-                               android:textSize="18dp" />
-
-                           <TextView
-                               android:id="@+id/total_item_cost"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:layout_alignParentTop="true"
-                               android:layout_alignParentEnd="true"
-                               android:layout_alignParentBottom="false"
-                               android:layout_marginBottom="20dp"
-                               android:layout_weight="1"
-                               android:fontFamily="@font/muli_black"
-                               android:gravity="right"
-                               android:text="₹ 0.00"
-                               android:textColor="#000"
-                               android:textSize="18dp" />
+                <androidx.core.widget.NestedScrollView
+                    android:id="@+id/scroll_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/title">
 
 
-                           <View
-                               android:layout_width="match_parent"
-                               android:layout_height="1dp"
-                               android:layout_marginTop="40dp"
-                               android:layout_alignParentStart="true"
-                               android:layout_alignParentEnd="true"
-                               android:layout_marginBottom="20dp"
-                               android:background="#000" />
+                    <RelativeLayout
+                        android:id="@+id/recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#fff">
 
-                           <Button
-                               android:id="@+id/checkOut"
-                               android:layout_width="match_parent"
-                               android:layout_height="wrap_content"
-                               android:layout_marginStart="20dp"
-                               android:layout_marginTop="60dp"
-                               android:layout_marginEnd="20dp"
-                               android:background="@drawable/image_border"
-                               android:text="Check Out"
-                               android:layout_alignParentStart="true"
-                               android:layout_alignParentEnd="true"
-                               android:textAllCaps="false"
-                               android:layout_alignParentBottom="false"
-                               android:layout_marginBottom="25dp"
-                               android:textColor="@color/colorPrimary"
-                               android:textSize="20dp" />
 
-                       </RelativeLayout>
+                        <!--Recycler View should be in Co-ordinator Layout-->
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/ordereditems_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="180dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="8dp"
+                            android:fitsSystemWindows="true" />
 
-                   </RelativeLayout>
-               </androidx.core.widget.NestedScrollView>
+                        <!--Footer of Dialog-->
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_below="@id/ordereditems_list"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="20dp"
+                            android:orientation="horizontal"
+                            android:padding="15dp"
+                            android:weightSum="2">
 
-           </RelativeLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentBottom="false"
+                                android:layout_gravity="left"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginBottom="20dp"
+                                android:layout_weight="1"
+                                android:drawableEnd="@drawable/ic_baseline_check_circle_24"
+                                android:drawablePadding="10dp"
+                                android:drawableTint="@color/colorAccent"
+                                android:fontFamily="@font/muli_black"
+                                android:text="@string/total_cost"
+                                android:textColor="#000"
+                                android:textSize="18dp" />
 
-       </androidx.cardview.widget.CardView>
+                            <TextView
+                                android:id="@+id/total_item_cost"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentBottom="false"
+                                android:layout_marginBottom="20dp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/muli_black"
+                                android:gravity="right"
+                                android:text="₹ 0.00"
+                                android:textColor="#000"
+                                android:textSize="18dp" />
+
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginTop="40dp"
+                                android:layout_marginBottom="20dp"
+                                android:background="#000" />
+
+                            <Button
+                                android:id="@+id/checkOut"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentBottom="false"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginTop="60dp"
+                                android:layout_marginEnd="20dp"
+                                android:layout_marginBottom="25dp"
+                                android:background="@drawable/image_border"
+                                android:text="Check Out"
+                                android:textAllCaps="false"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="20dp" />
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+                </androidx.core.widget.NestedScrollView>
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
 
     </RelativeLayout>
-
-
-
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

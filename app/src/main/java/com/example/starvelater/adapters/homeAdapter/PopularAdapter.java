@@ -48,8 +48,8 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularV
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), RestaurantProfile.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("name",holder.title.getText().toString());
-                bundle.putString("location",holder.description.getText().toString());
+                bundle.putString("name", holder.title.getText().toString());
+                bundle.putString("location", holder.description.getText().toString());
                 intent.putExtras(bundle);
                 holder.image.getContext().startActivity(intent);
             }
@@ -60,8 +60,8 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularV
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), RestaurantProfile.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("name",holder.title.getText().toString());
-                bundle.putString("location",holder.description.getText().toString());
+                bundle.putString("name", holder.title.getText().toString());
+                bundle.putString("location", holder.description.getText().toString());
                 intent.putExtras(bundle);
                 holder.title.getContext().startActivity(intent);
             }

@@ -32,9 +32,9 @@ import com.example.starvelater.adapters.OrderedItemsAdapter;
 import com.example.starvelater.adapters.RecycleGridAdapter;
 import com.example.starvelater.adapters.RestaurantItemAdapter;
 import com.example.starvelater.activities.user.UserDashboard;
+import com.example.starvelater.control.BottomSheetBehavior;
 import com.example.starvelater.control.BottomSheetBehaviorRecyclerManager;
 import com.example.starvelater.control.ICustomBottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
@@ -56,18 +56,17 @@ public class RestaurantProfile extends AppCompatActivity {
     List<Integer> itemPriceList;
     List<Integer> itemCountList;
 
-    HashMap<String,Integer> nameCountList;
-    HashMap<String,Integer> namePriceList;
+    HashMap<String, Integer> nameCountList;
+    HashMap<String, Integer> namePriceList;
 
     RecycleGridAdapter adapter;
     RestaurantItemAdapter itemAdapter;
 
     ImageView backbutton;
     Toolbar restaurantToolBar;
+    int itemCost, totalCost, itemCount;
 
-    int itemCost,totalCost, itemCount;
-
-    TextView txtRestaurantName, txtRestaurantLocation,txtTotalCost;
+    TextView txtRestaurantName, txtRestaurantLocation, txtTotalCost;
 
     Switch aSwitch;
 
@@ -113,8 +112,8 @@ public class RestaurantProfile extends AppCompatActivity {
         titles.add("Biriyani north india");
         titles.add("red cherry");
         titles.add("Italian Fast Food");
-        titles.add("Amarican Italian Food");
-        titles.add("Beverages");
+        titles.add("American Italian Food");
+        titles.add("Masala Kulcha");
 
         prices.add("₹ 500");
         prices.add("₹ 1500");
@@ -123,29 +122,12 @@ public class RestaurantProfile extends AppCompatActivity {
         prices.add("₹ 400");
         prices.add("₹ 128");
 
-
-       /*titles.add("Beverages");
-        titles.add("Biriyani north india");
-        titles.add("red cherry");
-        titles.add("Italian Fast Food");
-        titles.add("Amarican Italian Food");
-        titles.add("Biriyani north india");*/
-
-
         images.add(R.drawable.photo6);
         images.add(R.drawable.photo7);
         images.add(R.drawable.photo8);
         images.add(R.drawable.photo9);
         images.add(R.drawable.photo10);
         images.add(R.drawable.photo11);
-
-        /*images.add(R.drawable.photo6);
-        images.add(R.drawable.photo7);
-        images.add(R.drawable.photo8);
-        images.add(R.drawable.photo9);
-        images.add(R.drawable.photo10);
-        images.add(R.drawable.photo11);*/
-
 
         //Bottom Sheet Code
         mParent = (CoordinatorLayout) findViewById(R.id.parent_container);
@@ -155,7 +137,7 @@ public class RestaurantProfile extends AppCompatActivity {
 
         mBottomSheetBehavior = com.example.starvelater.control.BottomSheetBehavior.from(mBottomSheetView);
 
-        mBottomSheetRecycler= (RecyclerView) findViewById(R.id.ordereditems_list);
+        mBottomSheetRecycler = (RecyclerView) findViewById(R.id.ordereditems_list);
         mLayoutManager = new LinearLayoutManager(this);
         mBottomSheetRecycler.setLayoutManager(mLayoutManager);
 
@@ -175,16 +157,15 @@ public class RestaurantProfile extends AppCompatActivity {
         });
 
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,new IntentFilter("item-details"));
-        //LocalBroadcastManager.getInstance(this).registerReceiver(mItemCountReciever,new IntentFilter("item-count-details"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, new IntentFilter("item-details"));
 
-            Bundle bundle = getIntent().getExtras();
-            assert bundle != null;
-            String restaurantName = bundle.getString("name");
-            String restaurantLocation = bundle.getString("location");
+        Bundle bundle = getIntent().getExtras();
+        assert bundle != null;
+        String restaurantName = bundle.getString("name");
+        String restaurantLocation = bundle.getString("location");
 
-            txtRestaurantName.setText(restaurantName);
-            txtRestaurantLocation.setText(restaurantLocation);
+        txtRestaurantName.setText(restaurantName);
+        txtRestaurantLocation.setText(restaurantLocation);
 
         //helper to rule scrolls
         BottomSheetBehaviorRecyclerManager manager = new BottomSheetBehaviorRecyclerManager(mParent, mBottomSheetBehavior, mBottomSheetView);
@@ -212,26 +193,6 @@ public class RestaurantProfile extends AppCompatActivity {
             }
         });
 
-        /*final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.restaurantAppBar);
-        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            boolean isShow = true;
-            int scrollRange = -1;
-
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (scrollRange == -1) {
-                    scrollRange = appBarLayout.getTotalScrollRange();
-                }
-                if (scrollRange + verticalOffset == 0) {
-                    collapsingToolbarLayout.setTitle("Tandoori House");
-                    isShow = true;
-                } else if(isShow) {
-                    collapsingToolbarLayout.setTitle(" ");//careful there should a space between double quote otherwise it wont work
-                    isShow = false;
-                }
-            }
-        });*/
         final ActionBar restaurantActionBar = getSupportActionBar();
         restaurantActionBar.setDisplayShowCustomEnabled(true); // enable overriding the default toolbar layout
         restaurantActionBar.setDisplayShowTitleEnabled(false);
@@ -247,7 +208,7 @@ public class RestaurantProfile extends AppCompatActivity {
             }
         });
 
-        adapter = new RecycleGridAdapter(this, titles, images,prices);
+        adapter = new RecycleGridAdapter(this, titles, images, prices);
 
         itemAdapter = new RestaurantItemAdapter(this, titles, prices);
 
@@ -268,6 +229,7 @@ public class RestaurantProfile extends AppCompatActivity {
             String ItemName = intent.getStringExtra("item-name");
             String cost = intent.getStringExtra("item-cost");
             String count = intent.getStringExtra("item-count");
+            String action = intent.getStringExtra("item-action");
             String costnumber = cost.substring(2);
 
             assert costnumber != null;
@@ -275,100 +237,44 @@ public class RestaurantProfile extends AppCompatActivity {
             assert count != null;
             itemCount = Integer.parseInt(count);
 
-            if(!itemNameList.contains(ItemName) && !itemPriceList.contains(itemCost)) {
+            if (!itemNameList.contains(ItemName) && !itemPriceList.contains(itemCost)) {
                 //Addition of New Item to Array List
                 itemNameList.add(ItemName);
                 itemPriceList.add(itemCost);
 
                 //add to hashmap both itemname and count default 1
-               nameCountList.put(ItemName,itemCount);
-               namePriceList.put(ItemName,itemCost);
-
+                nameCountList.put(ItemName, itemCount);
+                namePriceList.put(ItemName, itemCost);
                 totalCost = totalCost + ((int) nameCountList.get(ItemName) * (int) namePriceList.get(ItemName));
 
 
             } else {
-                int price = 0;
-                price = totalCost - (int) namePriceList.get(ItemName);
+
                 //old item already present in array list
-                nameCountList.put(ItemName,nameCountList.get(ItemName) + 1);
-                totalCost = price + ((int) nameCountList.get(ItemName) * (int) namePriceList.get(ItemName));
+                if (action.equals("incremented")) {
+                    nameCountList.put(ItemName, nameCountList.get(ItemName) + 1);
+                    totalCost = totalCost + ((int) namePriceList.get(ItemName));
+                } else {
+                    totalCost = totalCost - ((int) namePriceList.get(ItemName));
+                    if(itemCount == 0)
+                    {
+                        itemNameList.remove(ItemName);
+                        nameCountList.remove(ItemName);
+                        namePriceList.remove(ItemName);
+                        nameCountList.put(ItemName,0);
+                    }else{
+                        nameCountList.put(ItemName, nameCountList.get(ItemName) - 1);
+                    }
+                }
 
-                //Toast.makeText(context, ""+ namePriceList + "\n name Count List" + nameCountList, Toast.LENGTH_LONG).show();
+
             }
 
+            txtTotalCost.setText("₹ " + totalCost + ".00");
 
-
-/*            for (Map.Entry mapElement : namePriceList.entrySet()) {
-                String key = (String) mapElement.getKey();
-                Log.d("Total",key + " " + (int) namePriceList.get(key) + (int) nameCountList.get(key));
-                Toast.makeText(context,key + " " + (int) namePriceList.get(key) + (int) nameCountList.get(key) , Toast.LENGTH_LONG).show();
-                totalCost = totalCost +  ((int) nameCountList.get(key) * (int) namePriceList.get(key));
-            }*/
-
-
-
-
-            /*if(itemCount == 1) {
-                totalCost = totalCost + itemCost;
-            }
-            else if(itemCount ==2) {
-                int price =0;
-                price = totalCost - itemCost;
-                totalCost = price + itemCost * 2;
-            } else if(itemCount ==3) {
-                int price =0;
-                price = totalCost - itemCost;
-                totalCost = price + itemCost * 3;
-            } else if(itemCount ==4) {
-                int price=0;
-                price = totalCost - itemCost;
-                totalCost = price + itemCost * 4;
-            } else if(itemCount ==5) {
-                int price=0;
-                price = totalCost - itemCost;
-                totalCost = price + itemCost * 5;
-            }
-*/
-            /*switch (itemCount) {
-                case 1 : totalCost = totalCost + itemCost;
-                         break;
-                case 2 :
-
-            }*/
-
-            //totalCost = totalCost + itemCost * (itemCount);
-
-            txtTotalCost.setText("₹ "+totalCost+ ".00");
-
-            mOrderedItemsAdapter = new OrderedItemsAdapter(mBottomSheetBehavior,itemNameList,itemPriceList);
+            mOrderedItemsAdapter = new OrderedItemsAdapter(mBottomSheetBehavior, itemNameList, namePriceList, nameCountList);
             mBottomSheetRecycler.setAdapter(mOrderedItemsAdapter);
         }
     };
-
-   /* public BroadcastReceiver mItemCountReciever = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            // Get extra data included in the Intent
-
-            int count = Integer.parseInt(Objects.requireNonNull(intent.getStringExtra("each-item-count")));
-
-           itemCountList.add(count);
-
-           for(int i=0;i<itemCountList.size();i++)
-            {
-                int price = itemPriceList.get(i);
-                int qty = itemCountList.get(i);
-                totalCost = totalCost + qty * price;
-            }
-
-            txtTotalCost.setText("₹ "+totalCost+ ".00");
-
-            mOrderedItemsAdapter = new OrderedItemsAdapter(mBottomSheetBehavior,itemNameList,itemPriceList);
-            mBottomSheetRecycler.setAdapter(mOrderedItemsAdapter);
-        }
-    };*/
-
-
 
 }

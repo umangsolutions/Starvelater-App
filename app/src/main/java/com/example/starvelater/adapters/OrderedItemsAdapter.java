@@ -23,55 +23,37 @@ import com.travijuu.numberpicker.library.Interface.ValueChangedListener;
 import com.travijuu.numberpicker.library.NumberPicker;
 
 import java.nio.charset.IllegalCharsetNameException;
+import java.util.HashMap;
 import java.util.List;
 
 public class OrderedItemsAdapter extends RecyclerView.Adapter<OrderedItemsAdapter.ViewHolder> {
 
     List<String> titles;
-    List<Integer> prices;
+    HashMap<String, Integer> prices;
+    HashMap<String,Integer> count;
 
     com.example.starvelater.control.BottomSheetBehavior inflater;
 
-    public OrderedItemsAdapter(BottomSheetBehavior bottomSheetBehavior, List<String> titles, List<Integer> prices){
+    public OrderedItemsAdapter(BottomSheetBehavior bottomSheetBehavior, List<String> titles, HashMap<String, Integer> prices,
+                               HashMap<String, Integer> count) {
         this.titles = titles;
         this.prices = prices;
+        this.count = count;
         this.inflater = bottomSheetBehavior;
     }
-
-
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view =LayoutInflater.from(parent.getContext()).inflate(R.layout.ordered_item_design,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ordered_item_design, parent, false);
         return new ViewHolder(view);
     }
-
-
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
         holder.title.setText(titles.get(position));
-        holder.price.setText(Integer.toString(prices.get(position)));
-
-        holder.number_picker.setValueChangedListener(new ValueChangedListener() {
-            @Override
-            public void valueChanged(int value, ActionEnum action) {
-
-                String itemCount = Integer.toString(value);
-
-                Intent intent = new Intent("item-count-details");
-                intent.putExtra("each-item-count",itemCount);
-
-
-                LocalBroadcastManager.getInstance(holder.number_picker.getContext()).sendBroadcast(intent);
-
-                //Toast.makeText(holder.number_picker.getContext(), ""+ value, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
+        holder.price.setText("₹ " +Integer.toString((int)count.get(titles.get(position)) * (int)prices.get(titles.get(position))));
 
     }
 
@@ -80,18 +62,16 @@ public class OrderedItemsAdapter extends RecyclerView.Adapter<OrderedItemsAdapte
         return titles.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView title;
         TextView price;
-        NumberPicker number_picker;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            title = itemView.findViewById(R.id.textView);
-            price = itemView.findViewById(R.id.price);
-            number_picker = itemView.findViewById(R.id.number_picker);
+            title = itemView.findViewById(R.id.textItemName);
+            price = itemView.findViewById(R.id.textItemPrice);
 
         }
     }

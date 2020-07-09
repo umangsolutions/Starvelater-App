@@ -10,23 +10,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:layout_gravity="center_vertical"
+        android:layout_margin="10dp"
         android:orientation="vertical">
 
-       <!-- <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize">
+        <!-- <RelativeLayout
+             android:layout_width="match_parent"
+             android:layout_height="?actionBarSize">
 
-            <ImageView
-                android:id="@+id/back_pressed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:padding="15dp"
-                android:src="@drawable/ic_arrow_back_black_24dp" />
+             <ImageView
+                 android:id="@+id/back_pressed"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_centerVertical="true"
+                 android:padding="15dp"
+                 android:src="@drawable/ic_arrow_back_black_24dp" />
 
-        </RelativeLayout>-->
+         </RelativeLayout>-->
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/restaurantToolBar"
@@ -61,142 +61,144 @@
             android:textAllCaps="true"
             android:textColor="@color/colorAccent"
             android:textSize="30sp" />
+
         <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="190dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <RelativeLayout
-                android:id="@+id/restaurants"
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:layout_margin="20dp"
-                android:background="@drawable/categories_restaurant_background">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="190dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:id="@+id/restaurants"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:layout_margin="20dp"
+                        android:background="@drawable/categories_restaurant_background">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/muli"
+                            android:padding="20dp"
+                            android:text="@string/restaurants"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="21dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:background="#00000000"
+                            android:fontFamily="@font/muli"
+                            android:padding="25dp"
+                            android:text="@string/expand"
+                            android:textColor="@color/colorBackground" />
+
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginRight="40dp"
+                        android:src="@drawable/restaurants" />
+
+                </RelativeLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/muli"
-                    android:padding="20dp"
-                    android:text="@string/restaurants"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="21dp" />
+                    android:layout_margin="20dp"
+                    app:cardBackgroundColor="#00000000"
+                    app:cardElevation="8dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:background="#00000000"
-                    android:padding="25dp"
-                    android:fontFamily="@font/muli"
-                    android:text="@string/expand"
-                    android:textColor="@color/colorBackground" />
+                    <RelativeLayout
+                        android:id="@+id/canteens"
+                        android:layout_width="match_parent"
+                        android:layout_height="160dp"
+                        android:background="@drawable/categories_canteen_background">
 
-            </RelativeLayout>
+                        <ImageView
+                            android:layout_width="90dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="20dp"
+                            android:src="@drawable/college" />
 
-            <ImageView
-                android:layout_width="110dp"
-                android:layout_height="110dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="40dp"
-                android:layout_marginRight="40dp"
-                android:src="@drawable/restaurants" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:fontFamily="@font/muli"
+                            android:padding="20dp"
+                            android:text="@string/college"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="21dp" />
 
-        </RelativeLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentBottom="true"
+                            android:background="#00000000"
+                            android:fontFamily="@font/muli"
+                            android:padding="25dp"
+                            android:text="@string/expand"
+                            android:textColor="@color/colorDimGrey" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            app:cardBackgroundColor="#00000000"
-            app:cardElevation="8dp">
+                    </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/canteens"
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:background="@drawable/categories_canteen_background">
+                </androidx.cardview.widget.CardView>
 
-                <ImageView
-                    android:layout_width="90dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:src="@drawable/college"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="190dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:fontFamily="@font/muli"
-                    android:padding="20dp"
-                    android:text="@string/college"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="21dp" />
+                    <RelativeLayout
+                        android:id="@+id/corporatecafe"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:layout_margin="20dp"
+                        android:background="@drawable/categories_corporate_cafe_background">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
-                    android:background="#00000000"
-                    android:padding="25dp"
-                    android:fontFamily="@font/muli"
-                    android:text="@string/expand"
-                    android:textColor="@color/colorDimGrey" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/muli"
+                            android:padding="20dp"
+                            android:text="@string/corporate"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="21dp" />
 
-            </RelativeLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:background="#00000000"
+                            android:fontFamily="@font/muli"
+                            android:padding="25dp"
+                            android:text="@string/expand"
+                            android:textColor="@color/colorBackground" />
 
-        </androidx.cardview.widget.CardView>
+                    </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="190dp">
+                    <ImageView
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginRight="40dp"
+                        android:src="@drawable/corporate" />
 
-            <RelativeLayout
-                android:id="@+id/corporatecafe"
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:layout_margin="20dp"
-                android:background="@drawable/categories_corporate_cafe_background">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/muli"
-                    android:padding="20dp"
-                    android:text="@string/corporate"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="21dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:background="#00000000"
-                    android:padding="25dp"
-                    android:text="@string/expand"
-                    android:fontFamily="@font/muli"
-                    android:textColor="@color/colorBackground" />
-
-            </RelativeLayout>
-
-            <ImageView
-                android:layout_width="110dp"
-                android:layout_height="110dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="40dp"
-                android:layout_marginRight="40dp"
-                android:src="@drawable/corporate" />
-
-        </RelativeLayout>
-    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
         </ScrollView>
 
     </LinearLayout>

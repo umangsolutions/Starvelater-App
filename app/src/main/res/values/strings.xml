@@ -57,5 +57,8 @@
     <string name="love_us">Love us? Give us a chance to serve you again!</string>
     <string name="ordered">Drag to See Ordered Items</string>
     <string name="total_cost">Total Cost</string>
+    <string name="price">Price</string>
+    <string name="quantity">Qty.</string>
+    <string name="name_of_item">Name of Item</string>
 
 </resources>

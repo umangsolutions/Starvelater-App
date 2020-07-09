@@ -1,56 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
     android:padding="10dp"
-    android:weightSum="2"
-    android:orientation="horizontal">
+    android:weightSum="2">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            android:drawableStart="@drawable/nonveg"
+            android:drawablePadding="5dp"
+            android:fontFamily="@font/muli"
             android:shadowColor="#ffffff"
             android:text="@string/textview"
             android:textAllCaps="false"
             android:textColor="#000"
-            android:textSize="14dp"
-            android:drawablePadding="5dp"
-            android:drawableStart="@drawable/nonveg"
-            android:fontFamily="@font/muli" />
+            android:textSize="14dp" />
 
         <TextView
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="₹ 500"
-            android:padding="5dp"
             android:layout_marginStart="10dp"
+            android:padding="5dp"
+            android:text="₹ 500"
             android:textSize="12dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:layout_gravity="right"
+        android:layout_weight="1"
         android:gravity="right"
         android:orientation="vertical">
+
         <Button
             android:id="@+id/add_item"
             android:layout_width="65dp"
             android:layout_height="25dp"
-            android:text="ADD"
             android:layout_marginEnd="15dp"
-            android:textColor="@color/colorPrimary"
             android:background="@drawable/image_border"
+            android:text="ADD"
+            android:textColor="@color/colorPrimary"
             android:textSize="10dp" />
         <!--<TextView
             android:id="@+id/ordered_text_view"
@@ -73,15 +75,12 @@
             android:layout_width="130dp"
             android:layout_height="40dp"
             android:focusable="false"
-            app:min="0"
             android:visibility="gone"
+            app:custom_layout="@layout/number_picker_layout"
             app:max="5"
-            app:value="1"
             app:unit="1"
-            app:custom_layout="@layout/number_picker_layout" />
+            app:value="1" />
     </LinearLayout>
-
-
 
 
 </LinearLayout>

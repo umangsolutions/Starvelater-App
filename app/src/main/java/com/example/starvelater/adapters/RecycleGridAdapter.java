@@ -18,6 +18,9 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.starvelater.R;
+import com.travijuu.numberpicker.library.Enums.ActionEnum;
+import com.travijuu.numberpicker.library.Interface.ValueChangedListener;
+import com.travijuu.numberpicker.library.NumberPicker;
 
 import java.util.List;
 
@@ -29,7 +32,7 @@ public class RecycleGridAdapter extends RecyclerView.Adapter<RecycleGridAdapter.
 
     LayoutInflater inflater;
 
-    public RecycleGridAdapter(Context ctx, List<String> titles, List<Integer> images,List<String> prices){
+    public RecycleGridAdapter(Context ctx, List<String> titles, List<Integer> images, List<String> prices) {
         this.titles = titles;
         this.images = images;
         this.prices = prices;
@@ -37,11 +40,10 @@ public class RecycleGridAdapter extends RecyclerView.Adapter<RecycleGridAdapter.
     }
 
 
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.activity_custom_grid_layout,parent,false);
+        View view = inflater.inflate(R.layout.activity_custom_grid_layout, parent, false);
         return new ViewHolder(view);
     }
 
@@ -53,22 +55,39 @@ public class RecycleGridAdapter extends RecyclerView.Adapter<RecycleGridAdapter.
         holder.price.setText(prices.get(position));
         holder.btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
 
-                String itemName = holder.title.getText().toString();
-                String itemCost = holder.price.getText().toString();
+                final String itemName = holder.title.getText().toString();
+                final String itemCost = holder.price.getText().toString();
 
-                Intent intent = new Intent("item-details");
-                intent.putExtra("item-name",itemName);
-                intent.putExtra("item-cost",itemCost);
-
-                LocalBroadcastManager.getInstance(v.getContext()).sendBroadcast(intent);
-
+                final Intent intent = new Intent("item-details");
+                intent.putExtra("item-name", itemName);
+                intent.putExtra("item-cost", itemCost);
                 holder.btnAdd.setVisibility(View.GONE);
-                holder.txtOrderedText.setVisibility(View.VISIBLE);
+                holder.numberPicker.setVisibility(View.VISIBLE);
 
+                intent.putExtra("item-count", "1");
+
+                holder.numberPicker.setValueChangedListener(new ValueChangedListener() {
+                    @Override
+                    public void valueChanged(int value, ActionEnum action) {
+
+                        String actionText = action == ActionEnum.MANUAL ? "manually set" : (action == ActionEnum.INCREMENT ? "incremented" : "decremented");
+                        intent.putExtra("item-name", itemName);
+                        intent.putExtra("item-cost", itemCost);
+                        intent.putExtra("item-action", actionText);
+                        intent.putExtra("item-count", Integer.toString(value));
+                        if (value == 0) {
+                            holder.btnAdd.setVisibility(View.VISIBLE);
+                            holder.numberPicker.setVisibility(View.GONE);
+                        }
+                        LocalBroadcastManager.getInstance(v.getContext()).sendBroadcast(intent);
+                    }
+                });
 
                 Toast.makeText(v.getContext(), "Item Added Successfully !", Toast.LENGTH_SHORT).show();
+
+                LocalBroadcastManager.getInstance(v.getContext()).sendBroadcast(intent);
             }
         });
 
@@ -79,20 +98,21 @@ public class RecycleGridAdapter extends RecyclerView.Adapter<RecycleGridAdapter.
         return titles.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView title,price,txtOrderedText;
+        TextView title, price;
         ImageView gridIcon;
         Button btnAdd;
+        NumberPicker numberPicker;
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.textView);
-            txtOrderedText = itemView.findViewById(R.id.ordered_text_view);
             gridIcon = itemView.findViewById(R.id.imageView);
             btnAdd = itemView.findViewById(R.id.btnAdd);
             price = itemView.findViewById(R.id.price);
+            numberPicker = itemView.findViewById(R.id.number_picker);
         }
 
     }

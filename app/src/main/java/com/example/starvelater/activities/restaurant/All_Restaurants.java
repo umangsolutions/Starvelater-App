@@ -30,6 +30,7 @@ public class All_Restaurants extends AppCompatActivity {
 
     ImageView backbutton;
     Toolbar restaurantToolBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +51,7 @@ public class All_Restaurants extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(All_Restaurants.this, UserDashboard.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });
@@ -80,12 +81,11 @@ public class All_Restaurants extends AppCompatActivity {
         restaurantImages.add(R.drawable.taj);
         restaurantImages.add(R.drawable.photo11);
 
-        restaurantsAdapter = new All_RestaurantsAdapter(this,restaurantName,restaurantLocation,restaurantImages);
+        restaurantsAdapter = new All_RestaurantsAdapter(this, restaurantName, restaurantLocation, restaurantImages);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         restaurantsList.setLayoutManager(linearLayoutManager);
-        restaurantsList.setAdapter((RecyclerView.Adapter)restaurantsAdapter);
-
+        restaurantsList.setAdapter((RecyclerView.Adapter) restaurantsAdapter);
 
 
     }

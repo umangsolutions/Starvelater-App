@@ -39,7 +39,6 @@ public class OnBoarding extends AppCompatActivity {
         letsgetstarted = findViewById(R.id.get_started_btn);
 
 
-
         //Call Adapter
         sliderAdapter = new SliderAdapter(OnBoarding.this);
         viewPager.setAdapter(sliderAdapter);
@@ -118,13 +117,13 @@ public class OnBoarding extends AppCompatActivity {
                     }
                 });*/
 
-               letsgetstarted.setOnClickListener(new View.OnClickListener() {
-                   @Override
-                   public void onClick(View v) {
-                       Intent intent = new Intent(getApplicationContext(),UserDashboard.class);
-                       startActivity(intent);
-                   }
-               });
+                letsgetstarted.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(), UserDashboard.class);
+                        startActivity(intent);
+                    }
+                });
             }
         }
 

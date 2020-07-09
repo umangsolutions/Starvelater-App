@@ -10,73 +10,70 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
-        android:layout_height="match_parent">
+        android:orientation="vertical">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:src="@drawable/safedine"
             android:layout_gravity="center"
-            />
+            android:src="@drawable/safedine" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="36dp"
-            android:fontFamily="@font/muli_black"
             android:layout_gravity="center"
+            android:layout_marginTop="60dp"
+            android:fontFamily="@font/muli_black"
+            android:text="@string/safest_dining_experience"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textColor="#000"
-            android:layout_marginTop="60dp"
 
-            android:text="@string/safest_dining_experience" />
+            android:textSize="36dp" />
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/muli"
             android:layout_gravity="center"
-            android:textAlignment="center"
-            android:textColor="#000"
             android:layout_marginTop="10dp"
+            android:fontFamily="@font/muli"
             android:marqueeRepeatLimit="marquee_forever"
-            android:text="@string/lorem_ipsum_lorem_ipsum_lorem_ipsum_lorem_ipsum_lorem_ipsum_lorem" />
+            android:text="@string/lorem_ipsum_lorem_ipsum_lorem_ipsum_lorem_ipsum_lorem_ipsum_lorem"
+            android:textAlignment="center"
+            android:textColor="#000" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="horizontal"
+            android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:layout_height="wrap_content">
+            android:orientation="horizontal">
+
             <Button
                 android:id="@+id/login"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:textColor="@color/colorWhite"
-                android:text="@string/login"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:transitionName="transition_login"/>
+                android:background="@color/colorPrimary"
+                android:text="@string/login"
+                android:textColor="@color/colorWhite"
+                android:transitionName="transition_login" />
+
             <Button
                 android:id="@+id/signup"
                 android:layout_width="0dp"
-                android:textColor="@color/colorWhite"
-                android:text="@string/sign_up"
-                android:layout_marginLeft="10dp"
-                android:background="@color/colorPrimary"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:text="@string/sign_up"
+                android:textColor="@color/colorWhite" />
         </LinearLayout>
 
 
-
-
-        
-        
     </LinearLayout>
 
 </ScrollView>

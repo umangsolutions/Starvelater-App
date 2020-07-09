@@ -34,7 +34,7 @@ public class Qr_scan extends AppCompatActivity {
 
         scannerView = findViewById(R.id.scanner_view);
         codeScanner = new CodeScanner(this, scannerView);
-        resultData=findViewById(R.id.resultOfQr);
+        resultData = findViewById(R.id.resultOfQr);
 
         codeScanner.setDecodeCallback(new DecodeCallback() {
             @Override

@@ -66,12 +66,12 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
         navigationView = findViewById(R.id.navigation_view);
         menuIcon = findViewById(R.id.menu_icon);
         contentView = findViewById(R.id.content);
-        qr_icon=findViewById(R.id.qr_icon);
+        qr_icon = findViewById(R.id.qr_icon);
         qr_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 /*Toast.makeText(UserDashboard.this, "Sorry! Not Yet Implemented", Toast.LENGTH_SHORT).show();*/
-                Intent intent2= new Intent(UserDashboard.this,Qr_scan.class);
+                Intent intent2 = new Intent(UserDashboard.this, Qr_scan.class);
                 startActivity(intent2);
 
             }
@@ -80,7 +80,7 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
         txtViewAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(UserDashboard.this,All_Restaurants.class);
+                Intent intent1 = new Intent(UserDashboard.this, All_Restaurants.class);
                 startActivity(intent1);
             }
         });

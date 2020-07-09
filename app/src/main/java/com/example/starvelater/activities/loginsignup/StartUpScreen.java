@@ -15,14 +15,15 @@ import com.example.starvelater.R;
 
 public class StartUpScreen extends AppCompatActivity {
 
-    Button btnlogin,btnsignup;
+    Button btnlogin, btnsignup;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_up_screen);
 
-        btnlogin=(Button)findViewById(R.id.login);
-        btnsignup=(Button)findViewById(R.id.signup);
+        btnlogin = (Button) findViewById(R.id.login);
+        btnsignup = (Button) findViewById(R.id.signup);
 
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -31,10 +32,10 @@ public class StartUpScreen extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
 
                 Pair[] pairs = new Pair[1];
-                pairs[0] = new Pair<View,String>(findViewById(R.id.login),"transition_login");
+                pairs[0] = new Pair<View, String>(findViewById(R.id.login), "transition_login");
 
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(StartUpScreen.this,pairs);
-                startActivity(intent,options.toBundle());
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(StartUpScreen.this, pairs);
+                startActivity(intent, options.toBundle());
             }
         });
 
@@ -43,10 +44,10 @@ public class StartUpScreen extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
                 Pair[] pairs1 = new Pair[1];
-                pairs1[0] = new Pair<View,String>(findViewById(R.id.signup),"transition_signup");
+                pairs1[0] = new Pair<View, String>(findViewById(R.id.signup), "transition_signup");
 
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(StartUpScreen.this,pairs1);
-                startActivity(intent,options.toBundle());
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(StartUpScreen.this, pairs1);
+                startActivity(intent, options.toBundle());
             }
         });
     }
