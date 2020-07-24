@@ -2,6 +2,7 @@ package com.example.starvelater.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,8 @@ import com.travijuu.numberpicker.library.Interface.ValueChangedListener;
 import com.travijuu.numberpicker.library.NumberPicker;
 
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 public class RecycleGridAdapter extends RecyclerView.Adapter<RecycleGridAdapter.ViewHolder> {
 
@@ -71,6 +74,8 @@ public class RecycleGridAdapter extends RecyclerView.Adapter<RecycleGridAdapter.
                 holder.numberPicker.setValueChangedListener(new ValueChangedListener() {
                     @Override
                     public void valueChanged(int value, ActionEnum action) {
+
+                        Log.d(TAG, "valueChanged: "+action);
 
                         String actionText = action == ActionEnum.MANUAL ? "manually set" : (action == ActionEnum.INCREMENT ? "incremented" : "decremented");
                         intent.putExtra("item-name", itemName);

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.starvelater.R;
 import com.example.starvelater.activities.restaurant.RestaurantProfile;
+import com.example.starvelater.activities.restaurant.RestaurantProfileActivity;
 
 import java.util.ArrayList;
 
@@ -44,7 +45,7 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.Featur
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), RestaurantProfile.class);
+                Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
 
                 Bundle bundle = new Bundle();
                 bundle.putString("name", holder.title.getText().toString());
@@ -58,7 +59,7 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.Featur
         holder.title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), RestaurantProfile.class);
+                Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
 
                 Bundle bundle = new Bundle();
                 bundle.putString("name", holder.title.getText().toString());
