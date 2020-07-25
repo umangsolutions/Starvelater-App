@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnClose"
+        android:src="@drawable/ic_baseline_clear_24" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/muli_black"
+        android:padding="5dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Change Location"
+        android:textColor="@color/colorPrimary"
+        android:textSize="22dp" />
+
+    <Spinner
+        android:id="@+id/spinCity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        style="@style/AppTheme.FilterSpinner"
+        android:entries="@array/cities" />
+
+    <Spinner
+        android:id="@+id/spinArea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        style="@style/AppTheme.FilterSpinner"
+        android:entries="@array/areas" />
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingStart="55dp"
+        android:paddingEnd="55dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/image_border"
+        android:text="Submit"
+        android:textColor="@color/colorPrimary" />
+</LinearLayout>

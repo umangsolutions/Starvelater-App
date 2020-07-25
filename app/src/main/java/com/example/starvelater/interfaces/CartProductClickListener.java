@@ -1,5 +1,6 @@
 package com.example.starvelater.interfaces;
 
+import com.example.starvelater.model.NormalProducts;
 import com.example.starvelater.model.Product;
 
 public interface CartProductClickListener {
@@ -9,4 +10,5 @@ public interface CartProductClickListener {
     void onPlusClick(Product product);
 
     void onAddClick(int position,Product product);
+
 }

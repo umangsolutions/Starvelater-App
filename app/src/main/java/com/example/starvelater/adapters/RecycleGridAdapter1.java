@@ -19,10 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.starvelater.R;
 import com.example.starvelater.interfaces.CartProductClickListener;
 import com.example.starvelater.model.Product;
-import com.travijuu.numberpicker.library.Enums.ActionEnum;
-import com.travijuu.numberpicker.library.Interface.ValueChangedListener;
-import com.travijuu.numberpicker.library.NumberPicker;
-
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
@@ -78,7 +74,6 @@ public class RecycleGridAdapter1 extends RecyclerView.Adapter<RecycleGridAdapter
                 holder.productQuantity.setText("" + productsModel.getQuantity());
                 holder.productMinus.setVisibility(View.VISIBLE);
                 holder.productPlus.setVisibility(View.VISIBLE);
-
                 productClickListener.onAddClick(position, productsModel);
             }
         });

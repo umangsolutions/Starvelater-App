@@ -2,6 +2,7 @@ package com.example.starvelater.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,106 +13,121 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.starvelater.R;
-import com.travijuu.numberpicker.library.Enums.ActionEnum;
-import com.travijuu.numberpicker.library.Interface.ValueChangedListener;
-import com.travijuu.numberpicker.library.NumberPicker;
-
+import com.example.starvelater.interfaces.CartItemClickListener;
+import com.example.starvelater.interfaces.CartProductClickListener;
+import com.example.starvelater.model.NormalProducts;
+import com.example.starvelater.model.Product;
 import java.util.List;
+import static android.content.ContentValues.TAG;
 
 public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAdapter.ViewHolder> {
 
-    List<String> titles;
-    List<String> prices;
+    private Context mContext;
+    private List<NormalProducts> itemsModelList;
+    private CartItemClickListener cartItemClickListener;
 
     LayoutInflater inflater;
 
-    public RestaurantItemAdapter(Context ctx, List<String> titles, List<String> prices) {
-        this.titles = titles;
-        this.prices = prices;
-        this.inflater = LayoutInflater.from(ctx);
+    public RestaurantItemAdapter(Context mContext, List<NormalProducts> itemsModelList, CartItemClickListener cartItemClickListener) {
+
+        this.mContext = mContext;
+        this.itemsModelList = itemsModelList;
+        this.cartItemClickListener = cartItemClickListener;
+
     }
 
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.item_card_design, parent, false);
-        return new ViewHolder(view);
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_card_design, parent, false);
+
+        return new ViewHolder(itemView);
     }
 
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
-        holder.title.setText(titles.get(position));
-        holder.price.setText(prices.get(position));
-        holder.numberPicker.setMin(0);
-        holder.addItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
+        final NormalProducts normalProductsModel = itemsModelList.get(position);
 
+        holder.title.setText(normalProductsModel.getTitles());
+        holder.price.setText("₹ "+normalProductsModel.getUnitPrice());
+        //  holder.productQuantity.setText(""+productsModel.getQuantity());
 
-                final String itemName = holder.title.getText().toString();
-                final String itemCost = holder.price.getText().toString();
+        if (normalProductsModel.getQuantity() == 0) {
+            holder.productQuantity.setText("ADD");
+            holder.productMinus.setVisibility(View.GONE);
+            holder.productPlus.setVisibility(View.GONE);
+            Log.d(TAG, "onBindViewHolder: " + normalProductsModel.getQuantity());
+        } else {
+            holder.productQuantity.setText("" + normalProductsModel.getQuantity());
+            holder.productMinus.setVisibility(View.VISIBLE);
+            holder.productPlus.setVisibility(View.VISIBLE);
+            Log.d(TAG, "onBindViewHolder1: " + normalProductsModel.getQuantity());
+        }
 
-                final Intent intent = new Intent("item-details");
-                intent.putExtra("item-name", itemName);
-                intent.putExtra("item-cost", itemCost);
-                holder.addItem.setVisibility(View.GONE);
-                holder.numberPicker.setVisibility(View.VISIBLE);
-
-                intent.putExtra("item-count", "1");
-
-                holder.numberPicker.setValueChangedListener(new ValueChangedListener() {
-                    @Override
-                    public void valueChanged(int value, ActionEnum action) {
-
-                        String actionText = action == ActionEnum.MANUAL ? "manually set" : (action == ActionEnum.INCREMENT ? "incremented" : "decremented");
-                        intent.putExtra("item-name", itemName);
-                        intent.putExtra("item-cost", itemCost);
-                        intent.putExtra("item-action", actionText);
-                        intent.putExtra("item-count", Integer.toString(value));
-                        if (value == 0) {
-                            holder.addItem.setVisibility(View.VISIBLE);
-                            holder.numberPicker.setVisibility(View.GONE);
-                            intent.putExtra("item-name", itemName);
-                            intent.putExtra("item-cost", itemCost);
-                            intent.putExtra("item-action", actionText);
-                            intent.putExtra("item-count", Integer.toString(value));
-                            LocalBroadcastManager.getInstance(v.getContext()).sendBroadcast(intent);
-                        }
-                        LocalBroadcastManager.getInstance(v.getContext()).sendBroadcast(intent);
-                    }
-                });
-
-                Toast.makeText(v.getContext(), "Item Added Successfully !", Toast.LENGTH_SHORT).show();
-
-                LocalBroadcastManager.getInstance(v.getContext()).sendBroadcast(intent);
+        holder.productQuantity.setOnClickListener(view -> {
+            if (holder.productQuantity.getText().toString().equalsIgnoreCase("ADD")) {
+                holder.productQuantity.setText("" + normalProductsModel.getQuantity());
+                holder.productMinus.setVisibility(View.VISIBLE);
+                holder.productPlus.setVisibility(View.VISIBLE);
+                cartItemClickListener.onAddItemClick(position, normalProductsModel);
             }
         });
+
+
+
+        holder.productMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                cartItemClickListener.onItemMinusClick(normalProductsModel);
+            }
+        });
+
+        holder.productPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                cartItemClickListener.onItemPlusClick(normalProductsModel);
+            }
+        });
+
+
 
     }
 
     @Override
     public int getItemCount() {
-        return titles.size();
+        return itemsModelList.size();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         Button addItem;
-        TextView title;
-        TextView price;
-        NumberPicker numberPicker;
+        TextView title, price;
+        TextView productMinus,productPlus,productQuantity;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.textView);
             price = itemView.findViewById(R.id.price);
-            addItem = itemView.findViewById(R.id.add_item);
-            numberPicker = itemView.findViewById(R.id.number_picker);
+            productMinus= itemView.findViewById(R.id.product_minus);
+            productPlus= itemView.findViewById(R.id.product_plus);
+            productQuantity= itemView.findViewById(R.id.product_quantity);
 
         }
     }

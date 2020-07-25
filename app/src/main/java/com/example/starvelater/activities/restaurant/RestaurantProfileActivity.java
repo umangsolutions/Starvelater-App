@@ -1,14 +1,9 @@
 package com.example.starvelater.activities.restaurant;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,33 +15,33 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.starvelater.R;
 import com.example.starvelater.activities.user.UserDashboard;
-import com.example.starvelater.adapters.OrderedItemsAdapter;
-import com.example.starvelater.adapters.RecycleGridAdapter;
 import com.example.starvelater.adapters.RecycleGridAdapter1;
 import com.example.starvelater.adapters.RestaurantItemAdapter;
-import com.example.starvelater.control.BottomSheetBehavior;
-import com.example.starvelater.control.BottomSheetBehaviorRecyclerManager;
+import com.example.starvelater.interfaces.CartItemClickListener;
 import com.example.starvelater.interfaces.CartProductClickListener;
+import com.example.starvelater.model.NormalProducts;
 import com.example.starvelater.model.Product;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class RestaurantProfileActivity extends AppCompatActivity implements CartProductClickListener {
+public class RestaurantProfileActivity extends AppCompatActivity implements CartProductClickListener, CartItemClickListener {
 
     RecyclerView datalist;
     RecyclerView itemlist;
 
     CartProductClickListener cartProductClickListener;
+    CartItemClickListener cartItemClickListener;
     List<Product> productArrayList = new ArrayList<>();
+    List<NormalProducts> itemsArrayList = new ArrayList<>();
 
     List<String> itemNameList;
     List<Integer> itemPriceList;
@@ -57,6 +52,7 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
 
     RecycleGridAdapter1 adapter;
     RestaurantItemAdapter itemAdapter;
+    FloatingActionButton fabCart;
 
     ImageView backbutton;
     Toolbar restaurantToolBar;
@@ -68,14 +64,13 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
 
     LinearLayout linearLayout;
 
-    private BottomSheetBehavior mBottomSheetBehavior;
     private View mBottomSheetView;
 
     private CoordinatorLayout mParent;
 
     private RecyclerView mBottomSheetRecycler;
     private LinearLayoutManager mLayoutManager;
-    private OrderedItemsAdapter mOrderedItemsAdapter;
+
 
 
     @Override
@@ -84,6 +79,12 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
         setContentView(R.layout.activity_restaurant_profile_activity);
 
         cartProductClickListener = (CartProductClickListener) this;
+        cartItemClickListener = (CartItemClickListener) this;
+
+        itemsArrayList.add(new NormalProducts(600,600,0,"Veg Chowmein"));
+        itemsArrayList.add(new NormalProducts(200,200,0,"Veg Manchurian"));
+        itemsArrayList.add(new NormalProducts(100,100,0,"Schezwan Soup"));
+        itemsArrayList.add(new NormalProducts(300,300,0,"Masala Kulcha"));
 
         productArrayList.add(new Product(500,500,0,"Beverages",R.drawable.photo6));
         productArrayList.add(new Product(1500,1500,0,"Biriyani north india",R.drawable.photo7));
@@ -102,43 +103,18 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
 
         txtRestaurantName = findViewById(R.id.restaurant_name);
         txtRestaurantLocation = findViewById(R.id.restaurant_location);
-        txtTotalCost = findViewById(R.id.total_item_cost);
 
-        txtTotalCost.setText("₹ 0.00");
+        /*fabCart = findViewById(R.id.fab_cart);
+        fabCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(RestaurantProfileActivity.this, "Cart", Toast.LENGTH_SHORT).show();
+            }
+        });*/
 
         itemNameList = new ArrayList<>();
         itemPriceList = new ArrayList<>();
         itemCountList = new ArrayList<>();
-
-
-
-        //Bottom Sheet Code
-        mParent = (CoordinatorLayout) findViewById(R.id.parent_container);
-        mParent.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
-
-        mBottomSheetView = findViewById(R.id.main_bottomsheet);
-
-        mBottomSheetBehavior = BottomSheetBehavior.from(mBottomSheetView);
-
-        mBottomSheetRecycler = (RecyclerView) findViewById(R.id.ordereditems_list);
-        mLayoutManager = new LinearLayoutManager(this);
-        mBottomSheetRecycler.setLayoutManager(mLayoutManager);
-
-        mBottomSheetBehavior.setPeekHeight(100);
-        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-            @Override
-            public void onStateChanged(View bottomSheet, int newState) {
-                if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
-                    //  mBottomSheetBehavior.setPeekHeight(0);
-                }
-            }
-
-            @Override
-            public void onSlide(View bottomSheet, float slideOffset) {
-            }
-        });
-
 
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
@@ -147,13 +123,6 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
 
         txtRestaurantName.setText(restaurantName);
         txtRestaurantLocation.setText(restaurantLocation);
-
-        //helper to rule scrolls
-        BottomSheetBehaviorRecyclerManager manager = new BottomSheetBehaviorRecyclerManager(mParent, mBottomSheetBehavior, mBottomSheetView);
-        manager.addControl(mBottomSheetRecycler);
-        manager.create();
-
-
         linearLayout = findViewById(R.id.linearLayout);
 
         restaurantToolBar = findViewById(R.id.restaurantToolBar);
@@ -193,11 +162,11 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
 
         adapter = new RecycleGridAdapter1(this, productArrayList,cartProductClickListener);
 
-       /* itemAdapter = new RestaurantItemAdapter(this, titles, prices);
+       itemAdapter = new RestaurantItemAdapter(this, itemsArrayList, cartItemClickListener);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         itemlist.setLayoutManager(linearLayoutManager);
-        itemlist.setAdapter((RecyclerView.Adapter) itemAdapter);*/
+        itemlist.setAdapter((RecyclerView.Adapter) itemAdapter);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
         datalist.setLayoutManager(gridLayoutManager);
@@ -269,12 +238,82 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
         calculateCartTotal();
     }
 
+    @Override
+    public void onItemMinusClick(NormalProducts productItemsBean) {
+
+        int i = itemsArrayList.indexOf(productItemsBean);
+        if (productItemsBean.getQuantity() > 0) {
+            int itemTotal = productItemsBean.getUnitPrice() * productItemsBean.getQuantity();
+
+            NormalProducts updatedItem = new NormalProducts(productItemsBean.getUnitPrice(),itemTotal, (productItemsBean.getQuantity() -1), productItemsBean.getTitles());
+
+            itemsArrayList.remove(productItemsBean);
+            itemsArrayList.add(i, updatedItem);
+
+            adapter.notifyDataSetChanged();
+
+            calculateCartTotal();
+        }
+
+    }
+
+    @Override
+    public void onItemPlusClick(NormalProducts productItemsBean) {
+
+        int i = productArrayList.indexOf(productItemsBean);
+
+        int quantity = productItemsBean.getQuantity() + 1;
+        int itemTotal = productItemsBean.getUnitPrice() * quantity;
+        Log.d("TAG", "onMinusClick: "+quantity);
+
+
+        NormalProducts updatedItem = new NormalProducts(productItemsBean.getUnitPrice(),itemTotal, quantity, productItemsBean.getTitles());
+
+        itemsArrayList.remove(productItemsBean);
+        itemsArrayList.add(i, updatedItem);
+
+        Log.e("QUNATITY", "" + updatedItem.getQuantity());
+        // updateQuantity(updatedProduct);
+
+        adapter.notifyDataSetChanged();
+
+
+        calculateCartTotal();
+
+
+    }
+
+    @Override
+    public void onAddItemClick(int position, NormalProducts productItemsBean) {
+
+        int i = productArrayList.indexOf(productItemsBean);
+        NormalProducts updatedItem = new NormalProducts(productItemsBean.getUnitPrice(),productItemsBean.getUnitPrice(), 1, productItemsBean.getTitles());
+
+        itemsArrayList.remove(productItemsBean);
+        itemsArrayList.add(i, updatedItem);
+
+        Log.e("QUNATITY", "" + updatedItem.getQuantity());
+        // updateQuantity(updatedProduct);
+
+        adapter.notifyDataSetChanged();
+
+
+        calculateCartTotal();
+
+    }
+
     // total Amount
     public void calculateCartTotal() {
 
         int grandTotal = 0;
 
         for (Product order : productArrayList) {
+
+            grandTotal += (ParseDouble(String.valueOf(order.getUnitPrice())) * order.getQuantity());
+
+        }
+
+        for (NormalProducts order : itemsArrayList) {
 
             grandTotal += (ParseDouble(String.valueOf(order.getUnitPrice())) * order.getQuantity());
 

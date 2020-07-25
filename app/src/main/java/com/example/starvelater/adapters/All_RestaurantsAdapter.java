@@ -10,11 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.starvelater.R;
-import com.example.starvelater.activities.restaurant.RestaurantProfile;
+import com.example.starvelater.activities.restaurant.RestaurantProfileActivity;
 
 import java.util.List;
 
@@ -59,7 +58,7 @@ public class All_RestaurantsAdapter extends RecyclerView.Adapter<All_Restaurants
         holder.restImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), RestaurantProfile.class);
+                Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("name", holder.restName.getText().toString());
                 bundle.putString("location", holder.restLocation.getText().toString());
@@ -71,7 +70,7 @@ public class All_RestaurantsAdapter extends RecyclerView.Adapter<All_Restaurants
         holder.restName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), RestaurantProfile.class);
+                Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("name", holder.restName.getText().toString());
                 bundle.putString("location", holder.restLocation.getText().toString());

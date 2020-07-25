@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.starvelater.R;
-import com.example.starvelater.activities.restaurant.RestaurantProfile;
 import com.example.starvelater.activities.restaurant.RestaurantProfileActivity;
 
 import java.util.ArrayList;

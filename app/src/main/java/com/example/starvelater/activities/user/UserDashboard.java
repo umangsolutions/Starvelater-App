@@ -7,11 +7,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -38,6 +41,8 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
     RecyclerView utilityRecycler;
     RecyclerView.Adapter adapter;
     private GradientDrawable gradient1, gradient2, gradient3;
+    private Dialog setLocationDialog;
+    private LinearLayout setLocationLayout;
 
 
     //Drawer Menu
@@ -53,6 +58,14 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
         super.onCreate(savedInstanceState);
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_user_dashboard);
+
+        setLocationLayout = findViewById(R.id.locationLayout);
+        setLocationLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSetLocationDialog();
+            }
+        });
 
         //Hooks
         featuredRecycler = findViewById(R.id.featured_recycler);
@@ -91,6 +104,37 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
         featuredRecycler();
         popularRecycler();
         utilityRecycler();
+    }
+
+    private void openSetLocationDialog() {
+        setLocationDialog = new Dialog(UserDashboard.this);
+
+        setLocationDialog.setContentView(R.layout.location_dialog);
+
+        ImageView btnClose = setLocationDialog.findViewById(R.id.btnClose);
+
+        Button btnSubmit = (Button) setLocationDialog.findViewById(R.id.btnSubmit);
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(UserDashboard.this, "Changed Location Successfully !", Toast.LENGTH_SHORT).show();
+                setLocationDialog.dismiss();
+            }
+        });
+
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setLocationDialog.dismiss();
+            }
+        });
+
+        Window window = setLocationDialog.getWindow();
+        window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        setLocationDialog.show();
+
     }
 
 

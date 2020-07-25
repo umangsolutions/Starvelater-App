@@ -61,4 +61,21 @@
     <string name="quantity">Qty.</string>
     <string name="name_of_item">Name of Item</string>
 
+    <string-array name="cities">
+        <item>Select your City</item>
+        <item>Kakinada</item>
+        <item>Bhilai</item>
+        <item>Hyderabad</item>
+        <item>Rajam</item>
+    </string-array>
+
+    <string-array name="areas">
+        <item>Select your Area</item>
+        <item>JNTU University</item>
+        <item>Jayendra Nagar</item>
+        <item>Venkat Nagar</item>
+        <item>Tilak Street</item>
+        <item>Bhanugudi Junction</item>
+    </string-array>
+
 </resources>

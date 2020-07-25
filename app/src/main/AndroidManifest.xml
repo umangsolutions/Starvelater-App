@@ -21,7 +21,6 @@
         <activity android:name=".activities.college_canteen.All_CollegeCanteen" />
         <activity android:name=".activities.restaurant.All_Restaurants" />
         <activity android:name=".adapters.CustomGridLayout" />
-        <activity android:name=".activities.restaurant.RestaurantProfile" />
         <activity android:name=".activities.restaurant.RestaurantProfileActivity" />
         <activity android:name=".activities.loginsignup.StartUpScreen" />
         <activity
