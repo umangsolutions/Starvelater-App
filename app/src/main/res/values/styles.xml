@@ -14,6 +14,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">#CF0052</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="fontFamily">@font/muli</item>
     </style>
 
 

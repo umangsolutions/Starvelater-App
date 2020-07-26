@@ -14,10 +14,6 @@
             android:id="@+id/nav_all_categories"
             android:icon="@drawable/categorymenu"
             android:title="@string/all_categories"/>
-        <item
-            android:id="@+id/nav_search_by_location"
-            android:icon="@drawable/searchbylocation"
-            android:title="@string/search_by_location" />
 
         <item
             android:id="@+id/nav_get_started"

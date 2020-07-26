@@ -363,10 +363,13 @@
         android:src="@drawable/ic_shopping_cart"
         android:tint="@color/colorLightWhite"/>-->
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="2"
+        android:id="@+id/cartLayout"
         android:background="@color/colorPrimary"
         android:orientation="horizontal"
         android:layout_gravity="end|bottom">
@@ -392,7 +395,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Items |"
+                android:text="Item(s) |"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="5dp"
                 android:textSize="16dp"
@@ -423,7 +426,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="View Cart"
+                android:text="Order Summary"
                 android:textSize="16dp"
                 android:textColor="@color/colorWhite"
                 android:fontFamily="@font/muli"/>
@@ -434,7 +437,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:tint="@color/colorWhite"
-                android:src="@drawable/ic_shopping_cart"/>
+                android:src="@drawable/bill"/>
 
         </LinearLayout>
 

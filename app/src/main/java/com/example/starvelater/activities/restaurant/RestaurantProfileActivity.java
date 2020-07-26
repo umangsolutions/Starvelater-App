@@ -38,6 +38,11 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
     RecyclerView datalist;
     RecyclerView itemlist;
 
+    TextView txtOrderSummary;
+    TextView txtItemCount;
+
+    LinearLayout cartLayout;
+
     CartProductClickListener cartProductClickListener;
     CartItemClickListener cartItemClickListener;
     List<Product> productArrayList = new ArrayList<>();
@@ -93,9 +98,12 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
         productArrayList.add(new Product(400,400,0,"American Italian Food",R.drawable.photo10));
         productArrayList.add(new Product(128,128,0,"Masala Kulcha",R.drawable.photo11));
 
+        txtOrderSummary = findViewById(R.id.view_cart);
 
         datalist = findViewById(R.id.datalist);
         itemlist = findViewById(R.id.itemlist);
+
+        txtItemCount = findViewById(R.id.itemsCount);
 
         nameCountList = new HashMap<>();
         namePriceList = new HashMap<>();
@@ -104,6 +112,8 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
         txtRestaurantName = findViewById(R.id.restaurant_name);
         txtRestaurantLocation = findViewById(R.id.restaurant_location);
 
+        txtTotalCost = findViewById(R.id.itemsCost);
+
         /*fabCart = findViewById(R.id.fab_cart);
         fabCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +121,7 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
                 Toast.makeText(RestaurantProfileActivity.this, "Cart", Toast.LENGTH_SHORT).show();
             }
         });*/
+
 
         itemNameList = new ArrayList<>();
         itemPriceList = new ArrayList<>();
@@ -124,6 +135,17 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
         txtRestaurantName.setText(restaurantName);
         txtRestaurantLocation.setText(restaurantLocation);
         linearLayout = findViewById(R.id.linearLayout);
+
+        cartLayout = findViewById(R.id.cartLayout);
+
+
+        cartLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RestaurantProfileActivity.this,OrderedSummaryActivity.class);
+                startActivity(intent);
+            }
+        });
 
         restaurantToolBar = findViewById(R.id.restaurantToolBar);
         setSupportActionBar(restaurantToolBar);
@@ -250,7 +272,7 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
             itemsArrayList.remove(productItemsBean);
             itemsArrayList.add(i, updatedItem);
 
-            adapter.notifyDataSetChanged();
+            itemAdapter.notifyDataSetChanged();
 
             calculateCartTotal();
         }
@@ -260,7 +282,7 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
     @Override
     public void onItemPlusClick(NormalProducts productItemsBean) {
 
-        int i = productArrayList.indexOf(productItemsBean);
+        int i = itemsArrayList.indexOf(productItemsBean);
 
         int quantity = productItemsBean.getQuantity() + 1;
         int itemTotal = productItemsBean.getUnitPrice() * quantity;
@@ -275,7 +297,7 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
         Log.e("QUNATITY", "" + updatedItem.getQuantity());
         // updateQuantity(updatedProduct);
 
-        adapter.notifyDataSetChanged();
+        itemAdapter.notifyDataSetChanged();
 
 
         calculateCartTotal();
@@ -286,7 +308,7 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
     @Override
     public void onAddItemClick(int position, NormalProducts productItemsBean) {
 
-        int i = productArrayList.indexOf(productItemsBean);
+        int i = itemsArrayList.indexOf(productItemsBean);
         NormalProducts updatedItem = new NormalProducts(productItemsBean.getUnitPrice(),productItemsBean.getUnitPrice(), 1, productItemsBean.getTitles());
 
         itemsArrayList.remove(productItemsBean);
@@ -295,8 +317,7 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
         Log.e("QUNATITY", "" + updatedItem.getQuantity());
         // updateQuantity(updatedProduct);
 
-        adapter.notifyDataSetChanged();
-
+        itemAdapter.notifyDataSetChanged();
 
         calculateCartTotal();
 
@@ -305,23 +326,33 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
     // total Amount
     public void calculateCartTotal() {
 
-        int grandTotal = 0;
+        int grandTotal = 0,quantity = 0;
 
-        for (Product order : productArrayList) {
+            cartLayout.setVisibility(View.VISIBLE);
+            for (Product order : productArrayList) {
 
-            grandTotal += (ParseDouble(String.valueOf(order.getUnitPrice())) * order.getQuantity());
+                grandTotal += (ParseDouble(String.valueOf(order.getUnitPrice())) * order.getQuantity());
+                quantity += (ParseDouble(String.valueOf(order.getQuantity())));
+            }
 
-        }
+            for (NormalProducts order : itemsArrayList) {
 
-        for (NormalProducts order : itemsArrayList) {
+                grandTotal += (ParseDouble(String.valueOf(order.getUnitPrice())) * order.getQuantity());
+                quantity += (ParseDouble(String.valueOf(order.getQuantity())));
+            }
 
-            grandTotal += (ParseDouble(String.valueOf(order.getUnitPrice())) * order.getQuantity());
+            if(grandTotal == 0) {
+                cartLayout.setVisibility(View.GONE);
+            } else {
 
-        }
+                Log.e("TOTAL", "" + productArrayList.size() + "Items | " + "  DISCOUNT : " + grandTotal);
 
-        Log.e("TOTAL", "" + productArrayList.size() + "Items | " + "  DISCOUNT : " + grandTotal);
+                cartLayout.setVisibility(View.VISIBLE);
 
-        //txtSubTotal.setText(productArrayList.size() + " Items | Rs " + grandTotal);
+                //txtSubTotal.setText(productArrayList.size() + " Items | Rs " + grandTotal);
+                txtTotalCost.setText("₹ " + String.valueOf(grandTotal));
+                txtItemCount.setText("" + String.valueOf(quantity));
+            }
 
 
     }

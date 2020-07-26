@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#fff"
+    tools:context=".activities.helpandsupport.HelpandSupportActivity">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+      android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/restaurantToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:theme="@style/CardView.Light"
+        app:titleMarginStart="40dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:src="@drawable/ic_arrow_back_black_24dp" />
+
+
+        </FrameLayout>
+        <!--
+                  <RelativeLayout
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content">
+
+                      <ImageView
+                          android:id="@+id/back_button"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:padding="5dp"
+                          android:src="@drawable/ic_arrow_back_black_24dp" />
+
+                      <ImageView
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_alignParentEnd="true"
+                          android:layout_gravity="right"
+                          android:padding="5dp"
+                          android:src="@drawable/ic_search" />
+
+                  </RelativeLayout>-->
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="25dp"
+            android:layout_gravity="center_vertical" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Submit your Query here. \nWe will resolve it as early as Possible"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:layout_marginTop="15dp"
+                android:textColor="#000"
+                android:fontFamily="@font/muli" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/help"
+                android:fitsSystemWindows="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="contact@starvelater.in"
+                android:textSize="20dp"
+                android:textColor="#000"
+                android:layout_margin="5dp"
+                android:fontFamily="@font/muli"
+                android:layout_gravity="center_horizontal"
+                android:drawableStart="@drawable/ic_email_black_24dp"
+                android:drawablePadding="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+91 98765 43210"
+                android:textSize="20dp"
+                android:layout_margin="5dp"
+                android:textColor="#000"
+                android:fontFamily="@font/muli"
+                android:layout_gravity="center_horizontal"
+                android:drawableStart="@drawable/ic_phone_black_24dp"
+                android:drawablePadding="10dp" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Write your Query here..."
+                app:boxStrokeColor="#000"
+                android:layout_marginTop="30dp"
+                app:boxStrokeWidthFocused="2dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="#000"
+                app:hintTextColor="#000"
+                app:startIconTint="#000">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/muli"
+                    android:inputType="text"
+                    android:textColor="#000" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@color/colorPrimary"
+                android:text="Submit Query"
+                android:textColor="#fff" />
+        </LinearLayout>
+
+  </LinearLayout>
+
+
+</androidx.core.widget.NestedScrollView>

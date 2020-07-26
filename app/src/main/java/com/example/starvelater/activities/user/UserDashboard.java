@@ -21,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.starvelater.R;
+import com.example.starvelater.activities.helpandsupport.HelpandSupportActivity;
+import com.example.starvelater.activities.helpandsupport.TermsandConditionsActivity;
 import com.example.starvelater.activities.restaurant.All_Restaurants;
 import com.example.starvelater.activities.loginsignup.StartUpScreen;
 import com.example.starvelater.adapters.homeAdapter.FeaturedAdapter;
@@ -210,6 +212,15 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
                 Intent intent1 = new Intent(UserDashboard.this, StartUpScreen.class);
                 startActivity(intent1);
                 break;
+            case R.id.nav_terms_and_conditions:
+                Intent intent3 = new Intent(UserDashboard.this, TermsandConditionsActivity.class);
+                startActivity(intent3);
+                break;
+            case R.id.nav_support:
+                Intent intent4= new Intent(UserDashboard.this, HelpandSupportActivity.class);
+                startActivity(intent4);
+                break;
+
 
 
         }
