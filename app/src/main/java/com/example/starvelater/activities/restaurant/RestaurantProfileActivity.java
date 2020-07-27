@@ -31,6 +31,7 @@ import com.example.starvelater.model.Product;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -110,6 +111,8 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
         namePriceList = new HashMap<>();
 
 
+
+
         txtRestaurantName = findViewById(R.id.restaurant_name);
         txtRestaurantLocation = findViewById(R.id.restaurant_location);
 
@@ -140,14 +143,18 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
         cartLayout = findViewById(R.id.cartLayout);
 
 
-        cartLayout.setOnClickListener(new View.OnClickListener() {
+       cartLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Intent intent = new Intent(RestaurantProfileActivity.this,OrderedSummaryActivity.class);
-                /*Bundle bundle = new Bundle();
-                bundle.putSerializable("recommended_items",(Serializable)productArrayList);
-                bundle.putSerializable("normal_items",(Serializable)itemsArrayList);*/
+
+                Bundle bundle1 = new Bundle();
+                bundle1.putString("restaurantName",restaurantName);
+                bundle1.putString("restaurantAddress",restaurantLocation);
+                //bundle1.putString("grandTotal",String.valueOf(grandTotal));
+                //bundle1.putString("totalCount",String.valueOf(quantity));
+                intent.putExtras(bundle1);
                 intent.putExtra("recommendedItemsList", (Serializable) productArrayList);
                 intent.putExtra("normal_itemsList",(Serializable) itemsArrayList);
                 startActivity(intent);
@@ -186,6 +193,7 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
                 startActivity(intent);
             }
         });
+
 
 
 
@@ -333,7 +341,8 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
     // total Amount
     public void calculateCartTotal() {
 
-        int grandTotal = 0,quantity = 0;
+        int grandTotal=0,quantity=0;
+
 
             cartLayout.setVisibility(View.VISIBLE);
             for (Product order : productArrayList) {
@@ -356,10 +365,14 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
 
                 cartLayout.setVisibility(View.VISIBLE);
 
+
+                DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
+                String formattedValue = decimalFormat.format(grandTotal);
                 //txtSubTotal.setText(productArrayList.size() + " Items | Rs " + grandTotal);
-                txtTotalCost.setText("₹ " + String.valueOf(grandTotal));
+                txtTotalCost.setText("₹ " + formattedValue);
                 txtItemCount.setText("" + String.valueOf(quantity));
             }
+
 
 
     }

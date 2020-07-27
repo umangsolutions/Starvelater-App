@@ -18,6 +18,7 @@ import com.example.starvelater.interfaces.CartItemClickListener;
 import com.example.starvelater.model.NormalProducts;
 import com.example.starvelater.model.Product;
 
+import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
@@ -59,10 +60,17 @@ public class OrderedItemsAdapter extends RecyclerView.Adapter<OrderedItemsAdapte
 
         final Product normalProductsModel = recommendedModelList.get(position);
 
-         if(normalProductsModel.getQuantity() != 0 ) {
+         if(normalProductsModel.getQuantity() == 0 ) {
+
+         } else {
+
+             DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
+             String formattedValues = decimalFormat.format(normalProductsModel.getItemTotalPrice());
+
              holder.itemName.setText(normalProductsModel.getTitles());
              holder.count.setText(normalProductsModel.getQuantity() + " no.s");
-             holder.finalprice.setText("₹ " + normalProductsModel.getItemTotalPrice());
+             holder.finalprice.setText("₹ " + formattedValues);
+
          }
 
         //  holder.productQuantity.setText(""+productsModel.getQuantity());

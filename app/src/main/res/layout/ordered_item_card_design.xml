@@ -6,10 +6,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:padding="10dp"
-    android:weightSum="3">
+    android:weightSum="2">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center_vertical"
@@ -19,16 +19,15 @@
             android:id="@+id/itemName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:layout_gravity="left"
-            android:drawableStart="@drawable/nonveg"
+            android:drawableStart="@drawable/veg"
             android:drawablePadding="5dp"
             android:fontFamily="@font/muli"
             android:shadowColor="#ffffff"
             android:text="@string/textview"
             android:textAllCaps="false"
             android:textColor="#000"
-            android:textSize="14dp" />
+            android:textSize="13dp" />
 
     </LinearLayout>
 
@@ -38,41 +37,34 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:layout_weight="1"
-        android:gravity="left"
-        android:orientation="vertical">
+        android:weightSum="2"
+        android:orientation="horizontal">
+
         <TextView
             android:id="@+id/count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_gravity="left"
             android:padding="5dp"
-            android:text="1 no.s"
+            android:text="0 no.s"
+            android:layout_weight="1"
             android:textColor="#000"
-            android:textSize="12dp" />
+            android:textSize="13dp" />
 
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_weight="1"
-        android:gravity="right"
-        android:orientation="vertical">
         <TextView
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
             android:padding="5dp"
-            android:text="₹ 500"
+            android:text="₹ 0.00"
+            android:gravity="right"
+            android:layout_weight="1"
             android:textColor="#000"
-            android:textSize="12dp" />
+            android:textSize="13dp" />
 
 
     </LinearLayout>
+
 
 
 </LinearLayout>
