@@ -29,6 +29,7 @@ import com.example.starvelater.model.NormalProducts;
 import com.example.starvelater.model.Product;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -142,7 +143,12 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
         cartLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(RestaurantProfileActivity.this,OrderedSummaryActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("recommended_items",(Serializable)productArrayList);
+                bundle.putSerializable("normal_items",(Serializable)itemsArrayList);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
@@ -182,15 +188,15 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
 
 
 
-        adapter = new RecycleGridAdapter1(this, productArrayList,cartProductClickListener);
+        adapter = new RecycleGridAdapter1(RestaurantProfileActivity.this, productArrayList,cartProductClickListener);
 
-       itemAdapter = new RestaurantItemAdapter(this, itemsArrayList, cartItemClickListener);
+       itemAdapter = new RestaurantItemAdapter(RestaurantProfileActivity.this, itemsArrayList, cartItemClickListener);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(RestaurantProfileActivity.this, LinearLayoutManager.VERTICAL, false);
         itemlist.setLayoutManager(linearLayoutManager);
         itemlist.setAdapter((RecyclerView.Adapter) itemAdapter);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(RestaurantProfileActivity.this, 2, GridLayoutManager.VERTICAL, false);
         datalist.setLayoutManager(gridLayoutManager);
         datalist.setAdapter((RecyclerView.Adapter) adapter);
 

@@ -16,7 +16,7 @@ public class TermsandConditionsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_termsand_conditions);
+        setContentView(R.layout.activity_login);
 
         btnBack = findViewById(R.id.back_button);
 

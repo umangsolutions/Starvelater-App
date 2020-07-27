@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.starvelater.R;
 import com.example.starvelater.interfaces.CartItemClickListener;
 import com.example.starvelater.model.NormalProducts;
+import com.example.starvelater.model.Product;
 
 import java.util.List;
 
@@ -22,16 +23,16 @@ import static android.content.ContentValues.TAG;
 public class OrderedItemsAdapter extends RecyclerView.Adapter<OrderedItemsAdapter.ViewHolder> {
 
     private Context mContext;
-    private List<NormalProducts> itemsModelList;
-    private CartItemClickListener cartItemClickListener;
+    private List<Product> recommendedModelList;
+    private List<NormalProducts> normalModelList;
 
     LayoutInflater inflater;
 
-    public OrderedItemsAdapter(Context mContext, List<NormalProducts> itemsModelList, CartItemClickListener cartItemClickListener) {
+    public OrderedItemsAdapter(Context mContext, List<Product> recommendedModelList, List<NormalProducts> normalModelList) {
 
         this.mContext = mContext;
-        this.itemsModelList = itemsModelList;
-        this.cartItemClickListener = cartItemClickListener;
+        this.recommendedModelList = recommendedModelList;
+        this.normalModelList = normalModelList;
 
     }
 
@@ -49,52 +50,12 @@ public class OrderedItemsAdapter extends RecyclerView.Adapter<OrderedItemsAdapte
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
-        final NormalProducts normalProductsModel = itemsModelList.get(position);
+        final Product recommendedProductModel = recommendedModelList.get(position);
+        final NormalProducts normalProductsModel = normalModelList.get(position);
 
         holder.title.setText(normalProductsModel.getTitles());
         holder.price.setText("₹ "+normalProductsModel.getUnitPrice());
         //  holder.productQuantity.setText(""+productsModel.getQuantity());
-
-        if (normalProductsModel.getQuantity() == 0) {
-            holder.productQuantity.setText("ADD");
-            holder.productMinus.setVisibility(View.GONE);
-            holder.productPlus.setVisibility(View.GONE);
-            Log.d(TAG, "onBindViewHolder: " + normalProductsModel.getQuantity());
-        } else {
-            holder.productQuantity.setText("" + normalProductsModel.getQuantity());
-            holder.productMinus.setVisibility(View.VISIBLE);
-            holder.productPlus.setVisibility(View.VISIBLE);
-            Log.d(TAG, "onBindViewHolder1: " + normalProductsModel.getQuantity());
-        }
-
-        holder.productQuantity.setOnClickListener(view -> {
-            if (holder.productQuantity.getText().toString().equalsIgnoreCase("ADD")) {
-                holder.productQuantity.setText("" + normalProductsModel.getQuantity());
-                holder.productMinus.setVisibility(View.VISIBLE);
-                holder.productPlus.setVisibility(View.VISIBLE);
-                cartItemClickListener.onAddItemClick(position, normalProductsModel);
-            }
-        });
-
-
-
-        holder.productMinus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                cartItemClickListener.onItemMinusClick(normalProductsModel);
-            }
-        });
-
-        holder.productPlus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                cartItemClickListener.onItemPlusClick(normalProductsModel);
-            }
-        });
-
-
 
     }
 
@@ -123,9 +84,7 @@ public class OrderedItemsAdapter extends RecyclerView.Adapter<OrderedItemsAdapte
             super(itemView);
             title = itemView.findViewById(R.id.textView);
             price = itemView.findViewById(R.id.price);
-            productMinus= itemView.findViewById(R.id.product_minus);
-            productPlus= itemView.findViewById(R.id.product_plus);
-            productQuantity= itemView.findViewById(R.id.product_quantity);
+
 
         }
     }

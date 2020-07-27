@@ -433,8 +433,8 @@
 
             <ImageView
                 android:id="@+id/view_cartimg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_margin="10dp"
                 android:tint="@color/colorWhite"
                 android:src="@drawable/bill"/>
