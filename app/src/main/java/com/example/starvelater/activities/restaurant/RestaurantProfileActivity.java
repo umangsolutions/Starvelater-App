@@ -2,6 +2,7 @@ package com.example.starvelater.activities.restaurant;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -46,8 +47,9 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
 
     CartProductClickListener cartProductClickListener;
     CartItemClickListener cartItemClickListener;
+
     List<Product> productArrayList = new ArrayList<>();
-    List<NormalProducts> itemsArrayList = new ArrayList<>();
+    List<Product> itemsArrayList = new ArrayList<>();
 
     List<String> itemNameList;
     List<Integer> itemPriceList;
@@ -77,8 +79,6 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
     private RecyclerView mBottomSheetRecycler;
     private LinearLayoutManager mLayoutManager;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,10 +87,10 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
         cartProductClickListener = (CartProductClickListener) this;
         cartItemClickListener = (CartItemClickListener) this;
 
-        itemsArrayList.add(new NormalProducts(600,600,0,"Veg Chowmein"));
-        itemsArrayList.add(new NormalProducts(200,200,0,"Veg Manchurian"));
-        itemsArrayList.add(new NormalProducts(100,100,0,"Schezwan Soup"));
-        itemsArrayList.add(new NormalProducts(300,300,0,"Masala Kulcha"));
+        itemsArrayList.add(new Product(600,600,0,"Veg Chowmein",0));
+        itemsArrayList.add(new Product(200,200,0,"Veg Manchurian",0));
+        itemsArrayList.add(new Product(100,100,0,"Schezwan Soup",0));
+        itemsArrayList.add(new Product(300,300,0,"Masala Kulcha",0));
 
         productArrayList.add(new Product(500,500,0,"Beverages",R.drawable.photo6));
         productArrayList.add(new Product(1500,1500,0,"Biriyani north india",R.drawable.photo7));
@@ -145,10 +145,11 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
             public void onClick(View v) {
 
                 Intent intent = new Intent(RestaurantProfileActivity.this,OrderedSummaryActivity.class);
-                Bundle bundle = new Bundle();
+                /*Bundle bundle = new Bundle();
                 bundle.putSerializable("recommended_items",(Serializable)productArrayList);
-                bundle.putSerializable("normal_items",(Serializable)itemsArrayList);
-                intent.putExtras(bundle);
+                bundle.putSerializable("normal_items",(Serializable)itemsArrayList);*/
+                intent.putExtra("recommendedItemsList", (Serializable) productArrayList);
+                intent.putExtra("normal_itemsList",(Serializable) itemsArrayList);
                 startActivity(intent);
             }
         });
@@ -267,7 +268,7 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
     }
 
     @Override
-    public void onItemMinusClick(NormalProducts productItemsBean) {
+    public void onItemMinusClick(Product productItemsBean) {
 
         int i = itemsArrayList.indexOf(productItemsBean);
         if (productItemsBean.getQuantity() > 0) {
@@ -286,7 +287,7 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
     }
 
     @Override
-    public void onItemPlusClick(NormalProducts productItemsBean) {
+    public void onItemPlusClick(Product productItemsBean) {
 
         int i = itemsArrayList.indexOf(productItemsBean);
 
@@ -312,7 +313,7 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
     }
 
     @Override
-    public void onAddItemClick(int position, NormalProducts productItemsBean) {
+    public void onAddItemClick(int position, Product productItemsBean) {
 
         int i = itemsArrayList.indexOf(productItemsBean);
         NormalProducts updatedItem = new NormalProducts(productItemsBean.getUnitPrice(),productItemsBean.getUnitPrice(), 1, productItemsBean.getTitles());
@@ -341,7 +342,7 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
                 quantity += (ParseDouble(String.valueOf(order.getQuantity())));
             }
 
-            for (NormalProducts order : itemsArrayList) {
+            for (Product order : itemsArrayList) {
 
                 grandTotal += (ParseDouble(String.valueOf(order.getUnitPrice())) * order.getQuantity());
                 quantity += (ParseDouble(String.valueOf(order.getQuantity())));

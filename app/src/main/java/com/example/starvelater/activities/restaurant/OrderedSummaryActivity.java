@@ -1,25 +1,28 @@
 package com.example.starvelater.activities.restaurant;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 
 import com.example.starvelater.R;
 import com.example.starvelater.adapters.OrderedItemsAdapter;
 import com.example.starvelater.model.NormalProducts;
 import com.example.starvelater.model.Product;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderedSummaryActivity extends AppCompatActivity {
+public class OrderedSummaryActivity extends AppCompatActivity implements Serializable {
 
     RecyclerView ordereditems;
     OrderedItemsAdapter orderedItemsAdapter;
     List<Product> recommendedArraylist;
-    List<NormalProducts> normalArrayList;
+    List<Product> normalArrayList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,11 +32,30 @@ public class OrderedSummaryActivity extends AppCompatActivity {
         recommendedArraylist = new ArrayList<>();
         normalArrayList = new ArrayList<>();
 
-        Bundle bundle = getIntent().getExtras();
-        recommendedArraylist = (List<Product>) bundle.getSerializable("recommended_items");
-        normalArrayList = (List<NormalProducts>) bundle.getSerializable("normal_items");
+        ordereditems = findViewById(R.id.orderedItemList);
 
-        ordereditems = new RecyclerView(OrderedSummaryActivity.this, recommendedArraylist,normalArrayList);
+        /*Intent intent = getIntent();
+        Bundle bundle = intent.getBundleExtra("bundle");
+        */
+        recommendedArraylist = (List<Product>) getIntent().getSerializableExtra("recommendedItemsList");
+        normalArrayList = (List<Product>) getIntent().getSerializableExtra("normal_itemsList");
+
+
+        recommendedArraylist.addAll(normalArrayList);
+
+        /*for(int i=0;i<recommendedArraylist.size();i++) {
+            if(recommendedArraylist.get(i).getQuantity() == 0) {
+                recommendedArraylist.remove(i);
+            }
+        }*/
+        orderedItemsAdapter = new OrderedItemsAdapter(OrderedSummaryActivity.this,recommendedArraylist);
+
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(OrderedSummaryActivity.this,LinearLayoutManager.VERTICAL,false);
+        ordereditems.setLayoutManager(linearLayoutManager);
+        ordereditems.setAdapter(orderedItemsAdapter);
+
+
 
 
     }

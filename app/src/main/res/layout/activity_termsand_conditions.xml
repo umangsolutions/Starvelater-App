@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".activities.helpandsupport.TermsandConditionsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/restaurantToolBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:theme="@style/CardView.Light"
+            app:titleMarginStart="40dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/back_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_arrow_back_black_24dp" />
+
+
+            </FrameLayout>
+            <!--
+                      <RelativeLayout
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content">
+
+                          <ImageView
+                              android:id="@+id/back_button"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:padding="5dp"
+                              android:src="@drawable/ic_arrow_back_black_24dp" />
+
+                          <ImageView
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_alignParentEnd="true"
+                              android:layout_gravity="right"
+                              android:padding="5dp"
+                              android:src="@drawable/ic_search" />
+
+                      </RelativeLayout>-->
+
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:text="Terms and Conditions"
+            android:textSize="25dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/muli_black"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/terms_border"
+            android:layout_height="580dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:orientation="vertical" >
+                     <TextView
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:fontFamily="@font/muli"
+                         android:fitsSystemWindows="true"
+                         android:layout_marginTop="5dp"
+                         android:text="@string/terms" />
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+</ScrollView>

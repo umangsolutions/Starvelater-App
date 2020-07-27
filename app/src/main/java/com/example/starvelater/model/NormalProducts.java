@@ -1,6 +1,8 @@
 package com.example.starvelater.model;
 
-public class NormalProducts {
+import java.io.Serializable;
+
+public class NormalProducts extends Product implements Serializable {
 
     private int unitPrice;
     private int itemTotalPrice;

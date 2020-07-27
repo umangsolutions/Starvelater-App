@@ -5,10 +5,10 @@ import com.example.starvelater.model.Product;
 
 public interface CartItemClickListener {
 
-    void onItemMinusClick(NormalProducts product);
+    void onItemMinusClick(Product product);
 
-    void onItemPlusClick(NormalProducts product);
+    void onItemPlusClick(Product product);
 
-    void onAddItemClick(int position,NormalProducts product);
+    void onAddItemClick(int position,Product product);
 
 }

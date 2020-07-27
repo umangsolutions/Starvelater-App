@@ -24,12 +24,12 @@ import static android.content.ContentValues.TAG;
 public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAdapter.ViewHolder> {
 
     private Context mContext;
-    private List<NormalProducts> itemsModelList;
+    private List<Product> itemsModelList;
     private CartItemClickListener cartItemClickListener;
 
     LayoutInflater inflater;
 
-    public RestaurantItemAdapter(Context mContext, List<NormalProducts> itemsModelList, CartItemClickListener cartItemClickListener) {
+    public RestaurantItemAdapter(Context mContext, List<Product> itemsModelList, CartItemClickListener cartItemClickListener) {
 
         this.mContext = mContext;
         this.itemsModelList = itemsModelList;
@@ -51,7 +51,7 @@ public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAd
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
-        final NormalProducts normalProductsModel = itemsModelList.get(position);
+        final Product normalProductsModel = itemsModelList.get(position);
 
         holder.title.setText(normalProductsModel.getTitles());
         holder.price.setText("₹ "+normalProductsModel.getUnitPrice());
