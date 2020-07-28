@@ -373,8 +373,6 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
                 txtItemCount.setText("" + String.valueOf(quantity));
             }
 
-
-
     }
 
 
