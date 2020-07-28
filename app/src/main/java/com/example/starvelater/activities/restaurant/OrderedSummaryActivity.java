@@ -38,7 +38,7 @@ public class OrderedSummaryActivity extends AppCompatActivity implements Seriali
 
     Button btnPreOrder,btnTakeAway,btnDineIn,btnCheckOut;
     ImageView imgDisplay;
-    String selectedBtn = "";
+    String selectedBtn = "PreOrder";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
