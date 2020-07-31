@@ -25,12 +25,13 @@ public interface ApiInterface {
 
     @Headers("Content-Type: application/json")
     @POST("load_restaurants.php")
-    Call<RestaurantsModel> processAllRestaurants(@Body JsonObject object);
-
+    Call<PopularRestaurantsModel> processAllPopular(@Body JsonObject object);
 
     @Headers("Content-Type: application/json")
     @POST("load_restaurants.php")
-    Call<PopularRestaurantsModel> processAllPopular(@Body JsonObject object);
+    Call<RestaurantsModel> processAllRestaurants(@Body JsonObject object);
+
+
 
 
 /*

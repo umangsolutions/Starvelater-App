@@ -2,16 +2,17 @@ package com.example.starvelater.jsonmodels;
 
 import java.util.List;
 
-import retrofit2.http.POST;
-
 public class PopularRestaurantsModel {
+
     /**
      * status : true
-     * data : [{"Restaurant_ID":"5f22b510f2edc","RestaurantLogo":"http://starvelater.net/partner/uploads/bill.png","Restaurant_Name":"Koushik Cafe","KnownFor":"Bihar Foods","Address":"70-4-8/32","AvgPrepTime":"0"},{"Restaurant_ID":"5f22bde43ba92","RestaurantLogo":"http://starvelater.net/partner/uploads/HelpSupportWeb.png","Restaurant_Name":"Ram Foods","KnownFor":"Good Foods","Address":"GMRIT","AvgPrepTime":"0"}]
+     * msg : Most Popular Records Loaded Successfully
+     * data : [{"Restaurant_ID":"5f244bb780f1f","RestaurantLogo":"http://starvelater.net/partner/uploads/paaka.jpg","Restaurant_Name":"Paaka","Address":"SRMT Mall ","AvgPrepTime":"0"},{"Restaurant_ID":"5f244fed59afe","RestaurantLogo":"http://starvelater.net/partner/uploads/download.png","Restaurant_Name":"Bombay Kulfi","Address":"IMAX Cafe","AvgPrepTime":"0"},{"Restaurant_ID":"5f244eea04ff2","RestaurantLogo":"http://starvelater.net/partner/uploads/subayya.jpg","Restaurant_Name":"Subbaya Gari Hotel","Address":"Forum Sujana Mall","AvgPrepTime":"0"}]
      */
 
     private boolean status;
-    private List<PopularRestaurantsModel.DataBean> data;
+    private String msg;
+    private List<DataBean> data;
 
     public boolean isStatus() {
         return status;
@@ -21,28 +22,34 @@ public class PopularRestaurantsModel {
         this.status = status;
     }
 
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
     public List<DataBean> getData() {
         return data;
     }
 
-    public void setData(List<PopularRestaurantsModel.DataBean> data) {
+    public void setData(List<DataBean> data) {
         this.data = data;
     }
 
     public static class DataBean {
         /**
-         * Restaurant_ID : 5f22b510f2edc
-         * RestaurantLogo : http://starvelater.net/partner/uploads/bill.png
-         * Restaurant_Name : Koushik Cafe
-         * KnownFor : Bihar Foods
-         * Address : 70-4-8/32
+         * Restaurant_ID : 5f244bb780f1f
+         * RestaurantLogo : http://starvelater.net/partner/uploads/paaka.jpg
+         * Restaurant_Name : Paaka
+         * Address : SRMT Mall
          * AvgPrepTime : 0
          */
 
         private String Restaurant_ID;
         private String RestaurantLogo;
         private String Restaurant_Name;
-        private String KnownFor;
         private String Address;
         private String AvgPrepTime;
 
@@ -68,14 +75,6 @@ public class PopularRestaurantsModel {
 
         public void setRestaurant_Name(String Restaurant_Name) {
             this.Restaurant_Name = Restaurant_Name;
-        }
-
-        public String getKnownFor() {
-            return KnownFor;
-        }
-
-        public void setKnownFor(String KnownFor) {
-            this.KnownFor = KnownFor;
         }
 
         public String getAddress() {
