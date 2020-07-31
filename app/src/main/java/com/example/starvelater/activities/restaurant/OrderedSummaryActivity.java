@@ -55,12 +55,10 @@ public class OrderedSummaryActivity extends AppCompatActivity implements Seriali
 
         btnCheckOut = findViewById(R.id.checkout);
 
-
         btnPreOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectedBtn = "PreOrder";
-
                 // setting Image on the Right Side
                 imgDisplay.setImageDrawable(getResources().getDrawable(R.drawable.ic_food_preorder));
 

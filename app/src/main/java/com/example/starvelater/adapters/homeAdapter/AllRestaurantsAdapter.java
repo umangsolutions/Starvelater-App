@@ -1,5 +1,6 @@
 package com.example.starvelater.adapters.homeAdapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,46 +12,49 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.starvelater.R;
 import com.example.starvelater.activities.restaurant.RestaurantProfileActivity;
+import com.example.starvelater.jsonmodels.RestaurantsModel;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.FeaturedViewHolder> {
+public class AllRestaurantsAdapter extends RecyclerView.Adapter<AllRestaurantsAdapter.MyViewHolder> {
 
-    ArrayList<FeaturedHelperClass> featuredRestaurants;
+    Context context;
+    List<RestaurantsModel.DataBean> restaurantsList;
 
-    public FeaturedAdapter(ArrayList<FeaturedHelperClass> featuredRestaurants) {
-        this.featuredRestaurants = featuredRestaurants;
+    public AllRestaurantsAdapter(Context context,List<RestaurantsModel.DataBean> restaurantsList) {
+        this.context = context;
+        this.restaurantsList = restaurantsList ;
     }
 
     @NonNull
     @Override
-    public FeaturedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.featured_card_design, parent, false);
-        FeaturedViewHolder featuredViewHolder = new FeaturedViewHolder(view);
-        return featuredViewHolder;
+        View view = LayoutInflater.from(context).inflate(R.layout.most_popular_card_design, parent, false);
+        return new MyViewHolder(view);
+
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final FeaturedViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
 
-        final FeaturedHelperClass featuredHelperClass = featuredRestaurants.get(position);
-        holder.image.setImageResource(featuredHelperClass.getImage());
-        holder.title.setText(featuredHelperClass.getTitle());
-        holder.description.setText(featuredHelperClass.getDescription());
+
+        Glide.with(context).load(restaurantsList.get(position).getRestaurantLogo()).into(holder.image);
+        //holder.image.setImageResource(popularHelperClass.getImage());
+        holder.title.setText(restaurantsList.get(position).getRestaurant_Name());
+        holder.description.setText(restaurantsList.get(position).getKnownFor());
 
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
-
                 Bundle bundle = new Bundle();
                 bundle.putString("name", holder.title.getText().toString());
                 bundle.putString("location", holder.description.getText().toString());
                 intent.putExtras(bundle);
-
                 holder.image.getContext().startActivity(intent);
             }
         });
@@ -59,38 +63,36 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.Featur
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
-
                 Bundle bundle = new Bundle();
                 bundle.putString("name", holder.title.getText().toString());
                 bundle.putString("location", holder.description.getText().toString());
                 intent.putExtras(bundle);
-
                 holder.title.getContext().startActivity(intent);
             }
         });
-
-
     }
 
     @Override
     public int getItemCount() {
 
-        return featuredRestaurants.size();
+        return restaurantsList.size();
     }
 
-    public static class FeaturedViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         ImageView image;
         TextView title, description;
 
-        public FeaturedViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             //Hooks
-            image = itemView.findViewById(R.id.featured_image);
-            title = itemView.findViewById(R.id.featured_title);
-            description = itemView.findViewById(R.id.featured_description);
+            image = itemView.findViewById(R.id.most_popular_image);
+            title = itemView.findViewById(R.id.most_popular_title);
+            description = itemView.findViewById(R.id.most_popular_description);
 
         }
+
     }
 }
+

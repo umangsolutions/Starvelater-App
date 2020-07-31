@@ -23,8 +23,11 @@
                 android:id="@+id/featured_image"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/bbqnation" />
+                android:scaleType="fitXY"
+                android:fitsSystemWindows="true"
+                android:focusableInTouchMode="true"
+                android:filterTouchesWhenObscured="true"
+                android:src="@drawable/chutneys" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -47,6 +50,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/muli"
+        android:minLines="1"
+        android:maxLines="1"
         android:text="@string/venkat_nagar_kakinada"
         android:textSize="10sp" />
 

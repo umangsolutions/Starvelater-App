@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.starvelater.R;
 import com.example.starvelater.activities.restaurant.RestaurantProfileActivity;
 
@@ -54,6 +55,8 @@ public class All_RestaurantsAdapter extends RecyclerView.Adapter<All_Restaurants
         holder.restName.setText(restauarantNames.get(position));
         holder.restLocation.setText(restaurantLocation.get(position));
         holder.restImage.setImageResource(restaurantImages.get(position));
+
+        //Glide.with(holder.restImage.getContext()).load(url).into(holder.restImage);
 
         holder.restImage.setOnClickListener(new View.OnClickListener() {
             @Override

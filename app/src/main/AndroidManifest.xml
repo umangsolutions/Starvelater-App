@@ -15,15 +15,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
+
+        tools:ignore="GoogleAppIndexingWarning"
+
         tools:targetApi="m">
-        <activity android:name=".activities.restaurant.OrderedSummaryActivity"></activity>
+        <activity android:name=".activities.restaurant.OrderedSummaryActivity" />
         <activity android:name=".activities.helpandsupport.TermsandConditionsActivity" />
         <activity android:name=".activities.helpandsupport.HelpandSupportActivity" />
         <activity android:name=".activities.user.Qr_scan" />
         <activity android:name=".activities.corporate_cafe.All_CorporateCafe" />
         <activity android:name=".activities.college_canteen.All_CollegeCanteen" />
         <activity android:name=".activities.restaurant.All_Restaurants" />
-        <activity android:name=".adapters.CustomGridLayout" />
         <activity android:name=".activities.restaurant.RestaurantProfileActivity" />
         <activity android:name=".activities.loginsignup.StartUpScreen" />
         <activity
