@@ -87,7 +87,7 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
 
         txtLocation = findViewById(R.id.location);
 
-        txtLocation.setText("Set Location");
+        txtLocation.setText("Kakinada, Jayendra Nagar");
 
         //Hooks
         mostPopularRecyclerView = findViewById(R.id.most_popular_recycler);
@@ -121,10 +121,10 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
         });
 
 
-
         navigationDrawer();
 
-        mostPopularRecycler("Kakinada","Jayendra Nagar");
+         mostPopularRecycler("Kakinada","Jayendra Nagar");
+         allRestaurantsRecycler("Kakinada","Jayendra Nagar");
 
         utilityRecycler();
     }
@@ -139,32 +139,32 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
 
         ApiInterface apiInterface = RetrofitClient.getClient(this).create(ApiInterface.class);
 
+        // Loading Cities
         apiInterface.processDataCities().enqueue(new Callback<CitiesModel>() {
             @Override
             public void onResponse(Call<CitiesModel> call, Response<CitiesModel> response) {
 
                 if(response.isSuccessful()) {
-                     CitiesModel citiesModel = response.body();
-                     assert citiesModel!=null;
+                    CitiesModel citiesModel = response.body();
+                    assert citiesModel!=null;
 
-                     if(citiesModel.isStatus()) {
-                         List<CitiesModel.DataBean> resultBeans = citiesModel.getData();
+                    if(citiesModel.isStatus()) {
+                        List<CitiesModel.DataBean> resultBeans = citiesModel.getData();
 
-                         ArrayList<String> cityList = new ArrayList<>();
+                        ArrayList<String> cityList = new ArrayList<>();
 
-                         for(int i=0;i<resultBeans.size();i++) {
-                             cityList.add(resultBeans.get(i).getCity_Name());
-                         }
+                        for(int i=0;i<resultBeans.size();i++) {
+                            cityList.add(resultBeans.get(i).getCity_Name());
+                        }
+
+                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(UserDashboard.this, R.layout.support_simple_spinner_dropdown_item, cityList);
+                        arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                        spinCity.setAdapter(arrayAdapter);
 
 
-                         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(UserDashboard.this, R.layout.support_simple_spinner_dropdown_item, cityList);
-                         arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-                         spinCity.setAdapter(arrayAdapter);
-
-
-                     } else {
-                         Toast.makeText(UserDashboard.this, "Something is Wrong !", Toast.LENGTH_SHORT).show();
-                     }
+                    } else {
+                        Toast.makeText(UserDashboard.this, "Something is Wrong !", Toast.LENGTH_SHORT).show();
+                    }
 
                 } else {
                     Toast.makeText(UserDashboard.this, "Something Went Wrong !", Toast.LENGTH_SHORT).show();
@@ -243,7 +243,7 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
                 String cityName = spinCity.getSelectedItem().toString();
                 txtLocation.setText(cityName + ", " + areaName);
 
-                //allRestaurantsRecycler(cityName,areaName);
+                allRestaurantsRecycler(cityName,areaName);
 
                 mostPopularRecycler(cityName,areaName);
 
@@ -330,7 +330,7 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
                     if(restaurantsModel.isStatus()) {
 
                         List<RestaurantsModel.DataBean> resultBeans = restaurantsModel.getData();
-                        resultBeans.clear();
+
                         allRestaurantsRecyclerView.setHasFixedSize(true);
                         allRestaurantsRecyclerView.setLayoutManager(new LinearLayoutManager(UserDashboard.this, LinearLayoutManager.HORIZONTAL, false));
                         adapter = new AllRestaurantsAdapter(UserDashboard.this,resultBeans);
