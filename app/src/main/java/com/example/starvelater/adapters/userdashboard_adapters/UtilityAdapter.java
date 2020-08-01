@@ -1,4 +1,4 @@
-package com.example.starvelater.adapters.homeAdapter;
+package com.example.starvelater.adapters.userdashboard_adapters;
 
 import android.content.Intent;
 import android.view.LayoutInflater;

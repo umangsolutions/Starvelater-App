@@ -1,4 +1,4 @@
-package com.example.starvelater.adapters;
+package com.example.starvelater.adapters.multiutility_adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,23 +16,21 @@ import com.bumptech.glide.Glide;
 import com.example.starvelater.R;
 import com.example.starvelater.activities.restaurant.RestaurantProfileActivity;
 import com.example.starvelater.jsonmodels.RestaurantsModel;
-import com.google.gson.internal.$Gson$Preconditions;
 
 import java.util.List;
 
-public class All_RestaurantsAdapter extends RecyclerView.Adapter<All_RestaurantsAdapter.ViewHolder> {
+public class AllCategoriesAdapter extends RecyclerView.Adapter<AllCategoriesAdapter.ViewHolder> {
 
 
     Context context;
     List<RestaurantsModel.DataBean> restaurantsList;
     LayoutInflater inflater;
 
-    public All_RestaurantsAdapter(Context ctx, List<RestaurantsModel.DataBean> restaurantsList)  {
+    public AllCategoriesAdapter(Context ctx, List<RestaurantsModel.DataBean> restaurantsList)  {
         this.context = ctx;
         this.restaurantsList = restaurantsList;
         this.inflater = LayoutInflater.from(ctx);
     }
-
 
     @NonNull
     @Override

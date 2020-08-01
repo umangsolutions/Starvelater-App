@@ -29,10 +29,10 @@ import com.example.starvelater.activities.helpandsupport.HelpandSupportActivity;
 import com.example.starvelater.activities.helpandsupport.TermsandConditionsActivity;
 import com.example.starvelater.activities.restaurant.All_Restaurants;
 import com.example.starvelater.activities.loginsignup.StartUpScreen;
-import com.example.starvelater.adapters.homeAdapter.MostPopularAdapter;
-import com.example.starvelater.adapters.homeAdapter.UserAllRestaurantsAdapter;
-import com.example.starvelater.adapters.homeAdapter.UtilityAdapter;
-import com.example.starvelater.adapters.homeAdapter.UtilityHelperClass;
+import com.example.starvelater.adapters.userdashboard_adapters.MostPopularAdapter;
+import com.example.starvelater.adapters.userdashboard_adapters.UserAllRestaurantsAdapter;
+import com.example.starvelater.adapters.userdashboard_adapters.UtilityAdapter;
+import com.example.starvelater.adapters.userdashboard_adapters.UtilityHelperClass;
 import com.example.starvelater.api.ApiInterface;
 import com.example.starvelater.api.RetrofitClient;
 import com.example.starvelater.jsonmodels.AreasModel;
@@ -324,6 +324,7 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("city",city);
         jsonObject.addProperty("area",area);
+        jsonObject.addProperty("type","Restaurant");
 
         ApiInterface apiInterface = RetrofitClient.getClient(this).create(ApiInterface.class);
 

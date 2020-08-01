@@ -2,7 +2,6 @@ package com.example.starvelater.activities.restaurant;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -22,8 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.starvelater.R;
 import com.example.starvelater.activities.user.UserDashboard;
-import com.example.starvelater.adapters.RecycleGridAdapter1;
-import com.example.starvelater.adapters.RestaurantItemAdapter;
+import com.example.starvelater.adapters.restaurantprofile_adapters.RecycleGridAdapter1;
+import com.example.starvelater.adapters.restaurantprofile_adapters.RestaurantItemAdapter;
 import com.example.starvelater.interfaces.CartItemClickListener;
 import com.example.starvelater.interfaces.CartProductClickListener;
 import com.example.starvelater.model.NormalProducts;

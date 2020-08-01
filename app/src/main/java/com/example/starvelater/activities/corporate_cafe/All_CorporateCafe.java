@@ -10,14 +10,26 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.starvelater.R;
-import com.example.starvelater.activities.restaurant.All_Restaurants;
+import com.example.starvelater.SharedPref.MyAppPrefsManager;
+import com.example.starvelater.activities.college_canteen.All_CollegeCanteen;
 import com.example.starvelater.activities.user.UserDashboard;
-import com.example.starvelater.adapters.All_RestaurantsAdapter;
+import com.example.starvelater.adapters.multiutility_adapters.AllCategoriesAdapter;
+import com.example.starvelater.api.ApiInterface;
+import com.example.starvelater.api.RetrofitClient;
+import com.example.starvelater.jsonmodels.RestaurantsModel;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class All_CorporateCafe extends AppCompatActivity {
 
@@ -27,10 +39,16 @@ public class All_CorporateCafe extends AppCompatActivity {
 
     RecyclerView restaurantsList;
 
-    All_RestaurantsAdapter restaurantsAdapter;
+    AllCategoriesAdapter restaurantsAdapter;
 
     ImageView backbutton;
     Toolbar restaurantToolBar;
+    MyAppPrefsManager myAppPrefsManager;
+    JsonObject jsonObject;
+
+    LinearLayout progressBar;
+    TextView emptyView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +58,12 @@ public class All_CorporateCafe extends AppCompatActivity {
         /* Need to change after Accessing Data Dynamically from Server */
 
         restaurantsList = findViewById(R.id.restaurant_List);
+
+        progressBar = findViewById(R.id.progressBar);
+        emptyView = findViewById(R.id.emptyView);
+
+
+        myAppPrefsManager = new MyAppPrefsManager(All_CorporateCafe.this);
 
         restaurantToolBar = findViewById(R.id.restaurantToolBar);
         setSupportActionBar(restaurantToolBar);
@@ -59,37 +83,71 @@ public class All_CorporateCafe extends AppCompatActivity {
             }
         });
 
-        restaurantName = new ArrayList<>();
-        restaurantImages = new ArrayList<>();
-        restaurantLocation = new ArrayList<>();
+        next();
+    }
 
-        restaurantName.add("Barbeque Nation");
-        restaurantName.add("Chutneys");
-        restaurantName.add("Paradise");
-        restaurantName.add("Paaka");
-        restaurantName.add("Taj Restaurant");
-        restaurantName.add("Yati Restaurant");
+    public void next() {
 
-        restaurantLocation.add("JayendraNagar,Kakinada");
-        restaurantLocation.add("Gachibowli, Hyderabad");
-        restaurantLocation.add("Bhilai, Chattisgarh");
-        restaurantLocation.add("Chebrolu, West Godavari");
-        restaurantLocation.add("Rajahmundry, East Godavari");
-        restaurantLocation.add("Chennai, TamilNadu");
+        progressBar.setVisibility(View.VISIBLE);
 
-        restaurantImages.add(R.drawable.bbqnation);
-        restaurantImages.add(R.drawable.chutneys);
-        restaurantImages.add(R.drawable.paradise);
-        restaurantImages.add(R.drawable.paaka);
-        restaurantImages.add(R.drawable.taj);
-        restaurantImages.add(R.drawable.photo11);
+        if(myAppPrefsManager.getCity() == null){
+            jsonObject = new JsonObject();
+            jsonObject.addProperty("city","Kakinada");
+            jsonObject.addProperty("area","Jayendra Nagar");
+            jsonObject.addProperty("type","Corporate Cafe");
 
-        //restaurantsAdapter = new All_RestaurantsAdapter(this, restaurantName, restaurantLocation, restaurantImages);
+        }else {
+            jsonObject = new JsonObject();
+            jsonObject.addProperty("city", myAppPrefsManager.getCity());
+            jsonObject.addProperty("area", myAppPrefsManager.getArea());
+            jsonObject.addProperty("type","Corporate Cafe");
+        }
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        restaurantsList.setLayoutManager(linearLayoutManager);
-        restaurantsList.setAdapter((RecyclerView.Adapter) restaurantsAdapter);
+        ApiInterface apiInterface = RetrofitClient.getClient(this).create(ApiInterface.class);
+
+        apiInterface.processAllCorporateCafes(jsonObject).enqueue(new Callback<RestaurantsModel>() {
+            @Override
+            public void onResponse(Call<RestaurantsModel> call, Response<RestaurantsModel> response) {
 
 
+                if(response.isSuccessful()) {
+
+                    progressBar.setVisibility(View.GONE);
+
+                    RestaurantsModel restaurantsModel = response.body();
+                    assert restaurantsModel!=null;
+
+                    if(restaurantsModel.isStatus()) {
+
+                        List<RestaurantsModel.DataBean> resultBeans = restaurantsModel.getData();
+
+                        restaurantsList.setHasFixedSize(true);
+                        restaurantsList.setLayoutManager(new LinearLayoutManager(All_CorporateCafe.this, LinearLayoutManager.HORIZONTAL, false));
+                        restaurantsAdapter = new AllCategoriesAdapter(All_CorporateCafe.this,resultBeans);
+                        restaurantsList.setAdapter(restaurantsAdapter);
+
+                        restaurantsAdapter.notifyDataSetChanged();
+
+                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(All_CorporateCafe.this, LinearLayoutManager.VERTICAL, false);
+                        restaurantsList.setLayoutManager(linearLayoutManager);
+                        restaurantsList.setAdapter((RecyclerView.Adapter) restaurantsAdapter);
+
+                    }
+                } else {
+                    progressBar.setVisibility(View.GONE);
+                    emptyView.setText(View.VISIBLE);
+                    restaurantsList.setVisibility(View.GONE);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RestaurantsModel> call, Throwable t) {
+
+                progressBar.setVisibility(View.GONE);
+
+                Toast.makeText(All_CorporateCafe.this, "Please Try Again!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

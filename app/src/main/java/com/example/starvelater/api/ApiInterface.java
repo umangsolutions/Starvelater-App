@@ -14,7 +14,6 @@ import retrofit2.http.POST;
 
 public interface ApiInterface {
 
-
     @Headers("Content-Type: application/json")
     @POST("load_cities.php")
     Call<CitiesModel> processDataCities();
@@ -28,8 +27,17 @@ public interface ApiInterface {
     Call<PopularRestaurantsModel> processAllPopular(@Body JsonObject object);
 
     @Headers("Content-Type: application/json")
-    @POST("load_restaurants.php")
+    @POST("load_utility_categories.php")
     Call<RestaurantsModel> processAllRestaurants(@Body JsonObject object);
+
+    @Headers("Content-Type: application/json")
+    @POST("load_utility_categories.php")
+    Call<RestaurantsModel> processAllCollegeCanteens(@Body JsonObject object);
+
+    @Headers("Content-Type: application/json")
+    @POST("load_utility_categories.php")
+    Call<RestaurantsModel> processAllCorporateCafes(@Body JsonObject object);
+
 
 /*
 

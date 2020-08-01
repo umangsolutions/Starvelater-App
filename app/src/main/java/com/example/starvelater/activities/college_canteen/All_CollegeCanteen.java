@@ -10,13 +10,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.starvelater.R;
+import com.example.starvelater.SharedPref.MyAppPrefsManager;
 import com.example.starvelater.activities.user.UserDashboard;
-import com.example.starvelater.adapters.All_RestaurantsAdapter;
+import com.example.starvelater.adapters.multiutility_adapters.AllCategoriesAdapter;
+import com.example.starvelater.api.ApiInterface;
+import com.example.starvelater.api.RetrofitClient;
+import com.example.starvelater.jsonmodels.RestaurantsModel;
+import com.google.gson.JsonObject;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class All_CollegeCanteen extends AppCompatActivity {
 
@@ -26,10 +37,16 @@ public class All_CollegeCanteen extends AppCompatActivity {
 
     RecyclerView restaurantsList;
 
-    All_RestaurantsAdapter restaurantsAdapter;
+
+    LinearLayout progressBar;
+    TextView emptyView;
+
+    AllCategoriesAdapter restaurantsAdapter;
 
     ImageView backbutton;
     Toolbar restaurantToolBar;
+    MyAppPrefsManager myAppPrefsManager;
+    JsonObject jsonObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +56,13 @@ public class All_CollegeCanteen extends AppCompatActivity {
         /* Need to change after Accessing Data Dynamically from Server */
         restaurantsList = findViewById(R.id.restaurant_List);
 
+        progressBar = findViewById(R.id.progressBar);
+        emptyView = findViewById(R.id.emptyView);
+
         restaurantToolBar = findViewById(R.id.restaurantToolBar);
         setSupportActionBar(restaurantToolBar);
+
+        myAppPrefsManager = new MyAppPrefsManager(this);
 
         final ActionBar restaurantActionBar = getSupportActionBar();
         restaurantActionBar.setDisplayShowCustomEnabled(true); // enable overriding the default toolbar layout
@@ -57,35 +79,73 @@ public class All_CollegeCanteen extends AppCompatActivity {
             }
         });
 
-        restaurantName = new ArrayList<>();
-        restaurantImages = new ArrayList<>();
-        restaurantLocation = new ArrayList<>();
+        next();
+    }
 
-        restaurantName.add("Barbeque Nation");
-        restaurantName.add("Chutneys");
-        restaurantName.add("Paradise");
-        restaurantName.add("Paaka");
-        restaurantName.add("Taj Restaurant");
-        restaurantName.add("Yati Restaurant");
+    public void next() {
 
-        restaurantLocation.add("JayendraNagar,Kakinada");
-        restaurantLocation.add("Gachibowli, Hyderabad");
-        restaurantLocation.add("Bhilai, Chattisgarh");
-        restaurantLocation.add("Chebrolu, West Godavari");
-        restaurantLocation.add("Rajahmundry, East Godavari");
-        restaurantLocation.add("Chennai, TamilNadu");
+        progressBar.setVisibility(View.VISIBLE);
 
-        restaurantImages.add(R.drawable.bbqnation);
-        restaurantImages.add(R.drawable.chutneys);
-        restaurantImages.add(R.drawable.paradise);
-        restaurantImages.add(R.drawable.paaka);
-        restaurantImages.add(R.drawable.taj);
-        restaurantImages.add(R.drawable.photo11);
 
-        //restaurantsAdapter = new All_RestaurantsAdapter(this, restaurantName, restaurantLocation, restaurantImages);
+        if(myAppPrefsManager.getCity() == null){
+            jsonObject = new JsonObject();
+            jsonObject.addProperty("city","Kakinada");
+            jsonObject.addProperty("area","Jayendra Nagar");
+            jsonObject.addProperty("type","College Canteen");
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        restaurantsList.setLayoutManager(linearLayoutManager);
-        restaurantsList.setAdapter((RecyclerView.Adapter) restaurantsAdapter);
+        }else {
+            jsonObject = new JsonObject();
+            jsonObject.addProperty("city", myAppPrefsManager.getCity());
+            jsonObject.addProperty("area", myAppPrefsManager.getArea());
+            jsonObject.addProperty("type","College Canteen");
+        }
+
+        ApiInterface apiInterface = RetrofitClient.getClient(this).create(ApiInterface.class);
+
+        apiInterface.processAllCollegeCanteens(jsonObject).enqueue(new Callback<RestaurantsModel>() {
+            @Override
+            public void onResponse(Call<RestaurantsModel> call, Response<RestaurantsModel> response) {
+
+
+                if(response.isSuccessful()) {
+
+                    progressBar.setVisibility(View.GONE);
+
+                    RestaurantsModel restaurantsModel = response.body();
+                    assert restaurantsModel!=null;
+
+                    if(restaurantsModel.isStatus()) {
+
+                        List<RestaurantsModel.DataBean> resultBeans = restaurantsModel.getData();
+
+                        restaurantsList.setHasFixedSize(true);
+                        restaurantsList.setLayoutManager(new LinearLayoutManager(All_CollegeCanteen.this, LinearLayoutManager.HORIZONTAL, false));
+                        restaurantsAdapter = new AllCategoriesAdapter(All_CollegeCanteen.this,resultBeans);
+                        restaurantsList.setAdapter(restaurantsAdapter);
+
+                        restaurantsAdapter.notifyDataSetChanged();
+
+
+                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(All_CollegeCanteen.this, LinearLayoutManager.VERTICAL, false);
+                        restaurantsList.setLayoutManager(linearLayoutManager);
+                        restaurantsList.setAdapter((RecyclerView.Adapter) restaurantsAdapter);
+
+                    }
+
+                } else {
+
+                    progressBar.setVisibility(View.GONE);
+                    emptyView.setText(View.VISIBLE);
+                    restaurantsList.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RestaurantsModel> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
+
+                Toast.makeText(All_CollegeCanteen.this, "Please Try Again!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

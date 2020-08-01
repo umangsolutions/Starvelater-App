@@ -1,4 +1,4 @@
-package com.example.starvelater.adapters.homeAdapter;
+package com.example.starvelater.adapters.userdashboard_adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,46 +15,46 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.starvelater.R;
 import com.example.starvelater.activities.restaurant.RestaurantProfileActivity;
-import com.example.starvelater.jsonmodels.RestaurantsModel;
+import com.example.starvelater.jsonmodels.PopularRestaurantsModel;
 
 import java.util.List;
 
-public class UserAllRestaurantsAdapter extends RecyclerView.Adapter<UserAllRestaurantsAdapter.MyViewHolder> {
+public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.MyViewHolder> {
 
     Context context;
-    List<RestaurantsModel.DataBean> restaurantsList;
+    List<PopularRestaurantsModel.DataBean> featuredRestaurants;
 
-    public UserAllRestaurantsAdapter(Context context, List<RestaurantsModel.DataBean> restaurantsList) {
+    public MostPopularAdapter(Context context, List<PopularRestaurantsModel.DataBean> featuredRestaurants) {
         this.context = context;
-        this.restaurantsList = restaurantsList ;
+        this.featuredRestaurants = featuredRestaurants;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.most_popular_card_design, parent, false);
-        return new MyViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.featured_card_design, parent, false);
 
+        return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
 
-
-        Glide.with(context).load(restaurantsList.get(position).getRestaurantLogo()).into(holder.image);
-        //holder.image.setImageResource(popularHelperClass.getImage());
-        holder.title.setText(restaurantsList.get(position).getRestaurant_Name());
-        holder.description.setText(restaurantsList.get(position).getKnownFor());
+        Glide.with(context).load(featuredRestaurants.get(position).getRestaurantLogo()).into(holder.image);
+        holder.title.setText(featuredRestaurants.get(position).getRestaurant_Name());
+        holder.description.setText(featuredRestaurants.get(position).getAddress());
 
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
+
                 Bundle bundle = new Bundle();
                 bundle.putString("name", holder.title.getText().toString());
                 bundle.putString("location", holder.description.getText().toString());
                 intent.putExtras(bundle);
+
                 holder.image.getContext().startActivity(intent);
             }
         });
@@ -63,19 +63,23 @@ public class UserAllRestaurantsAdapter extends RecyclerView.Adapter<UserAllResta
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
+
                 Bundle bundle = new Bundle();
                 bundle.putString("name", holder.title.getText().toString());
                 bundle.putString("location", holder.description.getText().toString());
                 intent.putExtras(bundle);
+
                 holder.title.getContext().startActivity(intent);
             }
         });
+
+
     }
 
     @Override
     public int getItemCount() {
 
-        return restaurantsList.size();
+        return featuredRestaurants.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -87,12 +91,10 @@ public class UserAllRestaurantsAdapter extends RecyclerView.Adapter<UserAllResta
             super(itemView);
 
             //Hooks
-            image = itemView.findViewById(R.id.most_popular_image);
-            title = itemView.findViewById(R.id.most_popular_title);
-            description = itemView.findViewById(R.id.most_popular_description);
+            image = itemView.findViewById(R.id.featured_image);
+            title = itemView.findViewById(R.id.featured_title);
+            description = itemView.findViewById(R.id.featured_description);
 
         }
-
     }
 }
-

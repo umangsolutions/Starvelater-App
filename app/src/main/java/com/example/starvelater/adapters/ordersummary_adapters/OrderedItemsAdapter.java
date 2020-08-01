@@ -1,12 +1,10 @@
-package com.example.starvelater.adapters;
+package com.example.starvelater.adapters.ordersummary_adapters;
 
 import android.content.Context;
 import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,16 +12,10 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.starvelater.R;
-import com.example.starvelater.interfaces.CartItemClickListener;
-import com.example.starvelater.model.NormalProducts;
 import com.example.starvelater.model.Product;
 
 import java.text.DecimalFormat;
-import java.util.Collection;
 import java.util.List;
-import java.util.function.Predicate;
-
-import static android.content.ContentValues.TAG;
 
 public class OrderedItemsAdapter extends RecyclerView.Adapter<OrderedItemsAdapter.ViewHolder> {
 

@@ -10,14 +10,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.starvelater.R;
-import com.example.starvelater.activities.user.UserDashboard;
-import com.example.starvelater.adapters.OrderedItemsAdapter;
-import com.example.starvelater.model.NormalProducts;
+import com.example.starvelater.adapters.ordersummary_adapters.OrderedItemsAdapter;
 import com.example.starvelater.model.Product;
 
 import java.io.Serializable;

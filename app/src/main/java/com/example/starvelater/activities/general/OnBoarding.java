@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.starvelater.adapters.SliderAdapter;
+import com.example.starvelater.adapters.general_adapters.SliderAdapter;
 import com.example.starvelater.activities.user.UserDashboard;
 import com.example.starvelater.R;
 
