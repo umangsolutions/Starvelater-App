@@ -65,7 +65,7 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="170dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical">
@@ -99,8 +99,9 @@
                     <View
                         android:layout_width="2dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
+
                         android:layout_weight="0.2"
+                        android:padding="10dp"
                         android:background="@color/colorPrimary" />
 
                     <!--<TextView
@@ -112,7 +113,7 @@
                         android:text="@string/dots" />-->
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         android:gravity="center"
