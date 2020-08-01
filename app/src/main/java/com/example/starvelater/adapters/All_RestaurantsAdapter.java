@@ -15,21 +15,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.starvelater.R;
 import com.example.starvelater.activities.restaurant.RestaurantProfileActivity;
+import com.example.starvelater.jsonmodels.RestaurantsModel;
+import com.google.gson.internal.$Gson$Preconditions;
 
 import java.util.List;
 
 public class All_RestaurantsAdapter extends RecyclerView.Adapter<All_RestaurantsAdapter.ViewHolder> {
 
-    List<String> restauarantNames;
-    List<String> restaurantLocation;
-    List<Integer> restaurantImages;
 
+    Context context;
+    List<RestaurantsModel.DataBean> restaurantsList;
     LayoutInflater inflater;
 
-    public All_RestaurantsAdapter(Context ctx, List<String> restauarantNames, List<String> restaurantLocation, List<Integer> restaurantImages) {
-        this.restauarantNames = restauarantNames;
-        this.restaurantLocation = restaurantLocation;
-        this.restaurantImages = restaurantImages;
+    public All_RestaurantsAdapter(Context ctx, List<RestaurantsModel.DataBean> restaurantsList)  {
+        this.context = ctx;
+        this.restaurantsList = restaurantsList;
         this.inflater = LayoutInflater.from(ctx);
     }
 
@@ -52,11 +52,10 @@ public class All_RestaurantsAdapter extends RecyclerView.Adapter<All_Restaurants
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
-        holder.restName.setText(restauarantNames.get(position));
-        holder.restLocation.setText(restaurantLocation.get(position));
-        holder.restImage.setImageResource(restaurantImages.get(position));
-
-        //Glide.with(holder.restImage.getContext()).load(url).into(holder.restImage);
+        holder.restName.setText(restaurantsList.get(position).getRestaurant_Name());
+        holder.restLocation.setText(restaurantsList.get(position).getAddress());
+        holder.restavgPrepTime.setText(restaurantsList.get(position).getAvgPrepTime());
+        Glide.with(context).load(restaurantsList.get(position).getRestaurantLogo()).into(holder.restImage);
 
         holder.restImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +86,7 @@ public class All_RestaurantsAdapter extends RecyclerView.Adapter<All_Restaurants
 
     @Override
     public int getItemCount() {
-        return restauarantNames.size();
+        return restaurantsList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -95,12 +94,14 @@ public class All_RestaurantsAdapter extends RecyclerView.Adapter<All_Restaurants
         TextView restName;
         TextView restLocation;
         ImageView restImage;
+        TextView restavgPrepTime;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             restName = itemView.findViewById(R.id.restaurant_name);
             restLocation = itemView.findViewById(R.id.restaurant_location);
             restImage = itemView.findViewById(R.id.restaurant_image);
+            restavgPrepTime = itemView.findViewById(R.id.restaurant_avgPrepTime);
         }
     }
 }

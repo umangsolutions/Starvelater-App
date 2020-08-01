@@ -19,12 +19,12 @@ import com.example.starvelater.jsonmodels.RestaurantsModel;
 
 import java.util.List;
 
-public class AllRestaurantsAdapter extends RecyclerView.Adapter<AllRestaurantsAdapter.MyViewHolder> {
+public class UserAllRestaurantsAdapter extends RecyclerView.Adapter<UserAllRestaurantsAdapter.MyViewHolder> {
 
     Context context;
     List<RestaurantsModel.DataBean> restaurantsList;
 
-    public AllRestaurantsAdapter(Context context,List<RestaurantsModel.DataBean> restaurantsList) {
+    public UserAllRestaurantsAdapter(Context context, List<RestaurantsModel.DataBean> restaurantsList) {
         this.context = context;
         this.restaurantsList = restaurantsList ;
     }

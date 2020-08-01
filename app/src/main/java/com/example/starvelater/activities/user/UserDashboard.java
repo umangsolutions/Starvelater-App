@@ -24,13 +24,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.starvelater.R;
+import com.example.starvelater.SharedPref.MyAppPrefsManager;
 import com.example.starvelater.activities.helpandsupport.HelpandSupportActivity;
 import com.example.starvelater.activities.helpandsupport.TermsandConditionsActivity;
 import com.example.starvelater.activities.restaurant.All_Restaurants;
 import com.example.starvelater.activities.loginsignup.StartUpScreen;
 import com.example.starvelater.adapters.homeAdapter.MostPopularAdapter;
-import com.example.starvelater.adapters.homeAdapter.FeaturedHelperClass;
-import com.example.starvelater.adapters.homeAdapter.AllRestaurantsAdapter;
+import com.example.starvelater.adapters.homeAdapter.UserAllRestaurantsAdapter;
 import com.example.starvelater.adapters.homeAdapter.UtilityAdapter;
 import com.example.starvelater.adapters.homeAdapter.UtilityHelperClass;
 import com.example.starvelater.api.ApiInterface;
@@ -56,12 +56,12 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
     RecyclerView allRestaurantsRecyclerView;
     RecyclerView utilityRecycler;
     RecyclerView.Adapter adapter;
+    MyAppPrefsManager myAppPrefsManager;
     Spinner spinCity,spinArea;
     private GradientDrawable gradient1, gradient2, gradient3;
     private Dialog setLocationDialog;
     private LinearLayout setLocationLayout;
     TextView txtLocation;
-
 
     //Drawer Menu
     DrawerLayout drawerLayout;
@@ -87,7 +87,17 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
 
         txtLocation = findViewById(R.id.location);
 
-        txtLocation.setText("Kakinada, Jayendra Nagar");
+        //Shared Preferences
+        myAppPrefsManager = new MyAppPrefsManager(UserDashboard.this);
+        if(myAppPrefsManager.getCity() == null){
+            txtLocation.setText("Kakinada, Jayendra Nagar");
+            mostPopularRecycler("Kakinada","Jayendra Nagar");
+            allRestaurantsRecycler("Kakinada","Jayendra Nagar");
+        }else{
+            txtLocation.setText(myAppPrefsManager.getCity() + ", " + myAppPrefsManager.getArea());
+            mostPopularRecycler(myAppPrefsManager.getCity(),myAppPrefsManager.getArea());
+            allRestaurantsRecycler(myAppPrefsManager.getCity(),myAppPrefsManager.getArea());
+        }
 
         //Hooks
         mostPopularRecyclerView = findViewById(R.id.most_popular_recycler);
@@ -120,12 +130,7 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
             }
         });
 
-
         navigationDrawer();
-
-         mostPopularRecycler("Kakinada","Jayendra Nagar");
-         allRestaurantsRecycler("Kakinada","Jayendra Nagar");
-
         utilityRecycler();
     }
 
@@ -241,7 +246,11 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
             public void onClick(View v) {
                 String areaName = spinArea.getSelectedItem().toString();
                 String cityName = spinCity.getSelectedItem().toString();
+
+                // Initialising New Shared Preferences
                 txtLocation.setText(cityName + ", " + areaName);
+                myAppPrefsManager.setCity(cityName);
+                myAppPrefsManager.setArea(areaName);
 
                 allRestaurantsRecycler(cityName,areaName);
 
@@ -333,7 +342,7 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
 
                         allRestaurantsRecyclerView.setHasFixedSize(true);
                         allRestaurantsRecyclerView.setLayoutManager(new LinearLayoutManager(UserDashboard.this, LinearLayoutManager.HORIZONTAL, false));
-                        adapter = new AllRestaurantsAdapter(UserDashboard.this,resultBeans);
+                        adapter = new UserAllRestaurantsAdapter(UserDashboard.this,resultBeans);
                         allRestaurantsRecyclerView.setAdapter(adapter);
 
                         adapter.notifyDataSetChanged();

@@ -82,7 +82,7 @@ public class All_CollegeCanteen extends AppCompatActivity {
         restaurantImages.add(R.drawable.taj);
         restaurantImages.add(R.drawable.photo11);
 
-        restaurantsAdapter = new All_RestaurantsAdapter(this, restaurantName, restaurantLocation, restaurantImages);
+        //restaurantsAdapter = new All_RestaurantsAdapter(this, restaurantName, restaurantLocation, restaurantImages);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         restaurantsList.setLayoutManager(linearLayoutManager);
