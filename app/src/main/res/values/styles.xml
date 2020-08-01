@@ -24,9 +24,11 @@
         <!--Color of Text and icon when it is selected-->
         <item name="colorPrimary">@color/colorPrimary</item>
         <!--Background color when selected-->
-        <item name="colorControlHighlight">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/colorMenuSelected</item>
 
     </style>
+
+
 
     <!--Location Style-->
 
