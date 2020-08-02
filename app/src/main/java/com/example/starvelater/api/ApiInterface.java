@@ -4,6 +4,8 @@ import com.example.starvelater.jsonmodels.AreasModel;
 import com.example.starvelater.jsonmodels.CitiesModel;
 import com.example.starvelater.jsonmodels.PopularRestaurantsModel;
 import com.example.starvelater.jsonmodels.RestaurantsModel;
+import com.example.starvelater.jsonmodels.UserLoginModel;
+import com.example.starvelater.jsonmodels.UserRegistrationModel;
 import com.google.gson.JsonObject;
 
 
@@ -37,6 +39,14 @@ public interface ApiInterface {
     @Headers("Content-Type: application/json")
     @POST("load_utility_categories.php")
     Call<RestaurantsModel> processAllCorporateCafes(@Body JsonObject object);
+
+    @Headers("Content-Type: application/json")
+    @POST("user_registration.php")
+    Call<UserRegistrationModel> processUserRegistration(@Body JsonObject object);
+
+    @Headers("Content-Type: application/json")
+    @POST("user_login.php")
+    Call<UserLoginModel> processUserLogin(@Body JsonObject object);
 
 
 /*

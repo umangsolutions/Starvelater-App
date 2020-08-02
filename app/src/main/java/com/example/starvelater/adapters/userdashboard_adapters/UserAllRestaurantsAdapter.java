@@ -75,7 +75,12 @@ public class UserAllRestaurantsAdapter extends RecyclerView.Adapter<UserAllResta
     @Override
     public int getItemCount() {
 
-        return restaurantsList.size();
+        if(restaurantsList.size() < 3) {
+            return restaurantsList.size();
+        } else {
+            return 3;
+        }
+
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {

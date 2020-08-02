@@ -115,15 +115,15 @@ public class All_CorporateCafe extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
 
                     RestaurantsModel restaurantsModel = response.body();
-                    assert restaurantsModel!=null;
+                    assert restaurantsModel != null;
 
-                    if(restaurantsModel.isStatus()) {
+                    if (restaurantsModel.isStatus()) {
 
                         List<RestaurantsModel.DataBean> resultBeans = restaurantsModel.getData();
 
                         restaurantsList.setHasFixedSize(true);
                         restaurantsList.setLayoutManager(new LinearLayoutManager(All_CorporateCafe.this, LinearLayoutManager.HORIZONTAL, false));
-                        restaurantsAdapter = new AllCategoriesAdapter(All_CorporateCafe.this,resultBeans);
+                        restaurantsAdapter = new AllCategoriesAdapter(All_CorporateCafe.this, resultBeans);
                         restaurantsList.setAdapter(restaurantsAdapter);
 
                         restaurantsAdapter.notifyDataSetChanged();
@@ -132,12 +132,12 @@ public class All_CorporateCafe extends AppCompatActivity {
                         restaurantsList.setLayoutManager(linearLayoutManager);
                         restaurantsList.setAdapter((RecyclerView.Adapter) restaurantsAdapter);
 
-                    }
-                } else {
-                    progressBar.setVisibility(View.GONE);
-                    emptyView.setText(View.VISIBLE);
-                    restaurantsList.setVisibility(View.GONE);
+                    } else {
+                        progressBar.setVisibility(View.GONE);
+                        emptyView.setVisibility(View.VISIBLE);
+                        restaurantsList.setVisibility(View.GONE);
 
+                    }
                 }
             }
 

@@ -95,7 +95,7 @@ B. No Joint Venture, No Derogation of Rights. You agree that no joint venture, p
     <string name="all_categories">All Categories</string>
     <string name="login">Login</string>
     <string name="sign_up">Sign up</string>
-    <string name="enter_username">Enter Username</string>
+    <string name="enter_username">Enter Email ID</string>
     <string name="enter_password">Enter Password</string>
     <string name="remember_me">Remember Me</string>
     <string name="forget_password">Forget Password</string>

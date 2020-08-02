@@ -45,7 +45,6 @@
                     android:padding="5dp"
                     android:src="@drawable/ic_search"
                     android:tint="#fff" />
-
             </FrameLayout>
 
         </androidx.appcompat.widget.Toolbar>
@@ -133,7 +132,7 @@
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp">
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -153,7 +152,7 @@
 
             </LinearLayout>
 
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
         <TextView
             android:id="@+id/emptyView"

@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,6 +63,7 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
     private Dialog setLocationDialog;
     private LinearLayout setLocationLayout;
     TextView txtLocation;
+    LinearLayout progressBar, dialogProgressBar;
 
     //Drawer Menu
     DrawerLayout drawerLayout;
@@ -81,14 +83,26 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
         setLocationLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialogProgressBar.setVisibility(View.VISIBLE);
                 openSetLocationDialog();
             }
         });
 
         txtLocation = findViewById(R.id.location);
 
-        //Shared Preferences
+        progressBar = findViewById(R.id.progressBar);
+        dialogProgressBar = findViewById(R.id.progressBar);
+
+        progressBar.setVisibility(View.VISIBLE);
+
         myAppPrefsManager = new MyAppPrefsManager(UserDashboard.this);
+
+        //Shared Preferences
+        if(myAppPrefsManager.getUserName() != null) {
+            Toast.makeText(this, "Welcome back " + myAppPrefsManager.getUserName(), Toast.LENGTH_SHORT).show();
+        }
+
+
         if(myAppPrefsManager.getCity() == null){
             txtLocation.setText("Kakinada, Jayendra Nagar");
             mostPopularRecycler("Kakinada","Jayendra Nagar");
@@ -166,28 +180,39 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
                         arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                         spinCity.setAdapter(arrayAdapter);
 
+                        dialogProgressBar.setVisibility(View.GONE);
+
 
                     } else {
-                        Toast.makeText(UserDashboard.this, "Something is Wrong !", Toast.LENGTH_SHORT).show();
+                        dialogProgressBar.setVisibility(View.GONE);
+
+                        Toast.makeText(UserDashboard.this, "No Cities Found", Toast.LENGTH_SHORT).show();
                     }
 
                 } else {
+                    dialogProgressBar.setVisibility(View.GONE);
+
                     Toast.makeText(UserDashboard.this, "Something Went Wrong !", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<CitiesModel> call, Throwable t) {
+                dialogProgressBar.setVisibility(View.GONE);
+
                 Toast.makeText(UserDashboard.this, "Please Try Again!", Toast.LENGTH_SHORT).show();
             }
         });
 
         ArrayList<String> areasList = new ArrayList<>();
 
+
         spinCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String cityName = spinCity.getSelectedItem().toString();
+
+                //progressBar.setVisibility(View.VISIBLE);
 
                 areasList.clear();
 
@@ -212,9 +237,18 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
                                 arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                                 spinArea.setAdapter(arrayAdapter);
 
+                              //  progressBar.setVisibility(View.GONE);
+
 
                             } else {
-                                Toast.makeText(UserDashboard.this, "" + areasModel.getMsg(), Toast.LENGTH_SHORT).show();
+                                areasList.clear();
+
+                                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(UserDashboard.this, R.layout.support_simple_spinner_dropdown_item, areasList);
+                                arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                                spinArea.setAdapter(arrayAdapter);
+
+                               // progressBar.setVisibility(View.GONE);
+                                Toast.makeText(UserDashboard.this, "No Areas found in Selected City" , Toast.LENGTH_SHORT).show();
                             }
 
                         }
@@ -222,7 +256,7 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
 
                     @Override
                     public void onFailure(Call<AreasModel> call, Throwable t) {
-
+                        //progressBar.setVisibility(View.GONE);
                     }
                 });
 
@@ -230,7 +264,7 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                progressBar.setVisibility(View.GONE);
             }
         });
 
@@ -241,25 +275,29 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
 
 
 
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String areaName = spinArea.getSelectedItem().toString();
-                String cityName = spinCity.getSelectedItem().toString();
 
-                // Initialising New Shared Preferences
-                txtLocation.setText(cityName + ", " + areaName);
-                myAppPrefsManager.setCity(cityName);
-                myAppPrefsManager.setArea(areaName);
+          btnSubmit.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  String areaName = spinArea.getSelectedItem().toString();
+                  String cityName = spinCity.getSelectedItem().toString();
 
-                allRestaurantsRecycler(cityName,areaName);
+                  if (!areaName.isEmpty() && !cityName.isEmpty()) {
+                      // Initialising New Shared Preferences
+                      txtLocation.setText(cityName + ", " + areaName);
+                      myAppPrefsManager.setCity(cityName);
+                      myAppPrefsManager.setArea(areaName);
 
-                mostPopularRecycler(cityName,areaName);
+                      allRestaurantsRecycler(cityName, areaName);
 
-                Toast.makeText(UserDashboard.this, "Changed Location Successfully !", Toast.LENGTH_SHORT).show();
-                setLocationDialog.dismiss();
-            }
-        });
+                      mostPopularRecycler(cityName, areaName);
+
+                      Toast.makeText(UserDashboard.this, "Changed Location Successfully !", Toast.LENGTH_SHORT).show();
+                      setLocationDialog.dismiss();
+                  }
+              }
+          });
+
 
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -278,6 +316,7 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
 
     private void mostPopularRecycler(String city, String area) {
 
+        progressBar.setVisibility(View.GONE);
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("city",city);
         jsonObject.addProperty("area",area);
@@ -321,6 +360,7 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
 
     private void allRestaurantsRecycler(String city, String area) {
 
+        progressBar.setVisibility(View.GONE);
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("city",city);
         jsonObject.addProperty("area",area);
@@ -448,6 +488,8 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
     }
 
     private void utilityRecycler() {
+
+        progressBar.setVisibility(View.GONE);
 
         gradient1 = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[]{0xffeff400, 0xffaff600});
         gradient2 = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[]{0xffd4cbe5, 0xffd4cbe5});

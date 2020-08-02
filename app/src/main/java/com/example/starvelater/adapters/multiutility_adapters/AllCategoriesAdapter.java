@@ -52,7 +52,7 @@ public class AllCategoriesAdapter extends RecyclerView.Adapter<AllCategoriesAdap
 
         holder.restName.setText(restaurantsList.get(position).getRestaurant_Name());
         holder.restLocation.setText(restaurantsList.get(position).getAddress());
-        holder.restavgPrepTime.setText(restaurantsList.get(position).getAvgPrepTime());
+        holder.restavgPrepTime.setText(restaurantsList.get(position).getAvgPrepTime() + " mins");
         Glide.with(context).load(restaurantsList.get(position).getRestaurantLogo()).into(holder.restImage);
 
         holder.restImage.setOnClickListener(new View.OnClickListener() {
