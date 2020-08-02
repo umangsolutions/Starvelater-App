@@ -7,17 +7,8 @@
     android:padding="20dp"
     tools:context=".activities.general.OnBoarding">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/slider"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_editor_absoluteY="1dp">
 
-    </androidx.viewpager.widget.ViewPager>
+
 
     <Button
         android:id="@+id/skip_btn"
@@ -32,6 +23,18 @@
         android:text="@string/skip_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/slider"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+    </androidx.viewpager.widget.ViewPager>
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
