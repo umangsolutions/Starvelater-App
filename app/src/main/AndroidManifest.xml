@@ -15,13 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-
         tools:ignore="GoogleAppIndexingWarning"
-
         tools:targetApi="m">
         <activity android:name=".activities.restaurant.OrderedSummaryActivity" />
         <activity android:name=".activities.helpandsupport.TermsandConditionsActivity" />
         <activity android:name=".activities.helpandsupport.HelpandSupportActivity" />
+        <activity android:name=".activities.helpandsupport.Feedback"/>
         <activity android:name=".activities.user.Qr_scan" />
         <activity android:name=".activities.corporate_cafe.All_CorporateCafe" />
         <activity android:name=".activities.college_canteen.All_CollegeCanteen" />

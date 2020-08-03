@@ -59,6 +59,11 @@
                     android:id="@+id/nav_terms_and_conditions"
                     android:icon="@drawable/termsandconditions"
                     android:title="@string/terms_conditions" />
+                <item
+                    android:title="FeedBack"
+                    android:id="@+id/feedback"
+                    android:icon="@drawable/feedback"/>
+
             </group>
         </menu>
     </item>
@@ -93,6 +98,7 @@
                     android:id="@+id/nav_review"
                     android:icon="@drawable/review"
                     android:title="@string/rate_us_on_playstore" />
+
             </group>
         </menu>
     </item>

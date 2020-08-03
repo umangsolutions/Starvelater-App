@@ -51,4 +51,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-scalars:2.5.0'
     implementation "com.squareup.retrofit2:converter-gson:2.7.2"
 
+    //lottie-anim
+    implementation "com.airbnb.android:lottie:3.4.0"
+
 }
