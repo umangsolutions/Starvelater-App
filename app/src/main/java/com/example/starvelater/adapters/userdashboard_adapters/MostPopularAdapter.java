@@ -42,38 +42,41 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
 
-        Glide.with(context).load(featuredRestaurants.get(position).getRestaurantLogo()).into(holder.image);
-        
-        holder.title.setText(featuredRestaurants.get(position).getRestaurant_Name());
-        holder.description.setText(featuredRestaurants.get(position).getAddress());
+            // loading only Restaurants of type 'Most Popular'
 
-        holder.image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
+            Glide.with(context).load(featuredRestaurants.get(position).getRestaurantLogo()).into(holder.image);
 
-                Bundle bundle = new Bundle();
-                bundle.putString("name", holder.title.getText().toString());
-                bundle.putString("location", holder.description.getText().toString());
-                intent.putExtras(bundle);
+            holder.title.setText(featuredRestaurants.get(position).getRestaurant_Name());
+            holder.description.setText(featuredRestaurants.get(position).getAddress());
 
-                holder.image.getContext().startActivity(intent);
-            }
-        });
+            holder.image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
 
-        holder.title.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("name", holder.title.getText().toString());
+                    bundle.putString("location", holder.description.getText().toString());
+                    intent.putExtras(bundle);
 
-                Bundle bundle = new Bundle();
-                bundle.putString("name", holder.title.getText().toString());
-                bundle.putString("location", holder.description.getText().toString());
-                intent.putExtras(bundle);
+                    holder.image.getContext().startActivity(intent);
+                }
+            });
 
-                holder.title.getContext().startActivity(intent);
-            }
-        });
+            holder.title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("name", holder.title.getText().toString());
+                    bundle.putString("location", holder.description.getText().toString());
+                    intent.putExtras(bundle);
+
+                    holder.title.getContext().startActivity(intent);
+                }
+            });
+
 
 
     }
@@ -81,7 +84,8 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
     @Override
     public int getItemCount() {
 
-        return featuredRestaurants.size();
+
+        return  featuredRestaurants.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {

@@ -2,6 +2,8 @@ package com.example.starvelater.adapters.userdashboard_adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,45 +43,53 @@ public class UserAllRestaurantsAdapter extends RecyclerView.Adapter<UserAllResta
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
 
+            //Loading only Restaurants of 'All Restaurants' Category
+            if(restaurantsList.get(position).getOperationStatus().equals("Closed")) {
+                ColorMatrix matrix = new ColorMatrix();
+                matrix.setSaturation(0);
+                ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
 
-        Glide.with(context).load(restaurantsList.get(position).getRestaurantLogo()).into(holder.image);
-        //holder.image.setImageResource(popularHelperClass.getImage());
-        holder.title.setText(restaurantsList.get(position).getRestaurant_Name());
-        holder.description.setText(restaurantsList.get(position).getKnownFor());
+                holder.image.setColorFilter(filter);
+                Glide.with(context).load(restaurantsList.get(position).getRestaurantLogo()).into(holder.image);
 
-        holder.image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("name", holder.title.getText().toString());
-                bundle.putString("location", holder.description.getText().toString());
-                intent.putExtras(bundle);
-                holder.image.getContext().startActivity(intent);
+                //holder.image.setColorFilter(filter);
             }
-        });
 
-        holder.title.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("name", holder.title.getText().toString());
-                bundle.putString("location", holder.description.getText().toString());
-                intent.putExtras(bundle);
-                holder.title.getContext().startActivity(intent);
-            }
-        });
+            Glide.with(context).load(restaurantsList.get(position).getRestaurantLogo()).into(holder.image);
+            //holder.image.setImageResource(popularHelperClass.getImage());
+            holder.title.setText(restaurantsList.get(position).getRestaurant_Name());
+            holder.description.setText(restaurantsList.get(position).getKnownFor());
+
+            holder.image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("name", holder.title.getText().toString());
+                    bundle.putString("location", holder.description.getText().toString());
+                    intent.putExtras(bundle);
+                    holder.image.getContext().startActivity(intent);
+                }
+            });
+
+            holder.title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("name", holder.title.getText().toString());
+                    bundle.putString("location", holder.description.getText().toString());
+                    intent.putExtras(bundle);
+                    holder.title.getContext().startActivity(intent);
+                }
+            });
+
     }
 
     @Override
     public int getItemCount() {
 
-        if(restaurantsList.size() < 3) {
-            return restaurantsList.size();
-        } else {
-            return 3;
-        }
+        return restaurantsList.size();
 
     }
 
