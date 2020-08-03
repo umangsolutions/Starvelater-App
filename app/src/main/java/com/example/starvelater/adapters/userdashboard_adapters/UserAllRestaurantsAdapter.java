@@ -46,12 +46,11 @@ public class UserAllRestaurantsAdapter extends RecyclerView.Adapter<UserAllResta
             //Loading only Restaurants of 'All Restaurants' Category
             if(restaurantsList.get(position).getOperationStatus().equals("Closed")) {
                 ColorMatrix matrix = new ColorMatrix();
-                matrix.setSaturation(0);
+                matrix.setSaturation(1);
                 ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
 
                 holder.image.setColorFilter(filter);
                 Glide.with(context).load(restaurantsList.get(position).getRestaurantLogo()).into(holder.image);
-
                 //holder.image.setColorFilter(filter);
             }
 

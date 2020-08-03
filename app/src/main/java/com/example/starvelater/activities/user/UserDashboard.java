@@ -64,8 +64,10 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
 
     Spinner spinCity,spinArea;
 
+
+
     List<LocationsModel.DataBean> locationList;
-    List<RestaurantsModel.DataBean> restaurantList;
+    List<RestaurantsModel.DataBean> restaurantList,popularList,allRestList;
 
     private GradientDrawable gradient1, gradient2, gradient3;
 
@@ -107,6 +109,10 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
 
         progressBar = findViewById(R.id.progressBar);
         dialogProgressBar = findViewById(R.id.progressBar);
+
+
+        popularList = new ArrayList<>();
+        allRestList = new ArrayList<>();
 
         progressBar.setVisibility(View.VISIBLE);
 
@@ -294,54 +300,6 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
 
     }
 
-    /*private void mostPopularRecycler(String city, String area) {
-
-        progressBar.setVisibility(View.GONE);
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("city",city);
-        jsonObject.addProperty("area",area);
-
-        ApiInterface apiInterface = RetrofitClient.getClient(this).create(ApiInterface.class);
-
-        apiInterface.processAllRestaurants(jsonObject).enqueue(new Callback<RestaurantsModel>() {
-            @Override
-            public void onResponse(@NonNull Call<RestaurantsModel> call, @NonNull Response<RestaurantsModel> response) {
-                if(response.isSuccessful()) {
-
-                    RestaurantsModel restaurantsModel = response.body();
-                    assert restaurantsModel!=null;
-
-                    if(restaurantsModel.isStatus()){
-                        restaurantList = restaurantsModel.getData();
-                        for(int i=0;i<restaurantList.size();i++) {
-                            if(restaurantList.get(i).getType().equals("Most Popular")){
-
-                            }else{
-
-                            }
-                        }
-
-                        mostPopularRecyclerView.setHasFixedSize(true);
-                        mostPopularRecyclerView.setLayoutManager(new LinearLayoutManager(UserDashboard.this, LinearLayoutManager.HORIZONTAL, false));
-
-                        adapter = new MostPopularAdapter(UserDashboard.this,restaurantList);
-                        mostPopularRecyclerView.setAdapter(adapter);
-
-                    } else {
-                        Toast.makeText(UserDashboard.this, ""+restaurantsModel.getData(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<RestaurantsModel> call, @NonNull Throwable t) {
-
-            }
-        });
-
-        GradientDrawable gradient1 = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[]{0xffeff400, 0xffaff600});
-
-    }*/
 
 
     private void allRestaurantsRecycler(String city, String area) {
@@ -367,8 +325,14 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
                         // getting all Restaurants list based on Areas and Cities
                         restaurantList = restaurantsModel.getData();
 
-                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                            List<RestaurantsModel.DataBean> popularList = restaurantList.stream().filter(p -> p.getType().equals("Most Popular")).collect(Collectors.toList());
+                        for(int i=0;i<restaurantList.size(); i++) {
+
+                            if(restaurantList.get(i).getType().equals("Most Popular")) {
+                                popularList.add(restaurantList.get(i));
+                            } else  {
+                                allRestList.add(restaurantList.get(i));
+                            }
+                        }
 
                             mostPopularRecyclerView.setHasFixedSize(true);
                             mostPopularRecyclerView.setLayoutManager(new LinearLayoutManager(UserDashboard.this, LinearLayoutManager.HORIZONTAL, false));
@@ -376,19 +340,15 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
                             mostPopularRecyclerView.setAdapter(adapter);
 
                             adapter.notifyDataSetChanged();
-                        }
-                        
-                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                            List<RestaurantsModel.DataBean> allRestList = restaurantList.stream().filter(p -> p.getType().equals("All Restaurants")).collect(Collectors.toList());
 
-                            // initialising All Restaurants Adapter from here
+
                             allRestaurantsRecyclerView.setHasFixedSize(true);
                             allRestaurantsRecyclerView.setLayoutManager(new LinearLayoutManager(UserDashboard.this, LinearLayoutManager.HORIZONTAL, false));
                             adapter = new UserAllRestaurantsAdapter(UserDashboard.this, allRestList);
                             allRestaurantsRecyclerView.setAdapter(adapter);
 
                             adapter.notifyDataSetChanged();
-                        }
+                        
 
                     } else {
                         Toast.makeText(UserDashboard.this, "Sorry No Restaurants Found !", Toast.LENGTH_SHORT).show();
