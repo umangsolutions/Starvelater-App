@@ -325,6 +325,8 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
                         // getting all Restaurants list based on Areas and Cities
                         restaurantList = restaurantsModel.getData();
 
+                        popularList.clear();
+                        allRestList.clear();
                         for(int i=0;i<restaurantList.size(); i++) {
 
                             if(restaurantList.get(i).getType().equals("Most Popular")) {
@@ -348,7 +350,7 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
                             allRestaurantsRecyclerView.setAdapter(adapter);
 
                             adapter.notifyDataSetChanged();
-                        
+
 
                     } else {
                         Toast.makeText(UserDashboard.this, "Sorry No Restaurants Found !", Toast.LENGTH_SHORT).show();
