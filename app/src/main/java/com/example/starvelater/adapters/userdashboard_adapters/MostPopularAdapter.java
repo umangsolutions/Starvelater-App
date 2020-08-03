@@ -16,15 +16,16 @@ import com.bumptech.glide.Glide;
 import com.example.starvelater.R;
 import com.example.starvelater.activities.restaurant.RestaurantProfileActivity;
 import com.example.starvelater.jsonmodels.PopularRestaurantsModel;
+import com.example.starvelater.jsonmodels.RestaurantsModel;
 
 import java.util.List;
 
 public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.MyViewHolder> {
 
     Context context;
-    List<PopularRestaurantsModel.DataBean> featuredRestaurants;
+    List<RestaurantsModel.DataBean> featuredRestaurants;
 
-    public MostPopularAdapter(Context context, List<PopularRestaurantsModel.DataBean> featuredRestaurants) {
+    public MostPopularAdapter(Context context, List<RestaurantsModel.DataBean> featuredRestaurants) {
         this.context = context;
         this.featuredRestaurants = featuredRestaurants;
     }
@@ -42,6 +43,7 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
 
         Glide.with(context).load(featuredRestaurants.get(position).getRestaurantLogo()).into(holder.image);
+        
         holder.title.setText(featuredRestaurants.get(position).getRestaurant_Name());
         holder.description.setText(featuredRestaurants.get(position).getAddress());
 

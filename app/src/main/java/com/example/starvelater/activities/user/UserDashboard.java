@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
+import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -19,7 +21,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,8 +38,7 @@ import com.example.starvelater.adapters.userdashboard_adapters.UtilityAdapter;
 import com.example.starvelater.adapters.userdashboard_adapters.UtilityHelperClass;
 import com.example.starvelater.api.ApiInterface;
 import com.example.starvelater.api.RetrofitClient;
-import com.example.starvelater.jsonmodels.AreasModel;
-import com.example.starvelater.jsonmodels.CitiesModel;
+import com.example.starvelater.jsonmodels.LocationsModel;
 import com.example.starvelater.jsonmodels.PopularRestaurantsModel;
 import com.example.starvelater.jsonmodels.RestaurantsModel;
 import com.google.android.material.navigation.NavigationView;
@@ -58,13 +58,26 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
     RecyclerView allRestaurantsRecyclerView;
     RecyclerView utilityRecycler;
     RecyclerView.Adapter adapter;
+
     MyAppPrefsManager myAppPrefsManager;
+
     Spinner spinCity,spinArea;
+
+    List<LocationsModel.DataBean> locationList;
+    List<RestaurantsModel.DataBean> restaurantList;
+
     private GradientDrawable gradient1, gradient2, gradient3;
+
     private Dialog setLocationDialog;
+
     private LinearLayout setLocationLayout;
+
     TextView txtLocation;
+
     LinearLayout progressBar, dialogProgressBar;
+
+    String TAG="RESPONSE_DATA";
+    String city, area;
 
     //Drawer Menu
     DrawerLayout drawerLayout;
@@ -106,12 +119,13 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
 
         if(myAppPrefsManager.getCity() == null){
             txtLocation.setText("Kakinada, Jayendra Nagar");
-            mostPopularRecycler("Kakinada","Jayendra Nagar");
-            allRestaurantsRecycler("Kakinada","Jayendra Nagar");
+            city = "Kakinada";
+            area = "Jayendra Nagar";
         }else{
-            txtLocation.setText(myAppPrefsManager.getCity() + ", " + myAppPrefsManager.getArea());
-            mostPopularRecycler(myAppPrefsManager.getCity(),myAppPrefsManager.getArea());
-            allRestaurantsRecycler(myAppPrefsManager.getCity(),myAppPrefsManager.getArea());
+            city = myAppPrefsManager.getCity();
+            area = myAppPrefsManager.getArea();
+            txtLocation.setText(city + ", " + area);
+
         }
 
         //Hooks
@@ -157,24 +171,26 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
         spinCity = setLocationDialog.findViewById(R.id.spinCity);
         spinArea = setLocationDialog.findViewById(R.id.spinArea);
 
+        // Loading All Locations, calling Service
         ApiInterface apiInterface = RetrofitClient.getClient(this).create(ApiInterface.class);
-
-        // Loading Cities
-        apiInterface.processDataCities().enqueue(new Callback<CitiesModel>() {
+        apiInterface.processLocationData().enqueue(new Callback<LocationsModel>() {
             @Override
-            public void onResponse(Call<CitiesModel> call, Response<CitiesModel> response) {
+            public void onResponse(Call<LocationsModel> call, Response<LocationsModel> response) {
 
                 if(response.isSuccessful()) {
-                    CitiesModel citiesModel = response.body();
-                    assert citiesModel!=null;
+                    LocationsModel locationsModel = response.body();
+                    assert locationsModel!=null;
 
-                    if(citiesModel.isStatus()) {
-                        List<CitiesModel.DataBean> resultBeans = citiesModel.getData();
+                    if(locationsModel.isStatus()) {
+                        locationList = locationsModel.getData();
 
                         ArrayList<String> cityList = new ArrayList<>();
 
-                        for(int i=0;i<resultBeans.size();i++) {
-                            cityList.add(resultBeans.get(i).getCity_Name());
+                        // Creating City List From the Called Service
+                        for(int i=0;i<locationList.size();i++) {
+                            if(!cityList.contains(locationList.get(i).getCity_Name())) {
+                                cityList.add(locationList.get(i).getCity_Name());
+                            }
                         }
 
                         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(UserDashboard.this, R.layout.support_simple_spinner_dropdown_item, cityList);
@@ -186,81 +202,44 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
 
                     } else {
                         dialogProgressBar.setVisibility(View.GONE);
-
                         Toast.makeText(UserDashboard.this, "No Cities Found", Toast.LENGTH_SHORT).show();
                     }
 
                 } else {
                     dialogProgressBar.setVisibility(View.GONE);
-
                     Toast.makeText(UserDashboard.this, "Something Went Wrong !", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<CitiesModel> call, Throwable t) {
+            public void onFailure(Call<LocationsModel> call, Throwable t) {
                 dialogProgressBar.setVisibility(View.GONE);
 
                 Toast.makeText(UserDashboard.this, "Please Try Again!", Toast.LENGTH_SHORT).show();
             }
         });
 
-        ArrayList<String> areasList = new ArrayList<>();
-
+        ArrayList<String> areaList = new ArrayList<>();
 
         spinCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String cityName = spinCity.getSelectedItem().toString();
 
+                // Extracting the Selected City
+                String cityName = spinCity.getSelectedItem().toString();
+                areaList.clear();
                 //progressBar.setVisibility(View.VISIBLE);
 
-                areasList.clear();
-
-                JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("city",cityName);
-
-                apiInterface.processDataAreas(jsonObject).enqueue(new Callback<AreasModel>() {
-                    @Override
-                    public void onResponse(Call<AreasModel> call, Response<AreasModel> response) {
-                        if(response.isSuccessful()) {
-                            AreasModel areasModel = response.body();
-                            assert areasModel !=null;
-
-                            if(areasModel.isStatus()) {
-                                List<AreasModel.DataBean> resultBeans = areasModel.getData();
-
-                                for(int i=0;i<resultBeans.size();i++) {
-                                    areasList.add(resultBeans.get(i).getArea_Name());
-                                }
-
-                                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(UserDashboard.this, R.layout.support_simple_spinner_dropdown_item, areasList);
-                                arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-                                spinArea.setAdapter(arrayAdapter);
-
-                              //  progressBar.setVisibility(View.GONE);
-
-
-                            } else {
-                                areasList.clear();
-
-                                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(UserDashboard.this, R.layout.support_simple_spinner_dropdown_item, areasList);
-                                arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-                                spinArea.setAdapter(arrayAdapter);
-
-                               // progressBar.setVisibility(View.GONE);
-                                Toast.makeText(UserDashboard.this, "No Areas found in Selected City" , Toast.LENGTH_SHORT).show();
-                            }
-
-                        }
+                // Creating the Areas List based on city selected from the called Service
+                for(int i=0;i<locationList.size();i++) {
+                    if(locationList.get(i).getCity_Name().equals(cityName)){
+                        areaList.add(locationList.get(i).getArea_Name());
                     }
+                }
 
-                    @Override
-                    public void onFailure(Call<AreasModel> call, Throwable t) {
-                        //progressBar.setVisibility(View.GONE);
-                    }
-                });
-
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(UserDashboard.this, R.layout.support_simple_spinner_dropdown_item, areaList);
+                arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                spinArea.setAdapter(arrayAdapter);
             }
 
             @Override
@@ -321,35 +300,41 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("city",city);
         jsonObject.addProperty("area",area);
-        jsonObject.addProperty("category","mp");
 
         ApiInterface apiInterface = RetrofitClient.getClient(this).create(ApiInterface.class);
 
-        apiInterface.processAllPopular(jsonObject).enqueue(new Callback<PopularRestaurantsModel>() {
+        apiInterface.processAllRestaurants(jsonObject).enqueue(new Callback<RestaurantsModel>() {
             @Override
-            public void onResponse(Call<PopularRestaurantsModel> call, Response<PopularRestaurantsModel> response) {
+            public void onResponse(@NonNull Call<RestaurantsModel> call, @NonNull Response<RestaurantsModel> response) {
                 if(response.isSuccessful()) {
 
-                    PopularRestaurantsModel popularRestaurantsModel = response.body();
-                    assert popularRestaurantsModel!=null;
+                    RestaurantsModel restaurantsModel = response.body();
+                    assert restaurantsModel!=null;
 
-                    if(popularRestaurantsModel.isStatus()){
-                        List<PopularRestaurantsModel.DataBean> dataBeanList = popularRestaurantsModel.getData();
+                    if(restaurantsModel.isStatus()){
+                        restaurantList = restaurantsModel.getData();
+                        for(int i=0;i<restaurantList.size();i++) {
+                            if(restaurantList.get(i).getType().equals("Most Popular")){
+
+                            }else{
+
+                            }
+                        }
 
                         mostPopularRecyclerView.setHasFixedSize(true);
                         mostPopularRecyclerView.setLayoutManager(new LinearLayoutManager(UserDashboard.this, LinearLayoutManager.HORIZONTAL, false));
 
-                        adapter = new MostPopularAdapter(UserDashboard.this,dataBeanList);
+                        adapter = new MostPopularAdapter(UserDashboard.this,restaurantList);
                         mostPopularRecyclerView.setAdapter(adapter);
 
                     } else {
-                        Toast.makeText(UserDashboard.this, ""+popularRestaurantsModel.getData(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UserDashboard.this, ""+restaurantsModel.getData(), Toast.LENGTH_SHORT).show();
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<PopularRestaurantsModel> call, Throwable t) {
+            public void onFailure(@NonNull Call<RestaurantsModel> call, @NonNull Throwable t) {
 
             }
         });
@@ -361,17 +346,18 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
 
     private void allRestaurantsRecycler(String city, String area) {
 
+        String type;
+
         progressBar.setVisibility(View.GONE);
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("city",city);
         jsonObject.addProperty("area",area);
-        jsonObject.addProperty("type","Restaurant");
 
         ApiInterface apiInterface = RetrofitClient.getClient(this).create(ApiInterface.class);
 
         apiInterface.processAllRestaurants(jsonObject).enqueue(new Callback<RestaurantsModel>() {
             @Override
-            public void onResponse(Call<RestaurantsModel> call, Response<RestaurantsModel> response) {
+            public void onResponse(@NonNull Call<RestaurantsModel> call, @NonNull Response<RestaurantsModel> response) {
 
 
                 if(response.isSuccessful()) {
@@ -381,6 +367,18 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
                     if(restaurantsModel.isStatus()) {
 
                         List<RestaurantsModel.DataBean> resultBeans = restaurantsModel.getData();
+                        List<String> popularTitle = new ArrayList<>();
+                        List<String> Description = new ArrayList<>();
+                        List<String> Images = new ArrayList<>();
+                        for(int i=0;i<resultBeans.size();i++){
+                            if(resultBeans.get(i).getType().equals("Most Popular")){
+                                popularTitle.add(resultBeans.get(i).getRestaurant_Name());
+                                Description.add(resultBeans.get(i).getKnownFor());
+                                Images.add(resultBeans.get(i).getRestaurantLogo());
+                            }else{
+
+                            }
+                        }
 
                         allRestaurantsRecyclerView.setHasFixedSize(true);
                         allRestaurantsRecyclerView.setLayoutManager(new LinearLayoutManager(UserDashboard.this, LinearLayoutManager.HORIZONTAL, false));
@@ -399,7 +397,9 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
             }
 
             @Override
-            public void onFailure(Call<RestaurantsModel> call, Throwable t) {
+            public void onFailure(@NonNull Call<RestaurantsModel> call, @NonNull Throwable t) {
+
+                Log.d(TAG, "onFailure: "+t.getMessage());
                 Toast.makeText(UserDashboard.this, "Please Try Again!", Toast.LENGTH_SHORT).show();
             }
         });

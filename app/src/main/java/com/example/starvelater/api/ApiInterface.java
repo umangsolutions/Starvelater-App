@@ -1,8 +1,6 @@
 package com.example.starvelater.api;
 
-import com.example.starvelater.jsonmodels.AreasModel;
-import com.example.starvelater.jsonmodels.CitiesModel;
-import com.example.starvelater.jsonmodels.PopularRestaurantsModel;
+import com.example.starvelater.jsonmodels.LocationsModel;
 import com.example.starvelater.jsonmodels.RestaurantsModel;
 import com.example.starvelater.jsonmodels.UserLoginModel;
 import com.example.starvelater.jsonmodels.UserRegistrationModel;
@@ -17,16 +15,22 @@ import retrofit2.http.POST;
 public interface ApiInterface {
 
     @Headers("Content-Type: application/json")
-    @POST("load_cities.php")
-    Call<CitiesModel> processDataCities();
+    @POST("load_cities_areas.php")
+    Call<LocationsModel> processLocationData();
 
     @Headers("Content-Type: application/json")
+    @POST("load_restaurants.php")
+    Call<RestaurantsModel> processRestaurants(@Body JsonObject object);
+
+
+
+/*    @Headers("Content-Type: application/json")
     @POST("load_areas.php")
     Call<AreasModel> processDataAreas(@Body JsonObject object);
 
     @Headers("Content-Type: application/json")
     @POST("load_most_popular.php")
-    Call<PopularRestaurantsModel> processAllPopular(@Body JsonObject object);
+    Call<PopularRestaurantsModel> processAllPopular(@Body JsonObject object);*/
 
     @Headers("Content-Type: application/json")
     @POST("load_utility_categories.php")

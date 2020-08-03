@@ -2,14 +2,14 @@ package com.example.starvelater.jsonmodels;
 
 import java.util.List;
 
-public class AreasModel { /**
+public class LocationsModel {
+
+    /**
      * status : true
-     * msg : Data retrieved Successfully
-     * data : [{"Area_ID":"5f21cb6143bae","Area_Name":"Jayendra Nagar","City_ID":"5ebeda1838ea8","City_Name":"Kakinada"}]
+     * data : [{"Area_ID":"5f21cb6143bae","Area_Name":"Jayendra Nagar","City_ID":"5ebeda1838ea8","City_Name":"Kakinada"},{"Area_ID":"5f22bfb0a9a44","Area_Name":"Nehru Nagar","City_ID":"5ebf40faa69de","City_Name":"Bhilai"},{"Area_ID":"5f22bfe8a3103","Area_Name":"Ghadi Chowk","City_ID":"5ebf40faa69de","City_Name":"Bhilai"},{"Area_ID":"5f244a8262d9a","Area_Name":"Panjagutta","City_ID":"5f244a6243cbe","City_Name":"Hyderabad"},{"Area_ID":"5f244a92ee052","Area_Name":"Jubilee Hills","City_ID":"5f244a6243cbe","City_Name":"Hyderabad"}]
      */
 
     private boolean status;
-    private String msg;
     private List<DataBean> data;
 
     public boolean isStatus() {
@@ -18,14 +18,6 @@ public class AreasModel { /**
 
     public void setStatus(boolean status) {
         this.status = status;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
     }
 
     public List<DataBean> getData() {
