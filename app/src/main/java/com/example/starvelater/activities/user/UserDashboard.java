@@ -97,13 +97,6 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
         setContentView(R.layout.activity_user_dashboard);
 
         setLocationLayout = findViewById(R.id.locationLayout);
-        setLocationLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogProgressBar.setVisibility(View.VISIBLE);
-                openSetLocationDialog();
-            }
-        });
 
         txtLocation = findViewById(R.id.location);
 
@@ -169,53 +162,22 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
             }
         });
 
-        navigationDrawer();
-        utilityRecycler();
-    }
-
-    private void openSetLocationDialog() {
-        setLocationDialog = new Dialog(UserDashboard.this);
-
-        setLocationDialog.setContentView(R.layout.location_dialog);
-
-        spinCity = setLocationDialog.findViewById(R.id.spinCity);
-        spinArea = setLocationDialog.findViewById(R.id.spinArea);
-
         // Loading All Locations, calling Service
-        ApiInterface apiInterface = RetrofitClient.getClient(this).create(ApiInterface.class);
+        ApiInterface apiInterface = RetrofitClient.getClient(UserDashboard.this).create(ApiInterface.class);
         apiInterface.processLocationData().enqueue(new Callback<LocationsModel>() {
             @Override
             public void onResponse(Call<LocationsModel> call, Response<LocationsModel> response) {
-
-                if(response.isSuccessful()) {
+                if(response.isSuccessful()){
                     LocationsModel locationsModel = response.body();
-                    assert locationsModel!=null;
-
-                    if(locationsModel.isStatus()) {
+                    assert locationsModel!= null;
+                    if(locationsModel.isStatus()){
                         locationList = locationsModel.getData();
-
-                        ArrayList<String> cityList = new ArrayList<>();
-
-                        // Creating City List From the Called Service
-                        for(int i=0;i<locationList.size();i++) {
-                            if(!cityList.contains(locationList.get(i).getCity_Name())) {
-                                cityList.add(locationList.get(i).getCity_Name());
-                            }
-                        }
-
-                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(UserDashboard.this, R.layout.support_simple_spinner_dropdown_item, cityList);
-                        arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-                        spinCity.setAdapter(arrayAdapter);
-
                         dialogProgressBar.setVisibility(View.GONE);
-
-
-                    } else {
+                    }else{
                         dialogProgressBar.setVisibility(View.GONE);
-                        Toast.makeText(UserDashboard.this, "No Cities Found", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UserDashboard.this, "No Locations Found", Toast.LENGTH_SHORT).show();
                     }
-
-                } else {
+                }else{
                     dialogProgressBar.setVisibility(View.GONE);
                     Toast.makeText(UserDashboard.this, "Something Went Wrong !", Toast.LENGTH_SHORT).show();
                 }
@@ -224,11 +186,51 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
             @Override
             public void onFailure(Call<LocationsModel> call, Throwable t) {
                 dialogProgressBar.setVisibility(View.GONE);
-
                 Toast.makeText(UserDashboard.this, "Please Try Again!", Toast.LENGTH_SHORT).show();
             }
         });
 
+        setLocationLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogProgressBar.setVisibility(View.VISIBLE);
+                if(locationList.size() == 0){
+                    Toast.makeText(UserDashboard.this, "Low Internet Connectivity", Toast.LENGTH_SHORT).show();
+                }else {
+                    openSetLocationDialog(locationList);
+                }
+            }
+        });
+
+        navigationDrawer();
+        utilityRecycler();
+    }
+
+    private void openSetLocationDialog(List<LocationsModel.DataBean> locationList) {
+        setLocationDialog = new Dialog(UserDashboard.this);
+
+        setLocationDialog.setContentView(R.layout.location_dialog);
+
+        spinCity = setLocationDialog.findViewById(R.id.spinCity);
+        spinArea = setLocationDialog.findViewById(R.id.spinArea);
+
+        ArrayList<String> cityList = new ArrayList<>();
+
+        // Creating City List
+        for(int i = 0; i< UserDashboard.this.locationList.size(); i++) {
+            if(!cityList.contains(UserDashboard.this.locationList.get(i).getCity_Name())) {
+                cityList.add(UserDashboard.this.locationList.get(i).getCity_Name());
+            }
+        }
+
+        // Setting City List to spinCity spinner
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(UserDashboard.this, R.layout.support_simple_spinner_dropdown_item, cityList);
+        arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        spinCity.setAdapter(arrayAdapter);
+
+        dialogProgressBar.setVisibility(View.GONE);
+
+        // Creating Areas List
         ArrayList<String> areaList = new ArrayList<>();
 
         spinCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -241,9 +243,9 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
                 //progressBar.setVisibility(View.VISIBLE);
 
                 // Creating the Areas List based on city selected from the called Service
-                for(int i=0;i<locationList.size();i++) {
-                    if(locationList.get(i).getCity_Name().equals(cityName)){
-                        areaList.add(locationList.get(i).getArea_Name());
+                for(int i = 0; i< UserDashboard.this.locationList.size(); i++) {
+                    if(UserDashboard.this.locationList.get(i).getCity_Name().equals(cityName)){
+                        areaList.add(UserDashboard.this.locationList.get(i).getArea_Name());
                     }
                 }
 
