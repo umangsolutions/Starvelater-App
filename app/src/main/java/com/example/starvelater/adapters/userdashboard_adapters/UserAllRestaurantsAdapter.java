@@ -54,16 +54,16 @@ public class UserAllRestaurantsAdapter extends RecyclerView.Adapter<UserAllResta
             //Loading only Restaurants of 'All Restaurants' Category
             if(restaurantsList.get(position).getOperationStatus().equals("Closed")) {
                 ColorMatrix matrix = new ColorMatrix();
-                matrix.setSaturation(1);
+                matrix.setSaturation(0);
                 ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
 
-
-                //holder.image.setColorFilter(filter);
                 Glide.with(context).load(restaurantsList.get(position).getRestaurantLogo()).into(holder.image);
                 holder.image.setColorFilter(filter);
+                //Glide.with(context).load(R.drawable.bill).into(holder.image);
+                //holder.closed.setVisibility(View.VISIBLE);
+            }else{
+                Glide.with(context).load(restaurantsList.get(position).getRestaurantLogo()).into(holder.image);
             }
-
-            Glide.with(context).load(restaurantsList.get(position).getRestaurantLogo()).into(holder.image);
             /*Glide.with(context)
                 .load(restaurantsList.get(position).getRestaurantLogo())
                 .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
@@ -123,13 +123,14 @@ public class UserAllRestaurantsAdapter extends RecyclerView.Adapter<UserAllResta
         ImageView image;
         LinearLayout progressBar;
         TextView title, description;
-
+        //ImageView closed;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             //Hooks
             progressBar = itemView.findViewById(R.id.progressBar);
             image = itemView.findViewById(R.id.most_popular_image);
+            //closed = itemView.findViewById(R.id.closed);
             title = itemView.findViewById(R.id.most_popular_title);
             description = itemView.findViewById(R.id.most_popular_description);
 

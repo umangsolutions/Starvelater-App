@@ -20,6 +20,18 @@
             android:scaleType="centerCrop"
             android:src="@drawable/paradise" />
 
+        <!--<ImageView
+            android:id="@+id/closed"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:scaleType="centerCrop"
+            android:layout_margin="5dp"
+            android:visibility="gone"
+            android:tint="#FF4500"
+            android:layout_alignStart="@id/most_popular_image"
+            android:layout_alignEnd="@id/most_popular_image"
+            android:src="@drawable/closed"/>-->
+
         <TextView
             android:id="@+id/most_popular_title"
             android:layout_width="wrap_content"
