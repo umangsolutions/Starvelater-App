@@ -321,7 +321,6 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
                 if(response.isSuccessful()) {
                     RestaurantsModel restaurantsModel = response.body();
                     assert restaurantsModel!=null;
-
                     if(restaurantsModel.isStatus()) {
 
                         // getting all Restaurants list based on Areas and Cities

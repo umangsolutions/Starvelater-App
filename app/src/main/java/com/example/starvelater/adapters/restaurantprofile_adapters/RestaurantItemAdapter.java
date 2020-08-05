@@ -23,11 +23,11 @@ public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAd
     private Context mContext;
     /*private List<Product> itemsModelList;
     private CartItemClickListener cartItemClickListener;*/
-    private ArrayList<String> categoryNamesList;
+    private List<String> categoryNamesList;
     private List<CategoryItemsModel.DataBean> categoryItemsList;
     LayoutInflater inflater;
 
-    public RestaurantItemAdapter(Context mContext, ArrayList<String> categoryNamesList, List<CategoryItemsModel.DataBean> categoryItemsList) {
+    public RestaurantItemAdapter(Context mContext, List<String> categoryNamesList, List<CategoryItemsModel.DataBean> categoryItemsList) {
 
         this.mContext = mContext;
         this.categoryNamesList = categoryNamesList;
@@ -98,8 +98,20 @@ public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAd
 */
         holder.categoryName.setText(categoryNamesList.get(position));
 
+        List<CategoryItemsModel.DataBean> categoryInsideItems = new ArrayList<>();
+
+        categoryInsideItems.clear();
+        // for sending the Items in the particular Category
+        for(int i=0;i<categoryItemsList.size();i++) {
+
+            if(categoryItemsList.get(i).getCategory().equals(holder.categoryName.getText().toString()) ) {
+                categoryInsideItems.add(categoryItemsList.get(i));
+            }
+
+        }
+
         //Initialize Adapter
-        CategoryCardDesignAdapter categoryCardDesignAdapter = new CategoryCardDesignAdapter(mContext,categoryItemsList);
+        CategoryCardDesignAdapter categoryCardDesignAdapter = new CategoryCardDesignAdapter(mContext,categoryInsideItems);
 
         //Initialize Layout
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false);

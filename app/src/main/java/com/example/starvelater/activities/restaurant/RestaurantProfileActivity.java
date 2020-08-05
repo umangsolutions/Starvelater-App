@@ -43,7 +43,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RestaurantProfileActivity extends AppCompatActivity implements CartProductClickListener, CartItemClickListener {
+public class RestaurantProfileActivity extends AppCompatActivity {
 
     RecyclerView datalist;
     RecyclerView itemlist;
@@ -52,7 +52,6 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
     TextView txtItemCount;
 
     List<String> categoryNamesList;
-    List<>
 
     LinearLayout cartLayout;
 
@@ -97,13 +96,13 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_profile_activity);
 
-        cartProductClickListener = (CartProductClickListener) this;
-        cartItemClickListener = (CartItemClickListener) this;
-
+        /*cartProductClickListener = (CartProductClickListener) this;
+        cartItemClickListener = (CartItemClickListener) this;*/
+/*
         itemsArrayList.add(new Product(600,600,0,"Veg Chowmein",0));
         itemsArrayList.add(new Product(200,200,0,"Veg Manchurian",0));
         itemsArrayList.add(new Product(100,100,0,"Schezwan Soup",0));
-        itemsArrayList.add(new Product(300,300,0,"Masala Kulcha",0));
+        itemsArrayList.add(new Product(300,300,0,"Masala Kulcha",0));*/
 
         productArrayList.add(new Product(500,500,0,"Beverages",R.drawable.photo6));
         productArrayList.add(new Product(1500,1500,0,"Biriyani north india",R.drawable.photo7));
@@ -122,7 +121,7 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
         nameCountList = new HashMap<>();
         namePriceList = new HashMap<>();
 
-
+        categoryNamesList = new ArrayList<>();
 
 
         txtRestaurantName = findViewById(R.id.restaurant_name);
@@ -149,6 +148,8 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
         String restaurantName = bundle.getString("name");
         String restaurantLocation = bundle.getString("location");
 
+        Toast.makeText(RestaurantProfileActivity.this, "Got the Data !" + restaurantID + "" +restaurantName, Toast.LENGTH_SHORT).show();
+
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("restaurant_ID",restaurantID);
@@ -166,20 +167,16 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
                         categoryItemsList = categoryItemsModel.getData();
 
                         for(int i=0; i<categoryItemsList.size();i++) {
-                            if(!categoryItemsList.contains(RestaurantProfileActivity.this.categoryItemsList.get(i).getCategory())) {
+                            if(!categoryNamesList.contains(RestaurantProfileActivity.this.categoryItemsList.get(i).getCategory())) {
                                 categoryNamesList.add(RestaurantProfileActivity.this.categoryItemsList.get(i).getCategory());
                             }
                         }
 
-                        for(int i=0; i<categoryItemsList.size();i++) {
-                            for(int j=0;j<categoryNamesList.size();j++){
-                                if(categoryItemsList.get(i).getCategory().equals(categoryNamesList)){
-                                    categoryItemsList.add(categoryItemsList.get(i).getItem_Name());
-                                }
-                            }
-                        }
+                        itemAdapter = new RestaurantItemAdapter(RestaurantProfileActivity.this, categoryNamesList,categoryItemsList);
 
-
+                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(RestaurantProfileActivity.this, LinearLayoutManager.VERTICAL, false);
+                        itemlist.setLayoutManager(linearLayoutManager);
+                        itemlist.setAdapter((RecyclerView.Adapter) itemAdapter);
 
                     }
 
@@ -253,24 +250,18 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
         });
 
 
-
-
         adapter = new RecycleGridAdapter1(RestaurantProfileActivity.this, productArrayList,cartProductClickListener);
 
-       itemAdapter = new RestaurantItemAdapter(RestaurantProfileActivity.this, itemsArrayList, cartItemClickListener);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(RestaurantProfileActivity.this, LinearLayoutManager.VERTICAL, false);
-        itemlist.setLayoutManager(linearLayoutManager);
-        itemlist.setAdapter((RecyclerView.Adapter) itemAdapter);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(RestaurantProfileActivity.this, 2, GridLayoutManager.VERTICAL, false);
         datalist.setLayoutManager(gridLayoutManager);
         datalist.setAdapter((RecyclerView.Adapter) adapter);
 
-        calculateCartTotal();
+        //calculateCartTotal();
     }
 
 
+/*
 
     @Override
     public void onMinusClick(Product cartItemsBean) {
@@ -443,5 +434,6 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
             }
         } else return 0;
     }
+*/
 
 }
