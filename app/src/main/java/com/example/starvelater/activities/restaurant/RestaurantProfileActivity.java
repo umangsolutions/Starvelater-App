@@ -23,17 +23,25 @@ import com.example.starvelater.R;
 import com.example.starvelater.activities.user.UserDashboard;
 import com.example.starvelater.adapters.restaurantprofile_adapters.RecycleGridAdapter1;
 import com.example.starvelater.adapters.restaurantprofile_adapters.RestaurantItemAdapter;
+import com.example.starvelater.api.ApiInterface;
+import com.example.starvelater.api.RetrofitClient;
 import com.example.starvelater.interfaces.CartItemClickListener;
 import com.example.starvelater.interfaces.CartProductClickListener;
+import com.example.starvelater.jsonmodels.CategoryItemsModel;
 import com.example.starvelater.model.NormalProducts;
 import com.example.starvelater.model.Product;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.JsonObject;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RestaurantProfileActivity extends AppCompatActivity implements CartProductClickListener, CartItemClickListener {
 
@@ -42,6 +50,9 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
 
     TextView txtOrderSummary;
     TextView txtItemCount;
+
+    List<String> categoryNamesList;
+    List<>
 
     LinearLayout cartLayout;
 
@@ -54,6 +65,8 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
     List<String> itemNameList;
     List<Integer> itemPriceList;
     List<Integer> itemCountList;
+
+    List<CategoryItemsModel.DataBean> categoryItemsList;
 
     HashMap<String, Integer> nameCountList;
     HashMap<String, Integer> namePriceList;
@@ -102,7 +115,7 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
         txtOrderSummary = findViewById(R.id.view_cart);
 
         datalist = findViewById(R.id.datalist);
-        itemlist = findViewById(R.id.itemlist);
+        itemlist = findViewById(R.id.categoryItemlist);
 
         txtItemCount = findViewById(R.id.itemsCount);
 
@@ -132,8 +145,54 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
 
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
+        String restaurantID = bundle.getString("rest_ID");
         String restaurantName = bundle.getString("name");
         String restaurantLocation = bundle.getString("location");
+
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("restaurant_ID",restaurantID);
+
+        ApiInterface apiInterface = RetrofitClient.getClient(this).create(ApiInterface.class);
+
+        apiInterface.processAllItems(jsonObject).enqueue(new Callback<CategoryItemsModel>() {
+            @Override
+            public void onResponse(Call<CategoryItemsModel> call, Response<CategoryItemsModel> response) {
+                if(response.isSuccessful()) {
+                    CategoryItemsModel categoryItemsModel = response.body();
+                    assert categoryItemsModel!=null;
+
+                    if(categoryItemsModel.isStatus()) {
+                        categoryItemsList = categoryItemsModel.getData();
+
+                        for(int i=0; i<categoryItemsList.size();i++) {
+                            if(!categoryItemsList.contains(RestaurantProfileActivity.this.categoryItemsList.get(i).getCategory())) {
+                                categoryNamesList.add(RestaurantProfileActivity.this.categoryItemsList.get(i).getCategory());
+                            }
+                        }
+
+                        for(int i=0; i<categoryItemsList.size();i++) {
+                            for(int j=0;j<categoryNamesList.size();j++){
+                                if(categoryItemsList.get(i).getCategory().equals(categoryNamesList)){
+                                    categoryItemsList.add(categoryItemsList.get(i).getItem_Name());
+                                }
+                            }
+                        }
+
+
+
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CategoryItemsModel> call, Throwable t) {
+
+            }
+        });
+
+
 
         txtRestaurantName.setText(restaurantName);
         txtRestaurantLocation.setText(restaurantLocation);

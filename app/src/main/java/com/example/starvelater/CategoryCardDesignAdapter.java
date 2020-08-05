@@ -1,61 +1,57 @@
-package com.example.starvelater.adapters.restaurantprofile_adapters;
+package com.example.starvelater;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.starvelater.CategoryCardDesignAdapter;
-import com.example.starvelater.R;
+import com.example.starvelater.interfaces.CartItemClickListener;
 import com.example.starvelater.jsonmodels.CategoryItemsModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAdapter.ViewHolder> {
+import static android.content.ContentValues.TAG;
+
+public class CategoryCardDesignAdapter extends RecyclerView.Adapter<CategoryCardDesignAdapter.ViewHolder> {
 
     private Context mContext;
-    /*private List<Product> itemsModelList;
-    private CartItemClickListener cartItemClickListener;*/
-    private ArrayList<String> categoryNamesList;
-    private List<CategoryItemsModel.DataBean> categoryItemsList;
+    private List<CategoryItemsModel.DataBean> itemsModelList;
+    //private CartItemClickListener cartItemClickListener;
     LayoutInflater inflater;
 
-    public RestaurantItemAdapter(Context mContext, ArrayList<String> categoryNamesList, List<CategoryItemsModel.DataBean> categoryItemsList) {
+    public CategoryCardDesignAdapter(Context mContext, List<CategoryItemsModel.DataBean> itemsModelList) {
 
         this.mContext = mContext;
-        this.categoryNamesList = categoryNamesList;
-        this.categoryItemsList = categoryItemsList;
+        this.itemsModelList = itemsModelList;
+        //this.cartItemClickListener = cartItemClickListener;
 
     }
 
-
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CategoryCardDesignAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_category_card_design, parent, false);
+                .inflate(R.layout.item_card_design, parent, false);
 
         return new ViewHolder(itemView);
     }
 
-
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CategoryCardDesignAdapter.ViewHolder holder, int position) {
 
-        /*final Product normalProductsModel = itemsModelList.get(position);
+        final CategoryItemsModel.DataBean categoryItemsModel = itemsModelList.get(position);
 
-        holder.title.setText(normalProductsModel.getTitles());
-        holder.price.setText("₹ "+normalProductsModel.getUnitPrice());
+        holder.title.setText(categoryItemsModel.getItem_Name());
+        holder.price.setText("₹ "+categoryItemsModel.getItem_Price());
         //  holder.productQuantity.setText(""+productsModel.getQuantity());
 
-        if (normalProductsModel.getQuantity() == 0) {
+        /*if (categoryItemsModel.getQuantity() == 0) {
             holder.productQuantity.setText("ADD");
             holder.productMinus.setVisibility(View.GONE);
             holder.productPlus.setVisibility(View.GONE);
@@ -92,27 +88,13 @@ public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAd
 
                 cartItemClickListener.onItemPlusClick(normalProductsModel);
             }
-        });
-
-
-*/
-        holder.categoryName.setText(categoryNamesList.get(position));
-
-        //Initialize Adapter
-        CategoryCardDesignAdapter categoryCardDesignAdapter = new CategoryCardDesignAdapter(mContext,categoryItemsList);
-
-        //Initialize Layout
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false);
-        holder.categoryItemsList.setLayoutManager(linearLayoutManager);
-
-        //Set Adapter
-        holder.categoryItemsList.setAdapter(categoryCardDesignAdapter);
+        });*/
 
     }
 
     @Override
     public int getItemCount() {
-        return categoryNamesList.size();
+        return itemsModelList.size();
     }
 
     @Override
@@ -125,23 +107,20 @@ public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAd
         return position;
     }
 
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        /*Button addItem;
+        Button addItem;
         TextView title, price;
-        TextView productMinus,productPlus,productQuantity;*/
-        TextView categoryName;
-        RecyclerView categoryItemsList;
+        TextView productMinus,productPlus,productQuantity;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            /*title = itemView.findViewById(R.id.textView);
+            title = itemView.findViewById(R.id.textView);
             price = itemView.findViewById(R.id.price);
             productMinus= itemView.findViewById(R.id.product_minus);
             productPlus= itemView.findViewById(R.id.product_plus);
-            productQuantity= itemView.findViewById(R.id.product_quantity);*/
-            categoryName = itemView.findViewById(R.id.categoryName);
-            categoryItemsList = itemView.findViewById(R.id.categoryItemlist);
+            productQuantity= itemView.findViewById(R.id.product_quantity);
 
         }
     }

@@ -1,5 +1,6 @@
 package com.example.starvelater.api;
 
+import com.example.starvelater.jsonmodels.CategoryItemsModel;
 import com.example.starvelater.jsonmodels.LocationsModel;
 import com.example.starvelater.jsonmodels.RestaurantsModel;
 import com.example.starvelater.jsonmodels.UserLoginModel;
@@ -21,6 +22,10 @@ public interface ApiInterface {
     @Headers("Content-Type: application/json")
     @POST("load_restaurants.php")
     Call<RestaurantsModel> processRestaurants(@Body JsonObject object);
+
+    @Headers("Content-Type: application/json")
+    @POST("load_all_items.php")
+    Call<CategoryItemsModel> processAllItems(@Body JsonObject object);
 
 
 

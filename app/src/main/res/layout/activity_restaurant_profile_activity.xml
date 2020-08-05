@@ -235,6 +235,7 @@
                     android:text="Vegetarian Items"
                     android:textSize="14dp" />
 
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -261,31 +262,47 @@
                     android:layout_marginTop="15dp"
                     android:background="#e0e0e0" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="15dp"
-                    android:fontFamily="@font/muli_black"
-                    android:padding="5dp"
-                    android:text="Tandoori Appetizers"
-                    android:textColor="#F5000000"
-                    android:textSize="19dp" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/itemlist"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_height="wrap_content">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="5dp"
-                    android:layout_marginTop="15dp"
-                    android:background="#e0e0e0" />
+                    <!--<TextView
+                        android:id="@+id/categoryName"
+                        android:layout_width="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:gravity="left"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="15dp"
+                        android:fontFamily="@font/muli_black"
+                        android:padding="5dp"
+                        android:text="Tandoori Appetizers"
+                        android:textColor="#F5000000"
+                        android:textSize="19dp" />-->
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/categoryItemlist"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp" />
+
+                    <!--<View
+                        android:id="@+id/space"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_below="@+id/itemlist"
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:layout_marginTop="15dp"
+                        android:background="#e0e0e0" />-->
+
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"

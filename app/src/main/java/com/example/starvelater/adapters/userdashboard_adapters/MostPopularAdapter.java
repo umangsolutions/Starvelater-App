@@ -55,6 +55,7 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
                     Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
 
                     Bundle bundle = new Bundle();
+                    bundle.putString("rest_ID",featuredRestaurants.get(position).getRestaurant_ID());
                     bundle.putString("name", holder.title.getText().toString());
                     bundle.putString("location", holder.description.getText().toString());
                     intent.putExtras(bundle);
