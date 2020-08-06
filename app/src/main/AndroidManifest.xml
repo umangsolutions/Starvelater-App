@@ -17,7 +17,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".CategoryCardDesign"></activity>
+        <activity android:name=".activities.restaurant.CategoryCardDesign"></activity>
         <activity android:name=".activities.restaurant.OrderedSummaryActivity" />
         <activity android:name=".activities.helpandsupport.TermsandConditionsActivity" />
         <activity android:name=".activities.helpandsupport.HelpandSupportActivity" />

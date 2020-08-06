@@ -4,16 +4,16 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.starvelater.CategoryCardDesignAdapter;
 import com.example.starvelater.R;
+import com.example.starvelater.interfaces.CartItemClickListener;
 import com.example.starvelater.jsonmodels.CategoryItemsModel;
+import com.example.starvelater.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,17 +21,18 @@ import java.util.List;
 public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAdapter.ViewHolder> {
 
     private Context mContext;
-    /*private List<Product> itemsModelList;
-    private CartItemClickListener cartItemClickListener;*/
+    /*private List<Product> itemsModelList;*/
+    private CartItemClickListener cartItemClickListener;
     private List<String> categoryNamesList;
-    private List<CategoryItemsModel.DataBean> categoryItemsList;
+    private List<Product> categoryItemsList;
     LayoutInflater inflater;
 
-    public RestaurantItemAdapter(Context mContext, List<String> categoryNamesList, List<CategoryItemsModel.DataBean> categoryItemsList) {
+    public RestaurantItemAdapter(Context mContext, List<String> categoryNamesList, List<Product> categoryItemsList,CartItemClickListener cartItemClickListener) {
 
         this.mContext = mContext;
         this.categoryNamesList = categoryNamesList;
         this.categoryItemsList = categoryItemsList;
+        this.cartItemClickListener = cartItemClickListener;
 
     }
 
@@ -98,20 +99,22 @@ public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAd
 */
         holder.categoryName.setText(categoryNamesList.get(position));
 
-        List<CategoryItemsModel.DataBean> categoryInsideItems = new ArrayList<>();
+        List<Product> categoryInsideItems = new ArrayList<>();
 
-        categoryInsideItems.clear();
+
         // for sending the Items in the particular Category
         for(int i=0;i<categoryItemsList.size();i++) {
 
-            if(categoryItemsList.get(i).getCategory().equals(holder.categoryName.getText().toString()) ) {
+            if(categoryItemsList.get(i).getItemCategory().equals(holder.categoryName.getText().toString()) ) {
+
                 categoryInsideItems.add(categoryItemsList.get(i));
+
             }
 
         }
 
         //Initialize Adapter
-        CategoryCardDesignAdapter categoryCardDesignAdapter = new CategoryCardDesignAdapter(mContext,categoryInsideItems);
+        CategoryCardDesignAdapter categoryCardDesignAdapter = new CategoryCardDesignAdapter(mContext,categoryInsideItems,cartItemClickListener);
 
         //Initialize Layout
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false);

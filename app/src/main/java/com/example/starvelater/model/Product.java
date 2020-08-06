@@ -8,18 +8,21 @@ public class Product implements Serializable {
     private int unitPrice;
     private int itemTotalPrice;
     private int quantity;
+
     private String titles;
-    private int images;
+    private String images;
+    private String itemCategory;
 
     public Product() {
     }
 
-    public Product(int unitPrice, int itemTotalPrice, int quantity, String titles, int images) {
+    public Product(int unitPrice, int itemTotalPrice, int quantity, String titles, String images, String itemCategory) {
         this.unitPrice = unitPrice;
         this.itemTotalPrice = itemTotalPrice;
         this.quantity = quantity;
         this.titles = titles;
         this.images = images;
+        this.itemCategory = itemCategory;
     }
 
     public int getUnitPrice() {
@@ -54,11 +57,19 @@ public class Product implements Serializable {
         this.titles = titles;
     }
 
-    public int getImages() {
+    public String getImages() {
         return images;
     }
 
-    public void setImages(int images) {
+    public void setImages(String images) {
         this.images = images;
+    }
+
+    public String getItemCategory() {
+        return itemCategory;
+    }
+
+    public void setItemCategory(String itemCategory) {
+        this.itemCategory = itemCategory;
     }
 }

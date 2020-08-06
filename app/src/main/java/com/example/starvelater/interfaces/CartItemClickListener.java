@@ -1,5 +1,6 @@
 package com.example.starvelater.interfaces;
 
+import com.example.starvelater.jsonmodels.CategoryItemsModel;
 import com.example.starvelater.model.NormalProducts;
 import com.example.starvelater.model.Product;
 

@@ -43,7 +43,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RestaurantProfileActivity extends AppCompatActivity {
+public class RestaurantProfileActivity extends AppCompatActivity implements CartProductClickListener,CartItemClickListener{
 
     RecyclerView datalist;
     RecyclerView itemlist;
@@ -96,20 +96,20 @@ public class RestaurantProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_profile_activity);
 
-        /*cartProductClickListener = (CartProductClickListener) this;
-        cartItemClickListener = (CartItemClickListener) this;*/
+        cartProductClickListener = (CartProductClickListener) this;
+        cartItemClickListener = (CartItemClickListener) this;
 /*
         itemsArrayList.add(new Product(600,600,0,"Veg Chowmein",0));
         itemsArrayList.add(new Product(200,200,0,"Veg Manchurian",0));
         itemsArrayList.add(new Product(100,100,0,"Schezwan Soup",0));
         itemsArrayList.add(new Product(300,300,0,"Masala Kulcha",0));*/
 
-        productArrayList.add(new Product(500,500,0,"Beverages",R.drawable.photo6));
-        productArrayList.add(new Product(1500,1500,0,"Biriyani north india",R.drawable.photo7));
-        productArrayList.add(new Product(250,250,0,"red cherry",R.drawable.photo8));
-        productArrayList.add(new Product(369,369,0,"Italian Fast Food",R.drawable.photo9));
-        productArrayList.add(new Product(400,400,0,"American Italian Food",R.drawable.photo10));
-        productArrayList.add(new Product(128,128,0,"Masala Kulcha",R.drawable.photo11));
+        /*productArrayList.add(new Product(500,500,0,"Beverages",R.drawable.photo6,""));
+        productArrayList.add(new Product(1500,1500,0,"Biriyani north india",R.drawable.photo7,""));
+        productArrayList.add(new Product(250,250,0,"red cherry",R.drawable.photo8,""));
+        productArrayList.add(new Product(369,369,0,"Italian Fast Food",R.drawable.photo9,""));
+        productArrayList.add(new Product(400,400,0,"American Italian Food",R.drawable.photo10,""));
+        productArrayList.add(new Product(128,128,0,"Masala Kulcha",R.drawable.photo11,""));*/
 
         txtOrderSummary = findViewById(R.id.view_cart);
 
@@ -123,9 +123,9 @@ public class RestaurantProfileActivity extends AppCompatActivity {
 
         categoryNamesList = new ArrayList<>();
 
-
         txtRestaurantName = findViewById(R.id.restaurant_name);
         txtRestaurantLocation = findViewById(R.id.restaurant_location);
+
 
         txtTotalCost = findViewById(R.id.itemsCost);
 
@@ -148,7 +148,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
         String restaurantName = bundle.getString("name");
         String restaurantLocation = bundle.getString("location");
 
-        Toast.makeText(RestaurantProfileActivity.this, "Got the Data !" + restaurantID + "" +restaurantName, Toast.LENGTH_SHORT).show();
+
 
 
         JsonObject jsonObject = new JsonObject();
@@ -167,12 +167,41 @@ public class RestaurantProfileActivity extends AppCompatActivity {
                         categoryItemsList = categoryItemsModel.getData();
 
                         for(int i=0; i<categoryItemsList.size();i++) {
+
                             if(!categoryNamesList.contains(RestaurantProfileActivity.this.categoryItemsList.get(i).getCategory())) {
                                 categoryNamesList.add(RestaurantProfileActivity.this.categoryItemsList.get(i).getCategory());
                             }
+                            // adding all the items from Master List to Product class
+
+                            // adding items to Recommended Category
+
+                            if(categoryItemsList.get(i).getRecommended().equals("Yes")) {
+                                productArrayList.add(new Product(Integer.parseInt(categoryItemsList.get(i).getFinal_Price()), Integer.parseInt(categoryItemsList.get(i).getFinal_Price()), 0, categoryItemsList.get(i).getItem_Name(), categoryItemsList.get(i).getImgUrl(), categoryItemsList.get(i).getCategory()));
+                            } else {
+                                itemsArrayList.add(new Product(Integer.parseInt(categoryItemsList.get(i).getFinal_Price()), Integer.parseInt(categoryItemsList.get(i).getFinal_Price()),0, categoryItemsList.get(i).getItem_Name(),categoryItemsList.get(i).getImgUrl(),categoryItemsList.get(i).getCategory()));
+                            }
+
                         }
 
-                        itemAdapter = new RestaurantItemAdapter(RestaurantProfileActivity.this, categoryNamesList,categoryItemsList);
+                       /* for(int i=1; i<=6;i++) {
+
+                            productArrayList.add(new Product(Integer.parseInt(categoryItemsList.get(i).getFinal_Price()), Integer.parseInt(categoryItemsList.get(i).getFinal_Price()), 0, categoryItemsList.get(i).getItem_Name(), categoryItemsList.get(i).getImgUrl(), categoryItemsList.get(i).getCategory()));
+
+                        }*/
+
+                        adapter = new RecycleGridAdapter1(RestaurantProfileActivity.this, productArrayList,cartProductClickListener);
+
+                        GridLayoutManager gridLayoutManager = new GridLayoutManager(RestaurantProfileActivity.this, 2, GridLayoutManager.VERTICAL, false);
+                        datalist.setLayoutManager(gridLayoutManager);
+                        datalist.setAdapter((RecyclerView.Adapter) adapter);
+
+
+                       /* for(int i=0; i< categoryItemsList.size();i++) {
+
+                            // adding all the items from Master List to Product class
+                        }
+*/
+                        itemAdapter = new RestaurantItemAdapter(RestaurantProfileActivity.this, categoryNamesList,itemsArrayList,cartItemClickListener);
 
                         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(RestaurantProfileActivity.this, LinearLayoutManager.VERTICAL, false);
                         itemlist.setLayoutManager(linearLayoutManager);
@@ -188,8 +217,6 @@ public class RestaurantProfileActivity extends AppCompatActivity {
 
             }
         });
-
-
 
         txtRestaurantName.setText(restaurantName);
         txtRestaurantLocation.setText(restaurantLocation);
@@ -250,27 +277,19 @@ public class RestaurantProfileActivity extends AppCompatActivity {
         });
 
 
-        adapter = new RecycleGridAdapter1(RestaurantProfileActivity.this, productArrayList,cartProductClickListener);
-
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(RestaurantProfileActivity.this, 2, GridLayoutManager.VERTICAL, false);
-        datalist.setLayoutManager(gridLayoutManager);
-        datalist.setAdapter((RecyclerView.Adapter) adapter);
-
-        //calculateCartTotal();
+        calculateCartTotal();
     }
 
 
-/*
-
     @Override
     public void onMinusClick(Product cartItemsBean) {
+
         int i = productArrayList.indexOf(cartItemsBean);
         if (cartItemsBean.getQuantity() > 0) {
             int itemTotal = cartItemsBean.getUnitPrice() * cartItemsBean.getQuantity();
 
             Product updatedProduct = new Product(cartItemsBean.getUnitPrice(),itemTotal, (cartItemsBean.getQuantity() -1), cartItemsBean.getTitles(),
-                    cartItemsBean.getImages());
+                    cartItemsBean.getImages(),"");
 
             productArrayList.remove(cartItemsBean);
             productArrayList.add(i, updatedProduct);
@@ -291,7 +310,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
 
 
         Product updatedProduct = new Product(cartItemsBean.getUnitPrice(),itemTotal, quantity, cartItemsBean.getTitles(),
-                cartItemsBean.getImages());
+                cartItemsBean.getImages(),"");
 
         productArrayList.remove(cartItemsBean);
         productArrayList.add(i, updatedProduct);
@@ -310,7 +329,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
 
         int i = productArrayList.indexOf(cartItemsBean);
         Product updatedProduct = new Product(cartItemsBean.getUnitPrice(),cartItemsBean.getUnitPrice(), 1, cartItemsBean.getTitles(),
-                cartItemsBean.getImages());
+                cartItemsBean.getImages(),"");
 
         productArrayList.remove(cartItemsBean);
         productArrayList.add(i, updatedProduct);
@@ -328,10 +347,14 @@ public class RestaurantProfileActivity extends AppCompatActivity {
     public void onItemMinusClick(Product productItemsBean) {
 
         int i = itemsArrayList.indexOf(productItemsBean);
+
         if (productItemsBean.getQuantity() > 0) {
+
             int itemTotal = productItemsBean.getUnitPrice() * productItemsBean.getQuantity();
 
-            NormalProducts updatedItem = new NormalProducts(productItemsBean.getUnitPrice(),itemTotal, (productItemsBean.getQuantity() -1), productItemsBean.getTitles());
+            //CategoryItemsModel.DataBean updatedItem = new CategoryItemsModel.DataBean(productItemsBean.getCategory(),productItemsBean.getItem_ID(),productItemsBean.getItem_Name(),productItemsBean.getType(),productItemsBean.getItem_Price(), productItemsBean.getAvailability(),productItemsBean.getDiscount(),productItemsBean.getFinal_Price(),productItemsBean.getImgUrl(),productItemsBean.getRecommended(),Integer.toString(itemTotal),(productItemsBean.getQuantity() - 1));
+
+            NormalProducts updatedItem = new NormalProducts(productItemsBean.getUnitPrice(),itemTotal, (productItemsBean.getQuantity() -1 ) , productItemsBean.getTitles(),productItemsBean.getImages(),productItemsBean.getItemCategory());
 
             itemsArrayList.remove(productItemsBean);
             itemsArrayList.add(i, updatedItem);
@@ -349,11 +372,13 @@ public class RestaurantProfileActivity extends AppCompatActivity {
         int i = itemsArrayList.indexOf(productItemsBean);
 
         int quantity = productItemsBean.getQuantity() + 1;
-        int itemTotal = productItemsBean.getUnitPrice() * quantity;
+        int itemTotal = productItemsBean.getUnitPrice()* quantity;
         Log.d("TAG", "onMinusClick: "+quantity);
 
 
-        NormalProducts updatedItem = new NormalProducts(productItemsBean.getUnitPrice(),itemTotal, quantity, productItemsBean.getTitles());
+        //CategoryItemsModel.DataBean updatedItem = new CategoryItemsModel.DataBean(productItemsBean.getCategory(),productItemsBean.getItem_ID(),productItemsBean.getItem_Name(),productItemsBean.getType(),productItemsBean.getItem_Price(), productItemsBean.getAvailability(),productItemsBean.getDiscount(),productItemsBean.getFinal_Price(),productItemsBean.getImgUrl(),productItemsBean.getRecommended(),Integer.toString(itemTotal),(productItemsBean.getQuantity() + 1));
+
+        NormalProducts updatedItem = new NormalProducts(productItemsBean.getUnitPrice(),itemTotal, quantity, productItemsBean.getTitles(),productItemsBean.getImages(),productItemsBean.getItemCategory());
 
         itemsArrayList.remove(productItemsBean);
         itemsArrayList.add(i, updatedItem);
@@ -373,7 +398,10 @@ public class RestaurantProfileActivity extends AppCompatActivity {
     public void onAddItemClick(int position, Product productItemsBean) {
 
         int i = itemsArrayList.indexOf(productItemsBean);
-        NormalProducts updatedItem = new NormalProducts(productItemsBean.getUnitPrice(),productItemsBean.getUnitPrice(), 1, productItemsBean.getTitles());
+
+        NormalProducts updatedItem = new NormalProducts(productItemsBean.getUnitPrice(),productItemsBean.getUnitPrice(), 1, productItemsBean.getTitles(),productItemsBean.getImages(),productItemsBean.getItemCategory());
+
+       // CategoryItemsModel.DataBean updatedItem = new CategoryItemsModel.DataBean(productItemsBean.getCategory(),productItemsBean.getItem_ID(),productItemsBean.getItem_Name(),productItemsBean.getType(),productItemsBean.getItem_Price(), productItemsBean.getAvailability(),productItemsBean.getDiscount(),productItemsBean.getFinal_Price(),productItemsBean.getImgUrl(),productItemsBean.getRecommended(),productItemsBean.getItemTotalPrice(),1);
 
         itemsArrayList.remove(productItemsBean);
         itemsArrayList.add(i, updatedItem);
@@ -394,7 +422,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
 
 
             cartLayout.setVisibility(View.VISIBLE);
-            for (Product order : productArrayList) {
+           for (Product order : productArrayList) {
 
                 grandTotal += (ParseDouble(String.valueOf(order.getUnitPrice())) * order.getQuantity());
                 quantity += (ParseDouble(String.valueOf(order.getQuantity())));
@@ -422,6 +450,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
                 txtItemCount.setText("" + String.valueOf(quantity));
             }
 
+
     }
 
 
@@ -434,6 +463,6 @@ public class RestaurantProfileActivity extends AppCompatActivity {
             }
         } else return 0;
     }
-*/
+
 
 }

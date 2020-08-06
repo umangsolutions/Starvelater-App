@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.starvelater.R;
 import com.example.starvelater.interfaces.CartProductClickListener;
 import com.example.starvelater.model.Product;
@@ -49,7 +50,9 @@ public class RecycleGridAdapter1 extends RecyclerView.Adapter<RecycleGridAdapter
         final Product productsModel = productsModelList.get(position);
 
         holder.title.setText(productsModel.getTitles());
-        holder.gridIcon.setImageResource(productsModel.getImages());
+
+       Glide.with(mContext).load(productsModel.getImages()).into(holder.gridIcon);
+        //holder.gridIcon.setImageResource(R.drawable.bbqnation);
         holder.price.setText("₹ "+productsModel.getUnitPrice());
       //  holder.productQuantity.setText(""+productsModel.getQuantity());
 
