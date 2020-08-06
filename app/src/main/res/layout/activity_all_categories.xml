@@ -58,6 +58,7 @@
             android:fontFamily="@font/muli_black"
             android:padding="10dp"
             android:text="@string/categories"
+            android:textStyle="bold"
             android:textAllCaps="true"
             android:textColor="@color/colorAccent"
             android:textSize="30sp" />
