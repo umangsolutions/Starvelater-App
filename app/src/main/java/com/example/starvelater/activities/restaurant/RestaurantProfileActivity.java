@@ -176,9 +176,9 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
                             // adding items to Recommended Category
 
                             if(categoryItemsList.get(i).getRecommended().equals("Yes")) {
-                                productArrayList.add(new Product(Integer.parseInt(categoryItemsList.get(i).getFinal_Price()), Integer.parseInt(categoryItemsList.get(i).getFinal_Price()), 0, categoryItemsList.get(i).getItem_Name(), categoryItemsList.get(i).getImgUrl(), categoryItemsList.get(i).getCategory()));
+                                productArrayList.add(new Product(Integer.parseInt(categoryItemsList.get(i).getFinal_Price()), Integer.parseInt(categoryItemsList.get(i).getFinal_Price()), 0, categoryItemsList.get(i).getType(),categoryItemsList.get(i).getItem_Name(), categoryItemsList.get(i).getImgUrl(), categoryItemsList.get(i).getCategory()));
                             } else {
-                                itemsArrayList.add(new Product(Integer.parseInt(categoryItemsList.get(i).getFinal_Price()), Integer.parseInt(categoryItemsList.get(i).getFinal_Price()),0, categoryItemsList.get(i).getItem_Name(),categoryItemsList.get(i).getImgUrl(),categoryItemsList.get(i).getCategory()));
+                                itemsArrayList.add(new Product(Integer.parseInt(categoryItemsList.get(i).getFinal_Price()), Integer.parseInt(categoryItemsList.get(i).getFinal_Price()),0, categoryItemsList.get(i).getType(),categoryItemsList.get(i).getItem_Name(),categoryItemsList.get(i).getImgUrl(),categoryItemsList.get(i).getCategory()));
                             }
 
                         }
@@ -288,8 +288,8 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
         if (cartItemsBean.getQuantity() > 0) {
             int itemTotal = cartItemsBean.getUnitPrice() * cartItemsBean.getQuantity();
 
-            Product updatedProduct = new Product(cartItemsBean.getUnitPrice(),itemTotal, (cartItemsBean.getQuantity() -1), cartItemsBean.getTitles(),
-                    cartItemsBean.getImages(),"");
+            Product updatedProduct = new Product(cartItemsBean.getUnitPrice(),itemTotal, (cartItemsBean.getQuantity() -1), cartItemsBean.getType(), cartItemsBean.getTitles(),
+                    cartItemsBean.getImages(),cartItemsBean.getItemCategory());
 
             productArrayList.remove(cartItemsBean);
             productArrayList.add(i, updatedProduct);
@@ -309,8 +309,8 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
         Log.d("TAG", "onMinusClick: "+quantity);
 
 
-        Product updatedProduct = new Product(cartItemsBean.getUnitPrice(),itemTotal, quantity, cartItemsBean.getTitles(),
-                cartItemsBean.getImages(),"");
+        Product updatedProduct = new Product(cartItemsBean.getUnitPrice(),itemTotal, quantity, cartItemsBean.getType(),cartItemsBean.getTitles(),
+                cartItemsBean.getImages(),cartItemsBean.getItemCategory());
 
         productArrayList.remove(cartItemsBean);
         productArrayList.add(i, updatedProduct);
@@ -328,8 +328,8 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
     public void onAddClick(int position, Product cartItemsBean) {
 
         int i = productArrayList.indexOf(cartItemsBean);
-        Product updatedProduct = new Product(cartItemsBean.getUnitPrice(),cartItemsBean.getUnitPrice(), 1, cartItemsBean.getTitles(),
-                cartItemsBean.getImages(),"");
+        Product updatedProduct = new Product(cartItemsBean.getUnitPrice(),cartItemsBean.getUnitPrice(), 1, cartItemsBean.getType(),cartItemsBean.getTitles(),
+                cartItemsBean.getImages(),cartItemsBean.getItemCategory());
 
         productArrayList.remove(cartItemsBean);
         productArrayList.add(i, updatedProduct);
@@ -354,7 +354,7 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
 
             //CategoryItemsModel.DataBean updatedItem = new CategoryItemsModel.DataBean(productItemsBean.getCategory(),productItemsBean.getItem_ID(),productItemsBean.getItem_Name(),productItemsBean.getType(),productItemsBean.getItem_Price(), productItemsBean.getAvailability(),productItemsBean.getDiscount(),productItemsBean.getFinal_Price(),productItemsBean.getImgUrl(),productItemsBean.getRecommended(),Integer.toString(itemTotal),(productItemsBean.getQuantity() - 1));
 
-            NormalProducts updatedItem = new NormalProducts(productItemsBean.getUnitPrice(),itemTotal, (productItemsBean.getQuantity() -1 ) , productItemsBean.getTitles(),productItemsBean.getImages(),productItemsBean.getItemCategory());
+            NormalProducts updatedItem = new NormalProducts(productItemsBean.getUnitPrice(),itemTotal, (productItemsBean.getQuantity() -1 ) , productItemsBean.getType(),productItemsBean.getTitles(),productItemsBean.getImages(),productItemsBean.getItemCategory());
 
             itemsArrayList.remove(productItemsBean);
             itemsArrayList.add(i, updatedItem);
@@ -378,7 +378,7 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
 
         //CategoryItemsModel.DataBean updatedItem = new CategoryItemsModel.DataBean(productItemsBean.getCategory(),productItemsBean.getItem_ID(),productItemsBean.getItem_Name(),productItemsBean.getType(),productItemsBean.getItem_Price(), productItemsBean.getAvailability(),productItemsBean.getDiscount(),productItemsBean.getFinal_Price(),productItemsBean.getImgUrl(),productItemsBean.getRecommended(),Integer.toString(itemTotal),(productItemsBean.getQuantity() + 1));
 
-        NormalProducts updatedItem = new NormalProducts(productItemsBean.getUnitPrice(),itemTotal, quantity, productItemsBean.getTitles(),productItemsBean.getImages(),productItemsBean.getItemCategory());
+        NormalProducts updatedItem = new NormalProducts(productItemsBean.getUnitPrice(),itemTotal, quantity, productItemsBean.getType(),productItemsBean.getTitles(),productItemsBean.getImages(),productItemsBean.getItemCategory());
 
         itemsArrayList.remove(productItemsBean);
         itemsArrayList.add(i, updatedItem);
@@ -399,7 +399,7 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
 
         int i = itemsArrayList.indexOf(productItemsBean);
 
-        NormalProducts updatedItem = new NormalProducts(productItemsBean.getUnitPrice(),productItemsBean.getUnitPrice(), 1, productItemsBean.getTitles(),productItemsBean.getImages(),productItemsBean.getItemCategory());
+        NormalProducts updatedItem = new NormalProducts(productItemsBean.getUnitPrice(),productItemsBean.getUnitPrice(), 1, productItemsBean.getType(), productItemsBean.getTitles(),productItemsBean.getImages(),productItemsBean.getItemCategory());
 
        // CategoryItemsModel.DataBean updatedItem = new CategoryItemsModel.DataBean(productItemsBean.getCategory(),productItemsBean.getItem_ID(),productItemsBean.getItem_Name(),productItemsBean.getType(),productItemsBean.getItem_Price(), productItemsBean.getAvailability(),productItemsBean.getDiscount(),productItemsBean.getFinal_Price(),productItemsBean.getImgUrl(),productItemsBean.getRecommended(),productItemsBean.getItemTotalPrice(),1);
 

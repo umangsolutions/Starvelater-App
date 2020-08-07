@@ -8,7 +8,7 @@ public class NormalProducts extends Product implements Serializable {
     private int itemTotalPrice;
     private int quantity;
     private String titles;
-
+    private String type;
     private String images;
     private String itemCategory;
 
@@ -17,12 +17,12 @@ public class NormalProducts extends Product implements Serializable {
 
     }
 
-
-    public NormalProducts(int unitPrice, int itemTotalPrice, int quantity, String titles, String images, String itemCategory) {
+    public NormalProducts(int unitPrice, int itemTotalPrice, int quantity, String titles, String type, String images, String itemCategory) {
         this.unitPrice = unitPrice;
         this.itemTotalPrice = itemTotalPrice;
         this.quantity = quantity;
         this.titles = titles;
+        this.type = type;
         this.images = images;
         this.itemCategory = itemCategory;
     }
@@ -65,6 +65,16 @@ public class NormalProducts extends Product implements Serializable {
     @Override
     public void setTitles(String titles) {
         this.titles = titles;
+    }
+
+    @Override
+    public String getType() {
+        return type;
+    }
+
+    @Override
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.example.starvelater.adapters.restaurantprofile_adapters;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,11 +11,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.starvelater.R;
 import com.example.starvelater.interfaces.CartItemClickListener;
-import com.example.starvelater.jsonmodels.CategoryItemsModel;
 import com.example.starvelater.model.Product;
 
 import java.util.List;
@@ -44,11 +46,17 @@ public class CategoryCardDesignAdapter extends RecyclerView.Adapter<CategoryCard
         return new ViewHolder(itemView);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(@NonNull CategoryCardDesignAdapter.ViewHolder holder, int position) {
 
         final Product categoryItemsModel = itemsModelList.get(position);
-
+        if(categoryItemsModel.getType().equals("Vegetarian")){
+            holder.title.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_veg,0,0,0);
+        }
+        else{
+            holder.title.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_non_veg,0,0,0);
+        }
         holder.title.setText(categoryItemsModel.getTitles());
         holder.price.setText("₹ "+categoryItemsModel.getUnitPrice());
 

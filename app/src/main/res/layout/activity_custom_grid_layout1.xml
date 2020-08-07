@@ -9,19 +9,26 @@
     android:padding="5dp"
     tools:context=".adapters.CustomGridLayout">
 
-
-    <ImageView
-        android:id="@+id/imageView"
+    <androidx.cardview.widget.CardView
         android:layout_width="150dp"
         android:layout_height="110dp"
-        android:background="@drawable/recommended_background"
-        android:clickable="true"
-        android:filterTouchesWhenObscured="true"
-        android:fitsSystemWindows="true"
-        android:focusableInTouchMode="true"
-        android:scaleType="fitXY"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/corporatemenu" />
+        android:layout_margin="4dp"
+        app:cardElevation="5dp"
+        app:cardCornerRadius="10dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:clickable="true"
+            android:filterTouchesWhenObscured="true"
+            android:fitsSystemWindows="true"
+            android:focusableInTouchMode="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/corporatemenu" />
+
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/textView"
