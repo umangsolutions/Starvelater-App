@@ -51,12 +51,14 @@ public class CategoryCardDesignAdapter extends RecyclerView.Adapter<CategoryCard
     public void onBindViewHolder(@NonNull CategoryCardDesignAdapter.ViewHolder holder, int position) {
 
         final Product categoryItemsModel = itemsModelList.get(position);
+
         if(categoryItemsModel.getType().equals("Vegetarian")){
             holder.title.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_veg,0,0,0);
         }
         else{
             holder.title.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_non_veg,0,0,0);
         }
+
         holder.title.setText(categoryItemsModel.getTitles());
         holder.price.setText("₹ "+categoryItemsModel.getUnitPrice());
 

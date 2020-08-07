@@ -49,15 +49,13 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
             holder.title.setText(featuredRestaurants.get(position).getRestaurant_Name());
             holder.description.setText(featuredRestaurants.get(position).getAddress());
 
-            holder.hiddenID.setText(featuredRestaurants.get(position).getRestaurant_ID());
-
             holder.image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
 
                     Bundle bundle = new Bundle();
-                    bundle.putString("rest_ID",holder.hiddenID.getText().toString());
+                    bundle.putString("rest_ID",featuredRestaurants.get(position).getRestaurant_ID());
                     bundle.putString("name", holder.title.getText().toString());
                     bundle.putString("location", holder.description.getText().toString());
                     intent.putExtras(bundle);
@@ -72,7 +70,7 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
                     Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
 
                     Bundle bundle = new Bundle();
-                    bundle.putString("rest_ID",holder.hiddenID.getText().toString());
+                    bundle.putString("rest_ID",featuredRestaurants.get(position).getRestaurant_ID());
                     bundle.putString("name", holder.title.getText().toString());
                     bundle.putString("location", holder.description.getText().toString());
                     intent.putExtras(bundle);
@@ -104,7 +102,6 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
             image = itemView.findViewById(R.id.featured_image);
             title = itemView.findViewById(R.id.featured_title);
             description = itemView.findViewById(R.id.featured_description);
-            hiddenID = itemView.findViewById(R.id.restaurantID);
 
         }
     }

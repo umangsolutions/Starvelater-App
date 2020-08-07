@@ -49,6 +49,13 @@ public class RecycleGridAdapter1 extends RecyclerView.Adapter<RecycleGridAdapter
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final Product productsModel = productsModelList.get(position);
 
+        if(productsModel.getType().equals("Vegetarian")){
+            holder.title.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_veg,0,0,0);
+        }
+        else{
+            holder.title.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_non_veg,0,0,0);
+        }
+
         holder.title.setText(productsModel.getTitles());
 
        Glide.with(mContext).load(productsModel.getImages()).into(holder.gridIcon);

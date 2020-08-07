@@ -43,6 +43,7 @@ public class AllCategoriesAdapter extends RecyclerView.Adapter<AllCategoriesAdap
                 v.getContext().startActivity(intent);
             }
         });*/
+
         return new ViewHolder(view);
     }
 
@@ -60,6 +61,7 @@ public class AllCategoriesAdapter extends RecyclerView.Adapter<AllCategoriesAdap
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
                 Bundle bundle = new Bundle();
+                bundle.putString("rest_ID",restaurantsList.get(position).getRestaurant_ID());
                 bundle.putString("name", holder.restName.getText().toString());
                 bundle.putString("location", holder.restLocation.getText().toString());
                 intent.putExtras(bundle);
@@ -72,6 +74,7 @@ public class AllCategoriesAdapter extends RecyclerView.Adapter<AllCategoriesAdap
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
                 Bundle bundle = new Bundle();
+                bundle.putString("rest_ID",restaurantsList.get(position).getRestaurant_ID());
                 bundle.putString("name", holder.restName.getText().toString());
                 bundle.putString("location", holder.restLocation.getText().toString());
                 intent.putExtras(bundle);

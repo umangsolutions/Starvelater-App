@@ -6,12 +6,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:padding="10dp"
-    android:weightSum="2">
+    android:weightSum="2.2">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="1.2"
         android:orientation="vertical">
 
 
@@ -23,6 +23,7 @@
             android:drawableStart="@drawable/ic_veg"
             android:drawablePadding="5dp"
             android:fontFamily="@font/muli"
+            android:gravity="center_vertical"
             android:shadowColor="#ffffff"
             android:text="@string/textview"
             android:textAllCaps="false"
