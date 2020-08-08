@@ -91,6 +91,7 @@ public class UserAllRestaurantsAdapter extends RecyclerView.Adapter<UserAllResta
                     Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("rest_ID",restaurantsList.get(position).getRestaurant_ID());
+                    bundle.putString("operationStatus",restaurantsList.get(position).getOperationStatus());
                     bundle.putString("name", holder.title.getText().toString());
                     bundle.putString("location", holder.description.getText().toString());
                     intent.putExtras(bundle);
@@ -104,6 +105,7 @@ public class UserAllRestaurantsAdapter extends RecyclerView.Adapter<UserAllResta
                     Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("rest_ID",restaurantsList.get(position).getRestaurant_ID());
+                    bundle.putString("operationStatus",restaurantsList.get(position).getOperationStatus());
                     bundle.putString("name", holder.title.getText().toString());
                     bundle.putString("location", holder.description.getText().toString());
                     intent.putExtras(bundle);

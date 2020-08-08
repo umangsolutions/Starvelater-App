@@ -40,7 +40,7 @@
         android:fontFamily="@font/muli_black"
         android:text="Chutneys"
         android:maxLines="1"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorBlackHeading"
         android:textSize="12sp"
         android:textStyle="bold" />
 

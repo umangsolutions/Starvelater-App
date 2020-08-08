@@ -2,6 +2,8 @@ package com.example.starvelater.adapters.multiutility_adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,10 +53,25 @@ public class AllCategoriesAdapter extends RecyclerView.Adapter<AllCategoriesAdap
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
+
+        if(restaurantsList.get(position).getOperationStatus().equals("Closed")) {
+
+            ColorMatrix matrix = new ColorMatrix();
+            matrix.setSaturation(0);
+            ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+
+            Glide.with(context).load(restaurantsList.get(position).getRestaurantLogo()).into(holder.restImage);
+            holder.restImage.setColorFilter(filter);
+            //Glide.with(context).load(R.drawable.bill).into(holder.image);
+            //holder.closed.setVisibility(View.VISIBLE);
+        }else{
+            Glide.with(context).load(restaurantsList.get(position).getRestaurantLogo()).into(holder.restImage);
+        }
+
         holder.restName.setText(restaurantsList.get(position).getRestaurant_Name());
         holder.restLocation.setText(restaurantsList.get(position).getAddress());
         holder.restavgPrepTime.setText(restaurantsList.get(position).getAvgPrepTime() + " mins");
-        Glide.with(context).load(restaurantsList.get(position).getRestaurantLogo()).into(holder.restImage);
+
 
         holder.restImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +79,7 @@ public class AllCategoriesAdapter extends RecyclerView.Adapter<AllCategoriesAdap
                 Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("rest_ID",restaurantsList.get(position).getRestaurant_ID());
+                bundle.putString("operationStatus",restaurantsList.get(position).getOperationStatus());
                 bundle.putString("name", holder.restName.getText().toString());
                 bundle.putString("location", holder.restLocation.getText().toString());
                 intent.putExtras(bundle);
@@ -75,6 +93,7 @@ public class AllCategoriesAdapter extends RecyclerView.Adapter<AllCategoriesAdap
                 Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("rest_ID",restaurantsList.get(position).getRestaurant_ID());
+                bundle.putString("operationStatus",restaurantsList.get(position).getOperationStatus());
                 bundle.putString("name", holder.restName.getText().toString());
                 bundle.putString("location", holder.restLocation.getText().toString());
                 intent.putExtras(bundle);

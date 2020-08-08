@@ -25,14 +25,16 @@ public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAd
     private CartItemClickListener cartItemClickListener;
     private List<String> categoryNamesList;
     private List<Product> categoryItemsList;
+    private String operationStatus;
     LayoutInflater inflater;
 
-    public RestaurantItemAdapter(Context mContext, List<String> categoryNamesList, List<Product> categoryItemsList,CartItemClickListener cartItemClickListener) {
+    public RestaurantItemAdapter(Context mContext, List<String> categoryNamesList, List<Product> categoryItemsList,CartItemClickListener cartItemClickListener,String operationStatus) {
 
         this.mContext = mContext;
         this.categoryNamesList = categoryNamesList;
         this.categoryItemsList = categoryItemsList;
         this.cartItemClickListener = cartItemClickListener;
+        this.operationStatus = operationStatus;
 
     }
 
@@ -97,7 +99,6 @@ public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAd
 
 
 */
-        holder.categoryName.setText(categoryNamesList.get(position));
 
         List<Product> categoryInsideItems = new ArrayList<>();
 
@@ -105,16 +106,23 @@ public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAd
         // for sending the Items in the particular Category
         for(int i=0;i<categoryItemsList.size();i++) {
 
-            if(categoryItemsList.get(i).getItemCategory().equals(holder.categoryName.getText().toString()) ) {
-
+            if(categoryItemsList.get(i).getItemCategory().equals(categoryNamesList.get(position)) ) {
                 categoryInsideItems.add(categoryItemsList.get(i));
-
             }
 
         }
 
+        if(categoryInsideItems.size() > 0) {
+            holder.categoryName.setText(categoryNamesList.get(position));
+        } else {
+            holder.categoryName.setVisibility(View.GONE);
+            holder.categoryItemsList.setVisibility(View.GONE);
+            holder.viewSpace.setVisibility(View.GONE);
+        }
+
+
         //Initialize Adapter
-        CategoryCardDesignAdapter categoryCardDesignAdapter = new CategoryCardDesignAdapter(mContext,categoryInsideItems,cartItemClickListener);
+        CategoryCardDesignAdapter categoryCardDesignAdapter = new CategoryCardDesignAdapter(mContext,categoryInsideItems,cartItemClickListener,operationStatus);
 
         //Initialize Layout
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false);
@@ -147,6 +155,7 @@ public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAd
         TextView productMinus,productPlus,productQuantity;*/
         TextView categoryName;
         RecyclerView categoryItemsList;
+        View viewSpace;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -157,6 +166,7 @@ public class RestaurantItemAdapter extends RecyclerView.Adapter<RestaurantItemAd
             productQuantity= itemView.findViewById(R.id.product_quantity);*/
             categoryName = itemView.findViewById(R.id.categoryName);
             categoryItemsList = itemView.findViewById(R.id.categoryItemlist);
+            viewSpace = itemView.findViewById(R.id.space);
 
         }
     }

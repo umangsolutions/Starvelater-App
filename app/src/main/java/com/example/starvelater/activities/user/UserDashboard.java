@@ -317,7 +317,6 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
             @Override
             public void onResponse(@NonNull Call<RestaurantsModel> call, @NonNull Response<RestaurantsModel> response) {
 
-
                 if(response.isSuccessful()) {
                     RestaurantsModel restaurantsModel = response.body();
                     assert restaurantsModel!=null;
@@ -325,7 +324,7 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
 
                         // getting all Restaurants list based on Areas and Cities
                         restaurantList = restaurantsModel.getData();
-
+                        
                         popularList.clear();
                         allRestList.clear();
                         for(int i=0;i<restaurantList.size(); i++) {

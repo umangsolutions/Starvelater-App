@@ -2,6 +2,8 @@ package com.example.starvelater.adapters.userdashboard_adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,7 +46,18 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
 
             // loading only Restaurants of type 'Most Popular'
 
+        if(featuredRestaurants.get(position).getOperationStatus().equals("Closed")) {
+            ColorMatrix matrix = new ColorMatrix();
+            matrix.setSaturation(0);
+            ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+
             Glide.with(context).load(featuredRestaurants.get(position).getRestaurantLogo()).into(holder.image);
+            holder.image.setColorFilter(filter);
+            //Glide.with(context).load(R.drawable.bill).into(holder.image);
+            //holder.closed.setVisibility(View.VISIBLE);
+        }else{
+            Glide.with(context).load(featuredRestaurants.get(position).getRestaurantLogo()).into(holder.image);
+        }
 
             holder.title.setText(featuredRestaurants.get(position).getRestaurant_Name());
             holder.description.setText(featuredRestaurants.get(position).getAddress());
@@ -56,6 +69,7 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
 
                     Bundle bundle = new Bundle();
                     bundle.putString("rest_ID",featuredRestaurants.get(position).getRestaurant_ID());
+                    bundle.putString("operationStatus",featuredRestaurants.get(position).getOperationStatus());
                     bundle.putString("name", holder.title.getText().toString());
                     bundle.putString("location", holder.description.getText().toString());
                     intent.putExtras(bundle);
@@ -71,6 +85,7 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
 
                     Bundle bundle = new Bundle();
                     bundle.putString("rest_ID",featuredRestaurants.get(position).getRestaurant_ID());
+                    bundle.putString("operationStatus",featuredRestaurants.get(position).getOperationStatus());
                     bundle.putString("name", holder.title.getText().toString());
                     bundle.putString("location", holder.description.getText().toString());
                     intent.putExtras(bundle);

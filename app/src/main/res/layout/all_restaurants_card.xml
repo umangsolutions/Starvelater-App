@@ -45,7 +45,7 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/muli_black"
             android:text="Barbeque Nation"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorBlackHeading"
             android:textSize="15dp"
             android:textStyle="bold" />
 

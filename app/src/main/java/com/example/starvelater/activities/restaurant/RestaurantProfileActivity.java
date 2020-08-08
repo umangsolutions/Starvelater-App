@@ -1,6 +1,7 @@
 package com.example.starvelater.activities.restaurant;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -19,6 +21,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.L;
 import com.example.starvelater.R;
 import com.example.starvelater.activities.user.UserDashboard;
 import com.example.starvelater.adapters.restaurantprofile_adapters.RecycleGridAdapter1;
@@ -50,6 +53,8 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
 
     TextView txtOrderSummary;
     TextView txtItemCount;
+
+    TextView txtVegBadge;
 
     List<String> categoryNamesList;
 
@@ -98,20 +103,10 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
 
         cartProductClickListener = (CartProductClickListener) this;
         cartItemClickListener = (CartItemClickListener) this;
-/*
-        itemsArrayList.add(new Product(600,600,0,"Veg Chowmein",0));
-        itemsArrayList.add(new Product(200,200,0,"Veg Manchurian",0));
-        itemsArrayList.add(new Product(100,100,0,"Schezwan Soup",0));
-        itemsArrayList.add(new Product(300,300,0,"Masala Kulcha",0));*/
-
-        /*productArrayList.add(new Product(500,500,0,"Beverages",R.drawable.photo6,""));
-        productArrayList.add(new Product(1500,1500,0,"Biriyani north india",R.drawable.photo7,""));
-        productArrayList.add(new Product(250,250,0,"red cherry",R.drawable.photo8,""));
-        productArrayList.add(new Product(369,369,0,"Italian Fast Food",R.drawable.photo9,""));
-        productArrayList.add(new Product(400,400,0,"American Italian Food",R.drawable.photo10,""));
-        productArrayList.add(new Product(128,128,0,"Masala Kulcha",R.drawable.photo11,""));*/
 
         txtOrderSummary = findViewById(R.id.view_cart);
+
+        txtVegBadge = findViewById(R.id.vegBadge);
 
         datalist = findViewById(R.id.datalist);
         itemlist = findViewById(R.id.categoryItemlist);
@@ -129,94 +124,21 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
 
         txtTotalCost = findViewById(R.id.itemsCost);
 
-        /*fabCart = findViewById(R.id.fab_cart);
-        fabCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(RestaurantProfileActivity.this, "Cart", Toast.LENGTH_SHORT).show();
-            }
-        });*/
-
-
         itemNameList = new ArrayList<>();
         itemPriceList = new ArrayList<>();
         itemCountList = new ArrayList<>();
 
+        aSwitch = findViewById(R.id.toggleswitch);
+
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         String restaurantID = bundle.getString("rest_ID");
+        String operationStatus = bundle.getString("operationStatus");
         String restaurantName = bundle.getString("name");
         String restaurantLocation = bundle.getString("location");
 
-
-
-
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("restaurant_ID",restaurantID);
-
-        ApiInterface apiInterface = RetrofitClient.getClient(this).create(ApiInterface.class);
-
-        apiInterface.processAllItems(jsonObject).enqueue(new Callback<CategoryItemsModel>() {
-            @Override
-            public void onResponse(Call<CategoryItemsModel> call, Response<CategoryItemsModel> response) {
-                if(response.isSuccessful()) {
-                    CategoryItemsModel categoryItemsModel = response.body();
-                    assert categoryItemsModel!=null;
-
-                    if(categoryItemsModel.isStatus()) {
-                        categoryItemsList = categoryItemsModel.getData();
-
-                        for(int i=0; i<categoryItemsList.size();i++) {
-
-                            if(!categoryNamesList.contains(RestaurantProfileActivity.this.categoryItemsList.get(i).getCategory())) {
-                                categoryNamesList.add(RestaurantProfileActivity.this.categoryItemsList.get(i).getCategory());
-                            }
-                            // adding all the items from Master List to Product class
-
-                            // adding items to Recommended Category
-
-                            if(categoryItemsList.get(i).getRecommended().equals("Yes")) {
-                                productArrayList.add(new Product(Integer.parseInt(categoryItemsList.get(i).getFinal_Price()), Integer.parseInt(categoryItemsList.get(i).getFinal_Price()), 0, categoryItemsList.get(i).getType(),categoryItemsList.get(i).getItem_Name(), categoryItemsList.get(i).getImgUrl(), categoryItemsList.get(i).getCategory()));
-                            } else {
-                                itemsArrayList.add(new Product(Integer.parseInt(categoryItemsList.get(i).getFinal_Price()), Integer.parseInt(categoryItemsList.get(i).getFinal_Price()),0, categoryItemsList.get(i).getType(),categoryItemsList.get(i).getItem_Name(),categoryItemsList.get(i).getImgUrl(),categoryItemsList.get(i).getCategory()));
-                            }
-
-                        }
-
-                       /* for(int i=1; i<=6;i++) {
-
-                            productArrayList.add(new Product(Integer.parseInt(categoryItemsList.get(i).getFinal_Price()), Integer.parseInt(categoryItemsList.get(i).getFinal_Price()), 0, categoryItemsList.get(i).getItem_Name(), categoryItemsList.get(i).getImgUrl(), categoryItemsList.get(i).getCategory()));
-
-                        }*/
-
-                        adapter = new RecycleGridAdapter1(RestaurantProfileActivity.this, productArrayList,cartProductClickListener);
-
-                        GridLayoutManager gridLayoutManager = new GridLayoutManager(RestaurantProfileActivity.this, 2, GridLayoutManager.VERTICAL, false);
-                        datalist.setLayoutManager(gridLayoutManager);
-                        datalist.setAdapter((RecyclerView.Adapter) adapter);
-
-
-                       /* for(int i=0; i< categoryItemsList.size();i++) {
-
-                            // adding all the items from Master List to Product class
-                        }
-*/
-                        itemAdapter = new RestaurantItemAdapter(RestaurantProfileActivity.this, categoryNamesList,itemsArrayList,cartItemClickListener);
-
-                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(RestaurantProfileActivity.this, LinearLayoutManager.VERTICAL, false);
-                        itemlist.setLayoutManager(linearLayoutManager);
-                        itemlist.setAdapter((RecyclerView.Adapter) itemAdapter);
-
-                    }
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<CategoryItemsModel> call, Throwable t) {
-
-            }
-        });
+        // method to load Items
+        next(restaurantID, operationStatus);
 
         txtRestaurantName.setText(restaurantName);
         txtRestaurantLocation.setText(restaurantLocation);
@@ -234,6 +156,8 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
                 Bundle bundle1 = new Bundle();
                 bundle1.putString("restaurantName",restaurantName);
                 bundle1.putString("restaurantAddress",restaurantLocation);
+                bundle1.putString("restaurantID",restaurantID);
+                bundle1.putString("operationStatus", operationStatus);
                 //bundle1.putString("grandTotal",String.valueOf(grandTotal));
                 //bundle1.putString("totalCount",String.valueOf(quantity));
                 intent.putExtras(bundle1);
@@ -246,20 +170,6 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
         restaurantToolBar = findViewById(R.id.restaurantToolBar);
         setSupportActionBar(restaurantToolBar);
 
-        aSwitch = findViewById(R.id.toggleswitch);
-
-
-        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    Toast.makeText(RestaurantProfileActivity.this, "Show Vegetarian Items Only", Toast.LENGTH_SHORT).show();
-                }
-                if (!isChecked) {
-                    Toast.makeText(RestaurantProfileActivity.this, "Show All Items", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
 
         final ActionBar restaurantActionBar = getSupportActionBar();
         restaurantActionBar.setDisplayShowCustomEnabled(true); // enable overriding the default toolbar layout
@@ -278,6 +188,147 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
 
 
         calculateCartTotal();
+    }
+
+    public void next(String restaurantID, String operationStatus) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("restaurant_ID",restaurantID);
+
+        ApiInterface apiInterface = RetrofitClient.getClient(this).create(ApiInterface.class);
+
+        apiInterface.processAllItems(jsonObject).enqueue(new Callback<CategoryItemsModel>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onResponse(Call<CategoryItemsModel> call, Response<CategoryItemsModel> response) {
+                if(response.isSuccessful()) {
+                    CategoryItemsModel categoryItemsModel = response.body();
+                    assert categoryItemsModel!=null;
+
+                    if(categoryItemsModel.isStatus()) {
+                        categoryItemsList = categoryItemsModel.getData();
+
+                        loadRestaurantItems(categoryItemsList);
+
+                        recommendedRecycler(productArrayList,cartProductClickListener,operationStatus);
+                        itemsRecycler(categoryNamesList,itemsArrayList,cartItemClickListener,operationStatus);
+
+                        // Checking whole array list whether it contains Vegetarian
+                       Boolean recommendedVeg =  productArrayList.stream().allMatch(item -> item.getType().equals("Vegetarian"));
+                       Boolean itemsVeg = itemsArrayList.stream().allMatch(item -> item.getType().equals("Vegetarian"));
+
+                       if(recommendedVeg && itemsVeg) {
+                           // showing Veg Badge
+
+                           txtVegBadge.setVisibility(View.VISIBLE);
+                       } else {
+                           // showing Toggle Button
+                           aSwitch.setVisibility(View.VISIBLE);
+                           aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                               @Override
+                               public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                   if (isChecked) {
+
+
+                                       // loading Vegetarian Items Only for Recommended
+                                       productArrayList.clear();
+                                       itemsArrayList.clear();
+
+                                       for(int i=0;i<categoryItemsList.size();i++) {
+
+                                           if(categoryItemsList.get(i).getType().equals("Vegetarian")) {
+                                               if(categoryItemsList.get(i).getRecommended().equals("Yes")) {
+                                                   productArrayList.add(new Product(Integer.parseInt(categoryItemsList.get(i).getFinal_Price()), Integer.parseInt(categoryItemsList.get(i).getFinal_Price()), 0, categoryItemsList.get(i).getType(),categoryItemsList.get(i).getItem_Name(), categoryItemsList.get(i).getImgUrl(), categoryItemsList.get(i).getCategory()));
+                                               } else {
+                                                   itemsArrayList.add(new Product(Integer.parseInt(categoryItemsList.get(i).getFinal_Price()), Integer.parseInt(categoryItemsList.get(i).getFinal_Price()), 0, categoryItemsList.get(i).getType(),categoryItemsList.get(i).getItem_Name(), categoryItemsList.get(i).getImgUrl(), categoryItemsList.get(i).getCategory()));
+                                               }
+                                           }
+                                       }
+
+                                       // WE ARE AGAIN INITIALISING THE ADAPTER BECAUSE THE listener has BLOCK LEVEL SCOPE
+                                       // initialising Adapter again by passing Array list
+                                       recommendedRecycler(productArrayList,cartProductClickListener,operationStatus);
+
+                                       // Loading Vegetarian Items for below Items Adapter
+                                       itemsRecycler(categoryNamesList,itemsArrayList,cartItemClickListener,operationStatus);
+
+                                   }
+                                   if (!isChecked) {
+
+                                       productArrayList.clear();
+                                       itemsArrayList.clear();
+                                       categoryNamesList.clear();
+                                       loadRestaurantItems(categoryItemsList);
+
+                                       recommendedRecycler(productArrayList,cartProductClickListener,operationStatus);
+                                       itemsRecycler(categoryNamesList,itemsArrayList,cartItemClickListener,operationStatus);
+
+                                   }
+                               }
+                           });
+
+                       }
+
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CategoryItemsModel> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    public void loadRestaurantItems(List<CategoryItemsModel.DataBean> categoryItemsList) {
+
+        categoryNamesList.clear();
+        productArrayList.clear();
+        itemsArrayList.clear();
+
+
+        for(int i=0; i<categoryItemsList.size();i++) {
+
+            if(!categoryNamesList.contains(RestaurantProfileActivity.this.categoryItemsList.get(i).getCategory())) {
+                categoryNamesList.add(RestaurantProfileActivity.this.categoryItemsList.get(i).getCategory());
+            }
+            // adding all the items from Master List to Product class
+
+            if(categoryItemsList.get(i).getRecommended().equals("Yes")) {
+                // adding items to Recommended Category
+                productArrayList.add(new Product(Integer.parseInt(categoryItemsList.get(i).getFinal_Price()), Integer.parseInt(categoryItemsList.get(i).getFinal_Price()), 0, categoryItemsList.get(i).getType(),categoryItemsList.get(i).getItem_Name(), categoryItemsList.get(i).getImgUrl(), categoryItemsList.get(i).getCategory()));
+            } else {
+                itemsArrayList.add(new Product(Integer.parseInt(categoryItemsList.get(i).getFinal_Price()), Integer.parseInt(categoryItemsList.get(i).getFinal_Price()),0, categoryItemsList.get(i).getType(),categoryItemsList.get(i).getItem_Name(),categoryItemsList.get(i).getImgUrl(),categoryItemsList.get(i).getCategory()));
+            }
+
+        }
+
+    }
+
+    public void recommendedRecycler(List<Product> productArrayList, CartProductClickListener cartProductClickListener, String operationStatus) {
+
+        adapter = new RecycleGridAdapter1(RestaurantProfileActivity.this, productArrayList,cartProductClickListener,operationStatus);
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(RestaurantProfileActivity.this, 2, GridLayoutManager.VERTICAL, false);
+        datalist.setLayoutManager(gridLayoutManager);
+        datalist.setAdapter((RecyclerView.Adapter) adapter);
+
+        adapter.notifyDataSetChanged();
+
+    }
+
+    public void itemsRecycler(List<String> categoryNamesList,List<Product> itemsArrayList, CartItemClickListener cartItemClickListener, String operationStatus) {
+
+        itemAdapter = new RestaurantItemAdapter(RestaurantProfileActivity.this, categoryNamesList,itemsArrayList,cartItemClickListener,operationStatus);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(RestaurantProfileActivity.this, LinearLayoutManager.VERTICAL, false);
+        itemlist.setLayoutManager(linearLayoutManager);
+        itemlist.setAdapter((RecyclerView.Adapter) itemAdapter);
+
+        itemAdapter.notifyDataSetChanged();
+
+
     }
 
 

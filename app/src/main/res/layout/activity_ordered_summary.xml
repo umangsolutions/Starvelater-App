@@ -83,8 +83,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorLightGray" />
+                android:layout_height="2dp"
+                android:background="@color/colorLightWhite" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -220,7 +220,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="5dp"
-                tools:itemCount="27" />
+                tools:itemCount="8" />
 
             <View
                 android:layout_width="match_parent"
@@ -234,7 +234,7 @@
                 android:text="Select Type of Order"
                 android:textColor="#000"
                 android:layout_marginTop="10dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="10dp"
                 android:fontFamily="@font/muli"
                 android:textSize="18dp" />
 
@@ -246,12 +246,11 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_weight="1"
-                    android:weightSum="2"
-                    android:layout_margin="16dp"
+                    android:weightSum="3"
                     android:layout_height="wrap_content">
 
 
@@ -261,9 +260,10 @@
                         android:text="PRE ORDER"
                         android:id="@+id/preorder"
                         android:layout_weight="1"
-                        android:textColor="#fff"
-                        android:fontFamily="@font/muli"
-                        android:background="@color/colorPrimary"/>
+                        android:layout_margin="8dp"
+                        android:background="@drawable/terms_border"
+                        android:textColor="@color/colorPrimary"
+                        android:fontFamily="@font/muli" />
 
                     <Button
                         android:layout_width="match_parent"
@@ -272,6 +272,7 @@
                         android:id="@+id/takeaway"
                         android:layout_weight="1"
                         android:fontFamily="@font/muli"
+                        android:layout_margin="8dp"
                         android:textColor="@color/colorPrimary"
                         android:background="@drawable/terms_border"/>
 
@@ -281,11 +282,13 @@
                         android:text="DINE IN"
                         android:id="@+id/dinein"
                         android:layout_weight="1"
+                        android:layout_margin="8dp"
                         android:fontFamily="@font/muli"
                         android:textColor="@color/colorPrimary"
                         android:background="@drawable/terms_border"/>
                 </LinearLayout>
 
+<!--
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="150dp"
@@ -296,6 +299,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="16dp"
                     android:src="@drawable/ic_food_preorder" />
+-->
 
             </LinearLayout>
 

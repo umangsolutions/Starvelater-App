@@ -52,7 +52,15 @@ public class OrderedItemsAdapter extends RecyclerView.Adapter<OrderedItemsAdapte
 
         final Product normalProductsModel = recommendedModelList.get(position);
 
-         if(normalProductsModel.getQuantity() == 0 ) {
+        if(normalProductsModel.getType().equals("Vegetarian")){
+            holder.itemName.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_veg,0,0,0);
+        }
+        else{
+            holder.itemName.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_non_veg,0,0,0);
+        }
+
+
+        if(normalProductsModel.getQuantity() == 0 ) {
 
          } else {
 
@@ -60,7 +68,7 @@ public class OrderedItemsAdapter extends RecyclerView.Adapter<OrderedItemsAdapte
              String formattedValues = decimalFormat.format(normalProductsModel.getItemTotalPrice());
 
              holder.itemName.setText(normalProductsModel.getTitles());
-             holder.count.setText(normalProductsModel.getQuantity() + " no.s");
+             holder.count.setText(normalProductsModel.getQuantity() + " no(s)");
              holder.finalprice.setText("₹ " + formattedValues);
 
          }

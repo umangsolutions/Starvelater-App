@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,13 +28,15 @@ public class CategoryCardDesignAdapter extends RecyclerView.Adapter<CategoryCard
     private Context mContext;
     private List<Product> itemsModelList;
     private CartItemClickListener cartItemClickListener;
+    private String operationStatus;
     LayoutInflater inflater;
 
-    public CategoryCardDesignAdapter(Context mContext, List<Product> itemsModelList,CartItemClickListener cartItemClickListener) {
+    public CategoryCardDesignAdapter(Context mContext, List<Product> itemsModelList,CartItemClickListener cartItemClickListener, String operationStatus) {
 
         this.mContext = mContext;
         this.itemsModelList = itemsModelList;
         this.cartItemClickListener = cartItemClickListener;
+        this.operationStatus = operationStatus;
 
     }
 
@@ -62,49 +65,57 @@ public class CategoryCardDesignAdapter extends RecyclerView.Adapter<CategoryCard
         holder.title.setText(categoryItemsModel.getTitles());
         holder.price.setText("₹ "+categoryItemsModel.getUnitPrice());
 
-        holder.productQuantity.setText(""+categoryItemsModel.getQuantity());
 
-        if(categoryItemsModel.getQuantity() == 0) {
-            holder.productQuantity.setText("ADD");
-            holder.productMinus.setVisibility(View.GONE);
-            holder.productPlus.setVisibility(View.GONE);
-            Log.d(TAG, "onBindViewHolder: " + categoryItemsModel.getQuantity());
+        if(operationStatus.equals("Closed")) {
+            // Disabling add Button Layout
+            holder.addButtonLayout.setVisibility(View.GONE);
+
         } else {
-            holder.productQuantity.setText("" + categoryItemsModel.getQuantity());
-            holder.productMinus.setVisibility(View.VISIBLE);
-            holder.productPlus.setVisibility(View.VISIBLE);
-            Log.d(TAG, "onBindViewHolder1: " + categoryItemsModel.getQuantity());
-        }
 
-        holder.productQuantity.setOnClickListener(view -> {
-            if (holder.productQuantity.getText().toString().equalsIgnoreCase("ADD")) {
+            holder.productQuantity.setText(""+categoryItemsModel.getQuantity());
+
+            if(categoryItemsModel.getQuantity() == 0) {
+                holder.productQuantity.setText("ADD");
+                holder.productMinus.setVisibility(View.GONE);
+                holder.productPlus.setVisibility(View.GONE);
+                Log.d(TAG, "onBindViewHolder: " + categoryItemsModel.getQuantity());
+            } else {
                 holder.productQuantity.setText("" + categoryItemsModel.getQuantity());
                 holder.productMinus.setVisibility(View.VISIBLE);
                 holder.productPlus.setVisibility(View.VISIBLE);
-
-                cartItemClickListener.onAddItemClick(position,categoryItemsModel);
-
+                Log.d(TAG, "onBindViewHolder1: " + categoryItemsModel.getQuantity());
             }
-        });
 
-        holder.productMinus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            holder.productQuantity.setOnClickListener(view -> {
+                if (holder.productQuantity.getText().toString().equalsIgnoreCase("ADD")) {
+                    holder.productQuantity.setText("" + categoryItemsModel.getQuantity());
+                    holder.productMinus.setVisibility(View.VISIBLE);
+                    holder.productPlus.setVisibility(View.VISIBLE);
 
-                cartItemClickListener.onItemMinusClick(categoryItemsModel);
+                    cartItemClickListener.onAddItemClick(position,categoryItemsModel);
 
-            }
-        });
+                }
+            });
 
-        holder.productPlus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            holder.productMinus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                cartItemClickListener.onItemPlusClick(categoryItemsModel);
+                    cartItemClickListener.onItemMinusClick(categoryItemsModel);
 
-            }
-        });
+                }
+            });
 
+            holder.productPlus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    cartItemClickListener.onItemPlusClick(categoryItemsModel);
+
+                }
+            });
+
+        }
     }
 
     @Override
@@ -128,6 +139,7 @@ public class CategoryCardDesignAdapter extends RecyclerView.Adapter<CategoryCard
         Button addItem;
         TextView title, price;
         TextView productMinus,productPlus,productQuantity;
+        LinearLayout addButtonLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -136,6 +148,7 @@ public class CategoryCardDesignAdapter extends RecyclerView.Adapter<CategoryCard
             productMinus= itemView.findViewById(R.id.product_minus);
             productPlus= itemView.findViewById(R.id.product_plus);
             productQuantity= itemView.findViewById(R.id.product_quantity);
+            addButtonLayout = itemView.findViewById(R.id.quantityLayout);
 
         }
     }

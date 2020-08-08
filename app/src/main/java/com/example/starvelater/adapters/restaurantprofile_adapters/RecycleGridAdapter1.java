@@ -1,12 +1,15 @@
 package com.example.starvelater.adapters.restaurantprofile_adapters;
 
 import android.content.Context;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,13 +28,15 @@ public class RecycleGridAdapter1 extends RecyclerView.Adapter<RecycleGridAdapter
     private Context mContext;
     private List<Product> productsModelList;
     private CartProductClickListener productClickListener;
+    private String operationStatus;
 
     LayoutInflater inflater;
 
-    public RecycleGridAdapter1(Context mContext, List<Product> productsModelList, CartProductClickListener productClickListener) {
+    public RecycleGridAdapter1(Context mContext, List<Product> productsModelList, CartProductClickListener productClickListener,String operationStatus) {
         this.mContext = mContext;
         this.productsModelList = productsModelList;
         this.productClickListener = productClickListener;
+        this.operationStatus = operationStatus;
     }
 
 
@@ -47,6 +52,7 @@ public class RecycleGridAdapter1 extends RecyclerView.Adapter<RecycleGridAdapter
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+
         final Product productsModel = productsModelList.get(position);
 
         if(productsModel.getType().equals("Vegetarian")){
@@ -57,51 +63,66 @@ public class RecycleGridAdapter1 extends RecyclerView.Adapter<RecycleGridAdapter
         }
 
         holder.title.setText(productsModel.getTitles());
-
-       Glide.with(mContext).load(productsModel.getImages()).into(holder.gridIcon);
-        //holder.gridIcon.setImageResource(R.drawable.bbqnation);
         holder.price.setText("₹ "+productsModel.getUnitPrice());
-      //  holder.productQuantity.setText(""+productsModel.getQuantity());
 
-        if (productsModel.getQuantity() == 0) {
-            holder.productQuantity.setText("ADD");
-            holder.productMinus.setVisibility(View.GONE);
-            holder.productPlus.setVisibility(View.GONE);
-            Log.d(TAG, "onBindViewHolder: " + productsModel.getQuantity());
+        if(operationStatus.equals("Closed")) {
+            // Disabling all the ADD Buttons and setting Black and White Filter
+            holder.addButtonLayout.setVisibility(View.GONE);
+
+            ColorMatrix matrix = new ColorMatrix();
+            matrix.setSaturation(0);
+            ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+
+            Glide.with(mContext).load(productsModelList.get(position).getImages()).into(holder.gridIcon);
+            holder.gridIcon.setColorFilter(filter);
+
         } else {
-            holder.productQuantity.setText("" + productsModel.getQuantity());
-            holder.productMinus.setVisibility(View.VISIBLE);
-            holder.productPlus.setVisibility(View.VISIBLE);
-            Log.d(TAG, "onBindViewHolder1: " + productsModel.getQuantity());
-        }
 
-        holder.productQuantity.setOnClickListener(view -> {
-            if (holder.productQuantity.getText().toString().equalsIgnoreCase("ADD")) {
+            // Allowing ADD Button and loading Image
+
+            Glide.with(mContext).load(productsModel.getImages()).into(holder.gridIcon);
+            //holder.gridIcon.setImageResource(R.drawable.bbqnation);
+            //  holder.productQuantity.setText(""+productsModel.getQuantity());
+
+            if (productsModel.getQuantity() == 0) {
+                holder.productQuantity.setText("ADD");
+                holder.productMinus.setVisibility(View.GONE);
+                holder.productPlus.setVisibility(View.GONE);
+                Log.d(TAG, "onBindViewHolder: " + productsModel.getQuantity());
+            } else {
                 holder.productQuantity.setText("" + productsModel.getQuantity());
                 holder.productMinus.setVisibility(View.VISIBLE);
                 holder.productPlus.setVisibility(View.VISIBLE);
-                productClickListener.onAddClick(position, productsModel);
+                Log.d(TAG, "onBindViewHolder1: " + productsModel.getQuantity());
             }
-        });
+
+            holder.productQuantity.setOnClickListener(view -> {
+                if (holder.productQuantity.getText().toString().equalsIgnoreCase("ADD")) {
+                    holder.productQuantity.setText("" + productsModel.getQuantity());
+                    holder.productMinus.setVisibility(View.VISIBLE);
+                    holder.productPlus.setVisibility(View.VISIBLE);
+                    productClickListener.onAddClick(position, productsModel);
+                }
+            });
+
+            holder.productMinus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    productClickListener.onMinusClick(productsModel);
+                }
+            });
+
+            holder.productPlus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    productClickListener.onPlusClick(productsModel);
+                }
+            });
 
 
-
-        holder.productMinus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                productClickListener.onMinusClick(productsModel);
-            }
-        });
-
-        holder.productPlus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                productClickListener.onPlusClick(productsModel);
-            }
-        });
-
+        }
 
     }
 
@@ -128,8 +149,7 @@ public class RecycleGridAdapter1 extends RecyclerView.Adapter<RecycleGridAdapter
         ImageView gridIcon;
         Button btnAdd;
         TextView productMinus,productPlus,productQuantity;
-
-
+        LinearLayout addButtonLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -140,6 +160,7 @@ public class RecycleGridAdapter1 extends RecyclerView.Adapter<RecycleGridAdapter
             productMinus= itemView.findViewById(R.id.product_minus);
             productPlus= itemView.findViewById(R.id.product_plus);
             productQuantity= itemView.findViewById(R.id.product_quantity);
+            addButtonLayout = itemView.findViewById(R.id.quantityLayout);
 
         }
 

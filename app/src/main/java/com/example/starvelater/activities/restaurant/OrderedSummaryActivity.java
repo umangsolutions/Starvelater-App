@@ -48,16 +48,12 @@ public class OrderedSummaryActivity extends AppCompatActivity implements Seriali
         btnTakeAway = findViewById(R.id.takeaway);
         btnDineIn = findViewById(R.id.dinein);
 
-        imgDisplay = findViewById(R.id.display_image);
-
         btnCheckOut = findViewById(R.id.checkout);
 
         btnPreOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectedBtn = "PreOrder";
-                // setting Image on the Right Side
-                imgDisplay.setImageDrawable(getResources().getDrawable(R.drawable.ic_food_preorder));
 
                 // Highlighting the Button
                 btnPreOrder.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
@@ -81,8 +77,6 @@ public class OrderedSummaryActivity extends AppCompatActivity implements Seriali
             public void onClick(View v) {
                 selectedBtn = "DineIn";
 
-                // setting Image on the Right Side
-                imgDisplay.setImageDrawable(getResources().getDrawable(R.drawable.ic_food_delivery_dinein));
 
                 // Highlighting the Button
                 btnDineIn.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
@@ -105,8 +99,6 @@ public class OrderedSummaryActivity extends AppCompatActivity implements Seriali
             public void onClick(View v) {
                 selectedBtn = "TakeAway";
 
-                // setting Image on the Right Side
-                imgDisplay.setImageDrawable(getResources().getDrawable(R.drawable.ic_lunch_takeaway));
 
                 // Highlighting the Button
                 btnTakeAway.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
@@ -141,6 +133,8 @@ public class OrderedSummaryActivity extends AppCompatActivity implements Seriali
         assert bundle != null;
         String restName = bundle.getString("restaurantName");
         String location = bundle.getString("restaurantAddress");
+        String restID  = bundle.getString("restaurantID");
+        String operationStatus = bundle.getString("operationStatus");
 
         restaurantName.setText(restName);
         restaurantAddress.setText(location);
@@ -199,6 +193,8 @@ public class OrderedSummaryActivity extends AppCompatActivity implements Seriali
                 Bundle bundle = new Bundle();
                 bundle.putString("name", restName);
                 bundle.putString("location",location);
+                bundle.putString("restaurantID",restID);
+                bundle.putString("operationStatus",operationStatus);
                 intent.putExtras(bundle);
 
                 startActivity(intent);

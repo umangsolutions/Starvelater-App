@@ -295,7 +295,7 @@
                             android:fontFamily="@font/muli_black"
                             android:text="@string/most_popular"
                             android:textAllCaps="true"
-                            android:textColor="@color/colorAccent"
+                            android:textColor="@color/colorBlackHeading"
                             android:textSize="20sp"
                             android:textStyle="bold" />
                     </RelativeLayout>
@@ -327,7 +327,7 @@
                             android:fontFamily="@font/muli_black"
                             android:text="@string/all_restaurants"
                             android:textAllCaps="true"
-                            android:textColor="@color/colorAccent"
+                            android:textColor="@color/colorBlackHeading"
                             android:textSize="20sp"
                             android:textStyle="bold" />
 
@@ -368,7 +368,7 @@
                             android:fontFamily="@font/muli_black"
                             android:text="@string/multi_utility"
                             android:textAllCaps="true"
-                            android:textColor="@color/colorAccent"
+                            android:textColor="@color/colorBlackHeading"
                             android:textSize="20sp"
                             android:textStyle="bold" />
 
