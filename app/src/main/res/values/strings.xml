@@ -114,6 +114,8 @@ B. No Joint Venture, No Derogation of Rights. You agree that no joint venture, p
     <string name="all_restaurants">All Restaurants</string>
     <string name="venkat_nagar_kakinada">Venkat Nagar, Kakinada</string>
     <string name="love_us">Love us? Give us a chance to serve you again!</string>
+    <string name="suggestions_and_complaints">Suggestions and Complaints</string>
+    <string name="submit_feedback">Submit Feedback</string>
 
     <string-array name="cities">
         <item>Select your City</item>
