@@ -33,6 +33,7 @@ import com.example.starvelater.interfaces.CartProductClickListener;
 import com.example.starvelater.jsonmodels.CategoryItemsModel;
 import com.example.starvelater.model.NormalProducts;
 import com.example.starvelater.model.Product;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.JsonObject;
 
@@ -50,6 +51,8 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
 
     RecyclerView datalist;
     RecyclerView itemlist;
+
+    private ShimmerFrameLayout recommendedshimmerFrameLayout;
 
     TextView txtOrderSummary;
     TextView txtItemCount;
@@ -100,6 +103,8 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_profile_activity);
+
+        recommendedshimmerFrameLayout = findViewById(R.id.recommended_shimmer);
 
         cartProductClickListener = (CartProductClickListener) this;
         cartItemClickListener = (CartItemClickListener) this;
@@ -310,6 +315,10 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
 
         adapter = new RecycleGridAdapter1(RestaurantProfileActivity.this, productArrayList,cartProductClickListener,operationStatus);
 
+        recommendedshimmerFrameLayout.stopShimmer();
+        recommendedshimmerFrameLayout.setVisibility(View.GONE);
+        datalist.setVisibility(View.VISIBLE);
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(RestaurantProfileActivity.this, 2, GridLayoutManager.VERTICAL, false);
         datalist.setLayoutManager(gridLayoutManager);
         datalist.setAdapter((RecyclerView.Adapter) adapter);
@@ -515,5 +524,18 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
         } else return 0;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        recommendedshimmerFrameLayout.startShimmer();
+        //allRestaurantsshimmerFrameLayout.startShimmer();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        recommendedshimmerFrameLayout.stopShimmer();
+        //allRestaurantsshimmerFrameLayout.stopShimmer();
+    }
 
 }

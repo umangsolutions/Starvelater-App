@@ -22,6 +22,7 @@ import com.example.starvelater.adapters.multiutility_adapters.AllCategoriesAdapt
 import com.example.starvelater.api.ApiInterface;
 import com.example.starvelater.api.RetrofitClient;
 import com.example.starvelater.jsonmodels.RestaurantsModel;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -31,6 +32,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.view.View.VISIBLE;
+
 public class All_CorporateCafe extends AppCompatActivity {
 
     List<String> restaurantName;
@@ -39,6 +42,8 @@ public class All_CorporateCafe extends AppCompatActivity {
 
     RecyclerView restaurantsList;
 
+    private ShimmerFrameLayout corporateCafeShimmerFrameLayout;
+
     AllCategoriesAdapter restaurantsAdapter;
 
     ImageView backbutton;
@@ -46,7 +51,7 @@ public class All_CorporateCafe extends AppCompatActivity {
     MyAppPrefsManager myAppPrefsManager;
     JsonObject jsonObject;
 
-    LinearLayout progressBar;
+    //LinearLayout progressBar;
     TextView emptyView;
 
 
@@ -59,7 +64,9 @@ public class All_CorporateCafe extends AppCompatActivity {
 
         restaurantsList = findViewById(R.id.restaurant_List);
 
-        progressBar = findViewById(R.id.progressBar);
+        corporateCafeShimmerFrameLayout = findViewById(R.id.corporate_cafe_shimmer);
+
+        //progressBar = findViewById(R.id.progressBar);
         emptyView = findViewById(R.id.emptyView);
 
 
@@ -88,7 +95,8 @@ public class All_CorporateCafe extends AppCompatActivity {
 
     public void next() {
 
-        progressBar.setVisibility(View.VISIBLE);
+        //progressBar.setVisibility(View.VISIBLE);
+        corporateCafeShimmerFrameLayout.setVisibility(View.VISIBLE);
 
         if(myAppPrefsManager.getCity() == null){
             jsonObject = new JsonObject();
@@ -112,7 +120,7 @@ public class All_CorporateCafe extends AppCompatActivity {
 
                 if(response.isSuccessful()) {
 
-                    progressBar.setVisibility(View.GONE);
+                    //progressBar.setVisibility(View.GONE);
 
                     RestaurantsModel restaurantsModel = response.body();
                     assert restaurantsModel != null;
@@ -124,6 +132,11 @@ public class All_CorporateCafe extends AppCompatActivity {
                         restaurantsList.setHasFixedSize(true);
                         restaurantsList.setLayoutManager(new LinearLayoutManager(All_CorporateCafe.this, LinearLayoutManager.HORIZONTAL, false));
                         restaurantsAdapter = new AllCategoriesAdapter(All_CorporateCafe.this, resultBeans);
+
+                        corporateCafeShimmerFrameLayout.stopShimmer();
+                        corporateCafeShimmerFrameLayout.setVisibility(View.GONE);
+                        restaurantsList.setVisibility(VISIBLE);
+
                         restaurantsList.setAdapter(restaurantsAdapter);
 
                         restaurantsAdapter.notifyDataSetChanged();
@@ -133,7 +146,9 @@ public class All_CorporateCafe extends AppCompatActivity {
                         restaurantsList.setAdapter((RecyclerView.Adapter) restaurantsAdapter);
 
                     } else {
-                        progressBar.setVisibility(View.GONE);
+                        //progressBar.setVisibility(View.GONE);
+                        corporateCafeShimmerFrameLayout.stopShimmer();
+                        corporateCafeShimmerFrameLayout.setVisibility(View.GONE);
                         emptyView.setVisibility(View.VISIBLE);
                         restaurantsList.setVisibility(View.GONE);
 
@@ -144,10 +159,24 @@ public class All_CorporateCafe extends AppCompatActivity {
             @Override
             public void onFailure(Call<RestaurantsModel> call, Throwable t) {
 
-                progressBar.setVisibility(View.GONE);
-
-                Toast.makeText(All_CorporateCafe.this, "Please Try Again!", Toast.LENGTH_SHORT).show();
+                //progressBar.setVisibility(View.GONE);
+                corporateCafeShimmerFrameLayout.stopShimmer();
+                corporateCafeShimmerFrameLayout.setVisibility(View.GONE);
+                Toast.makeText(All_CorporateCafe.this, "Please Try Again! Corporate Cafes Not Found", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        corporateCafeShimmerFrameLayout.startShimmer();
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        corporateCafeShimmerFrameLayout.stopShimmer();
     }
 }

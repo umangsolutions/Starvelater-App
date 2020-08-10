@@ -348,9 +348,11 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
                             mostPopularRecyclerView.setHasFixedSize(true);
                             mostPopularRecyclerView.setLayoutManager(new LinearLayoutManager(UserDashboard.this, LinearLayoutManager.HORIZONTAL, false));
                             adapter = new MostPopularAdapter(UserDashboard.this,popularList);
+
                             mostPopularshimmerFrameLayout.stopShimmer();
                             mostPopularshimmerFrameLayout.setVisibility(View.GONE);
                             mostPopularRecyclerView.setVisibility(View.VISIBLE);
+
                             mostPopularRecyclerView.setAdapter(adapter);
 
                             adapter.notifyDataSetChanged();

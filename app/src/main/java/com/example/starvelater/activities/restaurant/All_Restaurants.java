@@ -41,7 +41,7 @@ public class All_Restaurants extends AppCompatActivity {
 
     AllCategoriesAdapter restaurantsAdapter;
 
-    LinearLayout progressBar;
+    //LinearLayout progressBar;
     TextView emptyView;
 
     ImageView backbutton;
@@ -58,7 +58,7 @@ public class All_Restaurants extends AppCompatActivity {
 
         restaurantsList = findViewById(R.id.restaurant_List);
 
-        progressBar = findViewById(R.id.progressBar);
+        //progressBar = findViewById(R.id.progressBar);
 
         emptyView = findViewById(R.id.emptyView);
 
@@ -86,8 +86,8 @@ public class All_Restaurants extends AppCompatActivity {
 
         public void next() {
 
-            progressBar.setVisibility(VISIBLE);
-
+            //progressBar.setVisibility(VISIBLE);
+            restaurantsShimmerFrameLayout.setVisibility(VISIBLE);
             if(myAppPrefsManager.getCity() == null){
                 jsonObject = new JsonObject();
                 jsonObject.addProperty("city","Kakinada");
@@ -110,7 +110,7 @@ public class All_Restaurants extends AppCompatActivity {
 
                     if(response.isSuccessful()) {
 
-                        progressBar.setVisibility(View.GONE);
+                        //progressBar.setVisibility(View.GONE);
                         RestaurantsModel restaurantsModel = response.body();
                         assert restaurantsModel!=null;
 
@@ -121,10 +121,11 @@ public class All_Restaurants extends AppCompatActivity {
                             restaurantsList.setHasFixedSize(true);
                             restaurantsList.setLayoutManager(new LinearLayoutManager(All_Restaurants.this, LinearLayoutManager.HORIZONTAL, false));
                             restaurantsAdapter = new AllCategoriesAdapter(All_Restaurants.this,resultBeans);
+
                             restaurantsShimmerFrameLayout.stopShimmer();
                             restaurantsShimmerFrameLayout.setVisibility(View.GONE);
-
                             restaurantsList.setVisibility(VISIBLE);
+
                             restaurantsList.setAdapter(restaurantsAdapter);
 
                             restaurantsAdapter.notifyDataSetChanged();
@@ -135,7 +136,9 @@ public class All_Restaurants extends AppCompatActivity {
                             restaurantsList.setAdapter((RecyclerView.Adapter) restaurantsAdapter);
 
                         } else {
-                            progressBar.setVisibility(View.GONE);
+                            //progressBar.setVisibility(View.GONE);
+                            restaurantsShimmerFrameLayout.stopShimmer();
+                            restaurantsShimmerFrameLayout.setVisibility(View.GONE);
                             emptyView.setVisibility(VISIBLE);
                             restaurantsList.setVisibility(View.GONE);
                             //Toast.makeText(All_Restaurants.this, "Something is", Toast.LENGTH_SHORT).show();
@@ -147,9 +150,10 @@ public class All_Restaurants extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<RestaurantsModel> call, Throwable t) {
-                    progressBar.setVisibility(View.GONE);
-
-                    Toast.makeText(All_Restaurants.this, "Please Try Again! Restaurants", Toast.LENGTH_SHORT).show();
+                    //progressBar.setVisibility(View.GONE);
+                    restaurantsShimmerFrameLayout.stopShimmer();
+                    restaurantsShimmerFrameLayout.setVisibility(View.GONE);
+                    Toast.makeText(All_Restaurants.this, "Please Try Again! Restaurants Not Found", Toast.LENGTH_SHORT).show();
                 }
             });
 

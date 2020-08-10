@@ -21,7 +21,9 @@
         android:padding="5dp"
         android:text="Tandoori Appetizers"
         android:textColor="#F5000000"
-        android:textSize="16dp" />
+        android:textSize="16dp"
+        android:visibility="visible"/>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/categoryItemlist"
@@ -32,7 +34,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:visibility="visible"/>
 
     <View
         android:id="@+id/space"

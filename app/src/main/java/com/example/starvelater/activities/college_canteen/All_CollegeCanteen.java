@@ -21,6 +21,7 @@ import com.example.starvelater.adapters.multiutility_adapters.AllCategoriesAdapt
 import com.example.starvelater.api.ApiInterface;
 import com.example.starvelater.api.RetrofitClient;
 import com.example.starvelater.jsonmodels.RestaurantsModel;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.JsonObject;
 
 import java.util.List;
@@ -29,16 +30,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.view.View.VISIBLE;
+
 public class All_CollegeCanteen extends AppCompatActivity {
 
     List<String> restaurantName;
     List<String> restaurantLocation;
     List<Integer> restaurantImages;
 
+    private ShimmerFrameLayout collegeCanteenShimmerFrameLayout;
+
     RecyclerView restaurantsList;
 
 
-    LinearLayout progressBar;
+    //LinearLayout progressBar;
     TextView emptyView;
 
     AllCategoriesAdapter restaurantsAdapter;
@@ -53,10 +58,12 @@ public class All_CollegeCanteen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_college_canteen);
 
+        collegeCanteenShimmerFrameLayout = findViewById(R.id.college_canteen_shimmer);
+
         /* Need to change after Accessing Data Dynamically from Server */
         restaurantsList = findViewById(R.id.restaurant_List);
 
-        progressBar = findViewById(R.id.progressBar);
+        //progressBar = findViewById(R.id.progressBar);
         emptyView = findViewById(R.id.emptyView);
 
         restaurantToolBar = findViewById(R.id.restaurantToolBar);
@@ -84,8 +91,8 @@ public class All_CollegeCanteen extends AppCompatActivity {
 
     public void next() {
 
-        progressBar.setVisibility(View.VISIBLE);
-
+        //progressBar.setVisibility(View.VISIBLE);
+        collegeCanteenShimmerFrameLayout.setVisibility(View.VISIBLE);
 
         if(myAppPrefsManager.getCity() == null){
             jsonObject = new JsonObject();
@@ -109,7 +116,7 @@ public class All_CollegeCanteen extends AppCompatActivity {
 
                 if(response.isSuccessful()) {
 
-                    progressBar.setVisibility(View.GONE);
+                    //progressBar.setVisibility(View.GONE);
 
                     RestaurantsModel restaurantsModel = response.body();
                     assert restaurantsModel != null;
@@ -121,6 +128,11 @@ public class All_CollegeCanteen extends AppCompatActivity {
                         restaurantsList.setHasFixedSize(true);
                         restaurantsList.setLayoutManager(new LinearLayoutManager(All_CollegeCanteen.this, LinearLayoutManager.HORIZONTAL, false));
                         restaurantsAdapter = new AllCategoriesAdapter(All_CollegeCanteen.this, resultBeans);
+
+                        collegeCanteenShimmerFrameLayout.stopShimmer();
+                        collegeCanteenShimmerFrameLayout.setVisibility(View.GONE);
+                        restaurantsList.setVisibility(VISIBLE);
+
                         restaurantsList.setAdapter(restaurantsAdapter);
 
                         restaurantsAdapter.notifyDataSetChanged();
@@ -132,7 +144,9 @@ public class All_CollegeCanteen extends AppCompatActivity {
 
                     } else {
 
-                        progressBar.setVisibility(View.GONE);
+                        //progressBar.setVisibility(View.GONE);
+                        collegeCanteenShimmerFrameLayout.stopShimmer();
+                        collegeCanteenShimmerFrameLayout.setVisibility(View.GONE);
                         emptyView.setVisibility(View.VISIBLE);
                         restaurantsList.setVisibility(View.GONE);
                     }
@@ -141,10 +155,25 @@ public class All_CollegeCanteen extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<RestaurantsModel> call, Throwable t) {
-                progressBar.setVisibility(View.GONE);
-
-                Toast.makeText(All_CollegeCanteen.this, "Please Try Again!", Toast.LENGTH_SHORT).show();
+                //progressBar.setVisibility(View.GONE);
+                collegeCanteenShimmerFrameLayout.stopShimmer();
+                collegeCanteenShimmerFrameLayout.setVisibility(View.GONE);
+                Toast.makeText(All_CollegeCanteen.this, "Please Try Again! College Canteens Not Found", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        collegeCanteenShimmerFrameLayout.startShimmer();
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        collegeCanteenShimmerFrameLayout.stopShimmer();
+    }
+
 }
