@@ -21,6 +21,7 @@ import com.example.starvelater.adapters.multiutility_adapters.AllCategoriesAdapt
 import com.example.starvelater.api.ApiInterface;
 import com.example.starvelater.api.RetrofitClient;
 import com.example.starvelater.jsonmodels.RestaurantsModel;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.JsonObject;
 
 import java.util.List;
@@ -29,8 +30,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.view.View.VISIBLE;
+
 public class All_Restaurants extends AppCompatActivity {
 
+    private ShimmerFrameLayout restaurantsShimmerFrameLayout;
 
     RecyclerView restaurantsList;
     MyAppPrefsManager myAppPrefsManager;
@@ -48,6 +52,9 @@ public class All_Restaurants extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all__restaurants);
+
+        //shimmer
+        restaurantsShimmerFrameLayout = findViewById(R.id.restaurants_shimmer);
 
         restaurantsList = findViewById(R.id.restaurant_List);
 
@@ -79,7 +86,7 @@ public class All_Restaurants extends AppCompatActivity {
 
         public void next() {
 
-            progressBar.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(VISIBLE);
 
             if(myAppPrefsManager.getCity() == null){
                 jsonObject = new JsonObject();
@@ -114,6 +121,10 @@ public class All_Restaurants extends AppCompatActivity {
                             restaurantsList.setHasFixedSize(true);
                             restaurantsList.setLayoutManager(new LinearLayoutManager(All_Restaurants.this, LinearLayoutManager.HORIZONTAL, false));
                             restaurantsAdapter = new AllCategoriesAdapter(All_Restaurants.this,resultBeans);
+                            restaurantsShimmerFrameLayout.stopShimmer();
+                            restaurantsShimmerFrameLayout.setVisibility(View.GONE);
+
+                            restaurantsList.setVisibility(VISIBLE);
                             restaurantsList.setAdapter(restaurantsAdapter);
 
                             restaurantsAdapter.notifyDataSetChanged();
@@ -125,7 +136,7 @@ public class All_Restaurants extends AppCompatActivity {
 
                         } else {
                             progressBar.setVisibility(View.GONE);
-                            emptyView.setVisibility(View.VISIBLE);
+                            emptyView.setVisibility(VISIBLE);
                             restaurantsList.setVisibility(View.GONE);
                             //Toast.makeText(All_Restaurants.this, "Something is", Toast.LENGTH_SHORT).show();
                         }
@@ -141,5 +152,21 @@ public class All_Restaurants extends AppCompatActivity {
                     Toast.makeText(All_Restaurants.this, "Please Try Again! Restaurants", Toast.LENGTH_SHORT).show();
                 }
             });
+
+
+
         }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        restaurantsShimmerFrameLayout.startShimmer();
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        restaurantsShimmerFrameLayout.stopShimmer();
+    }
     }
