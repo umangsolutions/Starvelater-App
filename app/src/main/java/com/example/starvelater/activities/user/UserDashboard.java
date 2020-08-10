@@ -41,6 +41,7 @@ import com.example.starvelater.api.RetrofitClient;
 import com.example.starvelater.jsonmodels.LocationsModel;
 import com.example.starvelater.jsonmodels.PopularRestaurantsModel;
 import com.example.starvelater.jsonmodels.RestaurantsModel;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.JsonObject;
 
@@ -54,6 +55,7 @@ import retrofit2.Response;
 
 public class UserDashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private ShimmerFrameLayout mostPopularshimmerFrameLayout, allRestaurantsshimmerFrameLayout;
     static final float END_SCALE = 0.7f;
     RecyclerView mostPopularRecyclerView;
     RecyclerView allRestaurantsRecyclerView;
@@ -96,6 +98,8 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_user_dashboard);
 
+        mostPopularshimmerFrameLayout = findViewById(R.id.most_popular_shimmer);
+        allRestaurantsshimmerFrameLayout = findViewById(R.id.all_restaurants_shimmer);
         setLocationLayout = findViewById(R.id.locationLayout);
 
         txtLocation = findViewById(R.id.location);
@@ -277,7 +281,12 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
                       txtLocation.setText(cityName + ", " + areaName);
                       myAppPrefsManager.setCity(cityName);
                       myAppPrefsManager.setArea(areaName);
-
+                      mostPopularRecyclerView.setVisibility(View.GONE);
+                      mostPopularshimmerFrameLayout.setVisibility(View.VISIBLE);
+                      mostPopularshimmerFrameLayout.startShimmer();
+                      allRestaurantsRecyclerView.setVisibility(View.GONE);
+                      allRestaurantsshimmerFrameLayout.setVisibility(View.VISIBLE);
+                      allRestaurantsshimmerFrameLayout.startShimmer();
                       allRestaurantsRecycler(cityName, areaName);
 
                       Toast.makeText(UserDashboard.this, "Changed Location Successfully !", Toast.LENGTH_SHORT).show();
@@ -339,6 +348,9 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
                             mostPopularRecyclerView.setHasFixedSize(true);
                             mostPopularRecyclerView.setLayoutManager(new LinearLayoutManager(UserDashboard.this, LinearLayoutManager.HORIZONTAL, false));
                             adapter = new MostPopularAdapter(UserDashboard.this,popularList);
+                            mostPopularshimmerFrameLayout.stopShimmer();
+                            mostPopularshimmerFrameLayout.setVisibility(View.GONE);
+                            mostPopularRecyclerView.setVisibility(View.VISIBLE);
                             mostPopularRecyclerView.setAdapter(adapter);
 
                             adapter.notifyDataSetChanged();
@@ -347,6 +359,9 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
                             allRestaurantsRecyclerView.setHasFixedSize(true);
                             allRestaurantsRecyclerView.setLayoutManager(new LinearLayoutManager(UserDashboard.this, LinearLayoutManager.HORIZONTAL, false));
                             adapter = new UserAllRestaurantsAdapter(UserDashboard.this, allRestList);
+                            allRestaurantsshimmerFrameLayout.stopShimmer();
+                            allRestaurantsshimmerFrameLayout.setVisibility(View.GONE);
+                            allRestaurantsRecyclerView.setVisibility(View.VISIBLE);
                             allRestaurantsRecyclerView.setAdapter(adapter);
 
                             adapter.notifyDataSetChanged();
@@ -487,4 +502,17 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
             super.onBackPressed();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mostPopularshimmerFrameLayout.startShimmer();
+        allRestaurantsshimmerFrameLayout.startShimmer();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mostPopularshimmerFrameLayout.stopShimmer();
+        allRestaurantsshimmerFrameLayout.stopShimmer();
+    }
 }
