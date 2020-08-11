@@ -15,7 +15,6 @@
         android:layout_height="wrap_content"
         android:background="#ffffff"
         android:theme="@style/AppTheme"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
@@ -31,7 +30,6 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:src="@drawable/ic_arrow_back_black_24dp" />
-
 
         </FrameLayout>
     </androidx.appcompat.widget.Toolbar>

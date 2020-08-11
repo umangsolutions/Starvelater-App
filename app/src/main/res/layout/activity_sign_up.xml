@@ -74,13 +74,14 @@
                   android:fontFamily="@font/muli_black"
                   android:text="@string/create_acc"
                   android:textAllCaps="true"
+                  android:textStyle="bold"
                   android:textColor="#000"
-                  android:textSize="40sp" />
+                  android:textSize="16sp" />
 
               <LinearLayout
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:layout_marginTop="40dp"
+                  android:layout_marginTop="30dp"
                   android:orientation="vertical">
 
                   <com.google.android.material.textfield.TextInputLayout

@@ -81,7 +81,7 @@
                             android:padding="5dp"
                             android:text="Tandoori House"
                             android:textColor="#000"
-                            android:textSize="19dp"
+                            android:textSize="16dp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -240,7 +240,7 @@
                         android:padding="5dp"
                         android:text="RECOMMENDED"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="19dp"
+                        android:textSize="16dp"
                         android:textStyle="bold"
                         android:layout_weight="2"/>
 
@@ -250,7 +250,7 @@
                         android:layout_height="wrap_content"
                         android:text="Pure VEG"
                         android:gravity="center_vertical"
-                        android:textSize="18dp"
+                        android:textSize="14dp"
                         android:textStyle="bold"
                         android:visibility="gone"
                         android:drawablePadding="8dp"
@@ -289,11 +289,49 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
-                        <include layout="@layout/custom_grid_layout_placeholder" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <include layout="@layout/custom_grid_layout_placeholder" />
 
-                        <include layout="@layout/custom_grid_layout_placeholder" />
+                            <include layout="@layout/custom_grid_layout_placeholder" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+                            <include layout="@layout/custom_grid_layout_placeholder" />
+
+                            <include layout="@layout/custom_grid_layout_placeholder" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="5dp"
+                            android:layout_marginTop="10dp"
+                            android:background="#e0e0e0" />
+
+                        <TextView
+                            android:layout_width="150dp"
+                            android:layout_height="18dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginTop="15dp"
+                            android:gravity="center_vertical"
+                            android:shadowColor="#ffffff"
+                            android:layout_marginBottom="10dp"
+                            android:background="@color/placeholder_bg" />
+
+                        <include
+                            layout="@layout/item_card_design_placeholder" />
+                        <include
+                            layout="@layout/item_card_design_placeholder" />
 
                     </LinearLayout>
 
@@ -448,6 +486,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
+        android:padding="5dp"
         android:background="@color/colorPrimary"
         android:orientation="horizontal"
         android:weightSum="2">
@@ -467,7 +506,7 @@
                 android:fontFamily="@font/muli"
                 android:text="5"
                 android:textColor="@color/colorWhite"
-                android:textSize="16dp" />
+                android:textSize="15dp" />
 
 
             <TextView
@@ -478,7 +517,7 @@
                 android:fontFamily="@font/muli"
                 android:text="Item(s) | "
                 android:textColor="@color/colorWhite"
-                android:textSize="16dp" />
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/itemsCost"
@@ -489,7 +528,7 @@
                 android:inputType="numberDecimal"
                 android:text="Rs. 0.00"
                 android:textColor="@color/colorWhite"
-                android:textSize="16dp" />
+                android:textSize="15dp" />
 
         </LinearLayout>
 
@@ -508,7 +547,7 @@
                 android:fontFamily="@font/muli"
                 android:text="Order Summary"
                 android:textColor="@color/colorWhite"
-                android:textSize="16dp" />
+                android:textSize="15dp" />
 
             <ImageView
                 android:id="@+id/view_cartimg"

@@ -45,23 +45,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
+                    android:layout_gravity="center_vertical"
                     android:src="@drawable/ic_arrow_back_black_24dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/muli_black"
+                    android:padding="10dp"
+                    android:text="@string/categories"
+                    android:textStyle="bold"
+                    android:layout_gravity="center|center_vertical"
+                    android:textAllCaps="true"
+                    android:textColor="#000"
+                    android:textSize="16dp" />
+
 
             </FrameLayout>
 
         </androidx.appcompat.widget.Toolbar>
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/muli_black"
-            android:padding="10dp"
-            android:text="@string/categories"
-            android:textStyle="bold"
-            android:textAllCaps="true"
-            android:textColor="#000"
-            android:textSize="30sp" />
 
         <ScrollView
             android:layout_width="wrap_content"
@@ -70,7 +74,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginTop="5dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -90,7 +95,7 @@
                             android:padding="20dp"
                             android:text="@string/restaurants"
                             android:textColor="@color/colorWhite"
-                            android:textSize="21dp" />
+                            android:textSize="16dp" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -99,6 +104,7 @@
                             android:background="#00000000"
                             android:fontFamily="@font/muli"
                             android:padding="25dp"
+                            android:textSize="14dp"
                             android:text="@string/expand"
                             android:textColor="@color/colorBackground" />
 
@@ -141,7 +147,7 @@
                             android:padding="20dp"
                             android:text="@string/college"
                             android:textColor="#fff"
-                            android:textSize="21dp" />
+                            android:textSize="16dp" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -152,6 +158,7 @@
                             android:fontFamily="@font/muli"
                             android:padding="25dp"
                             android:text="@string/expand"
+                            android:textSize="14dp"
                             android:textColor="@color/colorDimGrey" />
 
                     </RelativeLayout>
@@ -176,7 +183,7 @@
                             android:padding="20dp"
                             android:text="@string/corporate"
                             android:textColor="@color/colorWhite"
-                            android:textSize="21dp" />
+                            android:textSize="16dp" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -186,6 +193,7 @@
                             android:fontFamily="@font/muli"
                             android:padding="25dp"
                             android:text="@string/expand"
+                            android:textSize="14dp"
                             android:textColor="@color/colorBackground" />
 
                     </RelativeLayout>

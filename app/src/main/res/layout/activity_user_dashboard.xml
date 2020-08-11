@@ -296,7 +296,7 @@
                             android:text="@string/most_popular"
                             android:textAllCaps="true"
                             android:textColor="@color/colorBlackHeading"
-                            android:textSize="20sp"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
                     </RelativeLayout>
 
@@ -350,7 +350,7 @@
                             android:text="@string/all_restaurants"
                             android:textAllCaps="true"
                             android:textColor="@color/colorBlackHeading"
-                            android:textSize="20sp"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -360,6 +360,7 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:fontFamily="@font/muli"
+                            android:textSize="14dp"
                             android:text="@string/view_all" />
 
                     </RelativeLayout>
@@ -411,7 +412,7 @@
                             android:text="@string/multi_utility"
                             android:textAllCaps="true"
                             android:textColor="@color/colorBlackHeading"
-                            android:textSize="20sp"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
                         <!--<TextView

@@ -42,7 +42,6 @@ public class All_CollegeCanteen extends AppCompatActivity {
 
     RecyclerView restaurantsList;
 
-
     //LinearLayout progressBar;
     TextView emptyView;
 

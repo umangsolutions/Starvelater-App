@@ -22,7 +22,7 @@
         android:fontFamily="@font/muli_black"
         android:text="@string/starvelater"
         android:textColor="#000"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <ImageView

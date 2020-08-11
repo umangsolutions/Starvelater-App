@@ -27,7 +27,7 @@
         android:gravity="center"
         android:text="TextView"
         android:textColor="@color/colorDashboard"
-        android:textSize="30sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.471"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +43,7 @@
         android:fontFamily="@font/muli"
         android:gravity="center"
         android:text="@string/first_slide_description"
-        android:textSize="17sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/slider_heading" />

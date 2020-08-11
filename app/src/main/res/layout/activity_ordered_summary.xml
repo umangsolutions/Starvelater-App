@@ -53,7 +53,7 @@
                             android:layout_gravity="left|center_vertical"
                             android:layout_marginStart="10dp"
                             android:textColor="#000"
-                            android:textSize="20dp" />
+                            android:textSize="16dp" />
                     </LinearLayout>
                 </FrameLayout>
                 <!--
@@ -114,7 +114,7 @@
                         android:text="Yati Restaurant"
                         android:textColor="#000"
                         android:fontFamily="@font/muli"
-                        android:textSize="15dp" />
+                        android:textSize="14dp" />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="5 Items"
-                            android:textSize="12dp"
+                            android:textSize="13dp"
                             android:id="@+id/totalQuantity"
                             android:fontFamily="@font/muli"
                             android:layout_gravity="left"
@@ -142,7 +142,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="APT: 37MINS"
-                            android:textSize="12dp"
+                            android:textSize="13dp"
                             android:fontFamily="@font/muli"
                             android:layout_gravity="left"
                             android:textColor="@color/colorDimGrey" />
@@ -188,7 +188,7 @@
                     android:id="@+id/addresstext"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
-                    android:textSize="15dp" />
+                    android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/restAddress"
@@ -199,7 +199,7 @@
                     android:gravity="left"
                     android:fontFamily="@font/muli"
                     android:padding="2dp"
-                    android:textSize="12dp"
+                    android:textSize="13dp"
                     android:layout_alignParentEnd="true"
                     android:text="Near Bhanugudi Junction, Anand Theatre Complex,Kakinada Urban, Kakinada"
                     android:textColor="@color/colorDimGrey" />
@@ -236,7 +236,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/muli"
-                android:textSize="18dp" />
+                android:textSize="14dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -246,7 +246,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:orientation="horizontal"
                     android:layout_weight="1"
@@ -260,6 +260,7 @@
                         android:text="PRE ORDER"
                         android:id="@+id/preorder"
                         android:layout_weight="1"
+                        android:textSize="14dp"
                         android:layout_margin="8dp"
                         android:background="@drawable/terms_border"
                         android:textColor="@color/colorPrimary"
@@ -273,6 +274,7 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/muli"
                         android:layout_margin="8dp"
+                        android:textSize="14dp"
                         android:textColor="@color/colorPrimary"
                         android:background="@drawable/terms_border"/>
 
@@ -284,6 +286,7 @@
                         android:layout_weight="1"
                         android:layout_margin="8dp"
                         android:fontFamily="@font/muli"
+                        android:textSize="14dp"
                         android:textColor="@color/colorPrimary"
                         android:background="@drawable/terms_border"/>
                 </LinearLayout>
@@ -353,7 +356,7 @@
                 android:textColor="#000"
                 android:layout_weight="1"
                 android:text="Amount to be paid: "
-                android:textSize="20dp" />
+                android:textSize="16dp" />
             <TextView
                 android:id="@+id/totalPrice"
                 android:layout_width="wrap_content"
@@ -364,7 +367,7 @@
                 android:gravity="right"
                 android:textStyle="bold"
                 android:text="₹ 0.00"
-                android:textSize="20dp" />
+                android:textSize="17dp" />
         </LinearLayout>
 
 
