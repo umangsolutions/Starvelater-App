@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -40,6 +41,8 @@ public class All_CorporateCafe extends AppCompatActivity {
     List<String> restaurantLocation;
     List<Integer> restaurantImages;
 
+    SwipeRefreshLayout swipeRefreshLayout;
+
     RecyclerView restaurantsList;
 
     private ShimmerFrameLayout corporateCafeShimmerFrameLayout;
@@ -66,6 +69,11 @@ public class All_CorporateCafe extends AppCompatActivity {
 
         corporateCafeShimmerFrameLayout = findViewById(R.id.corporate_cafe_shimmer);
 
+
+        swipeRefreshLayout = findViewById(R.id.refreshLayout);
+
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorWhite));
+
         //progressBar = findViewById(R.id.progressBar);
         emptyView = findViewById(R.id.emptyView);
 
@@ -89,6 +97,14 @@ public class All_CorporateCafe extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                next();
+            }
+        });
+
 
         next();
     }
@@ -153,6 +169,8 @@ public class All_CorporateCafe extends AppCompatActivity {
                         restaurantsList.setVisibility(View.GONE);
 
                     }
+
+                    swipeRefreshLayout.setRefreshing(false);
                 }
             }
 

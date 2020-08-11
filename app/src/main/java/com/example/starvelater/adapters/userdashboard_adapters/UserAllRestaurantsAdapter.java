@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -85,31 +86,18 @@ public class UserAllRestaurantsAdapter extends RecyclerView.Adapter<UserAllResta
             holder.title.setText(restaurantsList.get(position).getRestaurant_Name());
             holder.description.setText(restaurantsList.get(position).getKnownFor());
 
-            holder.image.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("rest_ID",restaurantsList.get(position).getRestaurant_ID());
-                    bundle.putString("operationStatus",restaurantsList.get(position).getOperationStatus());
-                    bundle.putString("name", holder.title.getText().toString());
-                    bundle.putString("location", holder.description.getText().toString());
-                    intent.putExtras(bundle);
-                    holder.image.getContext().startActivity(intent);
-                }
-            });
 
-            holder.title.setOnClickListener(new View.OnClickListener() {
+            holder.layoutAllRestaurants.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, RestaurantProfileActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("rest_ID",restaurantsList.get(position).getRestaurant_ID());
                     bundle.putString("operationStatus",restaurantsList.get(position).getOperationStatus());
                     bundle.putString("name", holder.title.getText().toString());
                     bundle.putString("location", holder.description.getText().toString());
                     intent.putExtras(bundle);
-                    holder.title.getContext().startActivity(intent);
+                    context.startActivity(intent);
                 }
             });
 
@@ -127,6 +115,7 @@ public class UserAllRestaurantsAdapter extends RecyclerView.Adapter<UserAllResta
         ImageView image;
         LinearLayout progressBar;
         TextView title, description;
+        RelativeLayout layoutAllRestaurants;
         //ImageView closed;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -137,6 +126,7 @@ public class UserAllRestaurantsAdapter extends RecyclerView.Adapter<UserAllResta
             //closed = itemView.findViewById(R.id.closed);
             title = itemView.findViewById(R.id.most_popular_title);
             description = itemView.findViewById(R.id.most_popular_description);
+            layoutAllRestaurants = itemView.findViewById(R.id.all_restaurants_layout);
 
         }
 

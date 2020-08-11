@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -42,6 +43,8 @@ public class All_CollegeCanteen extends AppCompatActivity {
 
     RecyclerView restaurantsList;
 
+    SwipeRefreshLayout swipeRefreshLayout;
+
     //LinearLayout progressBar;
     TextView emptyView;
 
@@ -58,6 +61,11 @@ public class All_CollegeCanteen extends AppCompatActivity {
         setContentView(R.layout.activity_all_college_canteen);
 
         collegeCanteenShimmerFrameLayout = findViewById(R.id.college_canteen_shimmer);
+
+        swipeRefreshLayout = findViewById(R.id.refreshLayout);
+
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorWhite));
+
 
         /* Need to change after Accessing Data Dynamically from Server */
         restaurantsList = findViewById(R.id.restaurant_List);
@@ -84,6 +92,14 @@ public class All_CollegeCanteen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                next();
+            }
+        });
+
 
         next();
     }
@@ -149,6 +165,8 @@ public class All_CollegeCanteen extends AppCompatActivity {
                         emptyView.setVisibility(View.VISIBLE);
                         restaurantsList.setVisibility(View.GONE);
                     }
+
+                    swipeRefreshLayout.setRefreshing(false);
                 }
             }
 

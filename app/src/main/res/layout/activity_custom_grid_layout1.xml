@@ -13,6 +13,9 @@
         android:layout_width="145dp"
         android:layout_height="110dp"
         app:cardElevation="5dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
         app:cardCornerRadius="10dp">
 
         <ImageView
@@ -21,6 +24,8 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
             android:filterTouchesWhenObscured="true"
             android:fitsSystemWindows="true"
             android:focusableInTouchMode="true"

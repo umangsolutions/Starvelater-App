@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
+    android:id="@+id/refreshLayout"
     android:backgroundTint="@color/colorPrimary"
     android:orientation="vertical"
     tools:context=".activities.restaurant.All_Restaurants">
@@ -12,198 +13,207 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
         android:orientation="vertical">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/restaurantToolBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#fff"
-            android:backgroundTint="@color/colorPrimary"
-            android:theme="@style/CardView.Light"
-            app:titleMarginStart="40dp">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/back_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:src="@drawable/ic_arrow_back_black_24dp"
-                    android:tint="#fff" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_gravity="right"
-                    android:layout_marginEnd="20dp"
-                    android:padding="5dp"
-                    android:src="@drawable/ic_search"
-                    android:tint="#fff" />
-
-            </FrameLayout>
-
-        </androidx.appcompat.widget.Toolbar>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:weightSum="2">
+            android:background="@color/colorPrimary"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/restaurantToolBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:backgroundTint="@color/colorPrimary"
+                android:theme="@style/CardView.Light"
+                app:titleMarginStart="40dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/back_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_arrow_back_black_24dp"
+                        android:tint="#fff" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_gravity="right"
+                        android:layout_marginEnd="20dp"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_search"
+                        android:tint="#fff" />
+
+                </FrameLayout>
+
+            </androidx.appcompat.widget.Toolbar>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="5dp">
+                android:orientation="vertical"
+                android:weightSum="2">
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_margin="0dp"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="8dp"
-                    app:cardPreventCornerOverlap="true"
-                    app:cardUseCompatPadding="true">
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
 
-                    <LinearLayout
+                    <androidx.cardview.widget.CardView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_gravity="left"
+                        android:layout_margin="0dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="8dp"
+                        app:cardPreventCornerOverlap="true"
+                        app:cardUseCompatPadding="true">
 
-                        <ImageView
-                            android:id="@+id/featured_image"
-                            android:layout_width="110dp"
-                            android:layout_height="110dp"
-                            android:padding="10dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/restaurants"
-                            android:tint="@color/colorPrimary" />
-                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
-                </androidx.cardview.widget.CardView>
+                            <ImageView
+                                android:id="@+id/featured_image"
+                                android:layout_width="110dp"
+                                android:layout_height="110dp"
+                                android:padding="10dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/restaurants"
+                                android:tint="@color/colorPrimary" />
+                        </LinearLayout>
 
-                <View
-                    android:layout_width="4dp"
-                    android:layout_height="50dp"
-                    android:layout_margin="10dp"
-                    android:background="@color/colorBlue"
-                    android:requiresFadingEdge="vertical" />
+                    </androidx.cardview.widget.CardView>
+
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="10dp"
+                        android:background="@color/colorBlue"
+                        android:requiresFadingEdge="vertical" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center_vertical"
+                        android:fontFamily="@font/muli_black"
+                        android:text="Restaurants"
+                        android:textColor="#fff"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right|center_vertical"
-                    android:fontFamily="@font/muli_black"
-                    android:text="Restaurants"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="2dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/muli"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="Enjoy your Favorite Food at StarveLater Inns with Express Food Preparation Service. "
                     android:textColor="#fff"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
-
+                    android:textSize="15dp" />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="2dp"
-                android:layout_weight="1"
-                android:fontFamily="@font/muli"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="Enjoy your Favorite Food at StarveLater Inns with Express Food Preparation Service. "
-                android:textColor="#fff"
-                android:textSize="15dp" />
         </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="-25dp"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="20dp">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <!--
+                                    <com.airbnb.lottie.LottieAnimationView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        app:lottie_loop="true"
+                                        app:lottie_rawRes="@raw/walkingtaco"
+                                        app:lottie_autoPlay="true" />-->
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/restaurants_shimmer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <include layout="@layout/multi_utility_card_placeholder" />
+                            <include layout="@layout/multi_utility_card_placeholder" />
+                            <include layout="@layout/multi_utility_card_placeholder" />
+                            <include layout="@layout/multi_utility_card_placeholder" />
+
+
+                        </LinearLayout>
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/restaurant_List"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="40dp"
+                        android:visibility="gone"/>
+
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+            <TextView
+                android:id="@+id/emptyView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:layout_gravity="center_vertical"
+                android:text="No Restaurants Found"
+                android:textColor="#000000"
+                android:visibility="gone" />
+
+            <!-- <include
+                 layout="@layout/progressbar"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:visibility="gone" />-->
+
+        </androidx.cardview.widget.CardView>
+
 
     </LinearLayout>
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="-25dp"
-        app:cardCornerRadius="30dp"
-        app:cardElevation="20dp">
 
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-<!--
-                <com.airbnb.lottie.LottieAnimationView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:lottie_loop="true"
-                    app:lottie_rawRes="@raw/walkingtaco"
-                    app:lottie_autoPlay="true" />-->
-                <com.facebook.shimmer.ShimmerFrameLayout
-                    android:id="@+id/restaurants_shimmer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:orientation="vertical">
-
-                        <include layout="@layout/multi_utility_card_placeholder" />
-                        <include layout="@layout/multi_utility_card_placeholder" />
-                        <include layout="@layout/multi_utility_card_placeholder" />
-                        <include layout="@layout/multi_utility_card_placeholder" />
-
-
-                    </LinearLayout>
-
-                </com.facebook.shimmer.ShimmerFrameLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/restaurant_List"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="40dp"
-                    android:visibility="gone"/>
-
-            </LinearLayout>
-
-        </androidx.core.widget.NestedScrollView>
-
-        <TextView
-            android:id="@+id/emptyView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:layout_gravity="center_vertical"
-            android:text="No Restaurants Found"
-            android:textColor="#000000"
-            android:visibility="gone" />
-
-       <!-- <include
-            layout="@layout/progressbar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone" />-->
-
-    </androidx.cardview.widget.CardView>
-
-</LinearLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -20,6 +20,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.airbnb.lottie.L;
 import com.example.starvelater.R;
@@ -51,6 +52,9 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
 
     RecyclerView datalist;
     RecyclerView itemlist;
+
+    SwipeRefreshLayout swipeRefreshLayout;
+
 
     private ShimmerFrameLayout recommendedshimmerFrameLayout;
 
@@ -106,6 +110,10 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
 
         recommendedshimmerFrameLayout = findViewById(R.id.recommended_shimmer);
 
+        swipeRefreshLayout = findViewById(R.id.refreshLayout);
+
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+
         cartProductClickListener = (CartProductClickListener) this;
         cartItemClickListener = (CartItemClickListener) this;
 
@@ -150,6 +158,16 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
         linearLayout = findViewById(R.id.linearLayout);
 
         cartLayout = findViewById(R.id.cartLayout);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                // method to load Items
+                next(restaurantID, operationStatus);
+                //swipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
 
        cartLayout.setOnClickListener(new View.OnClickListener() {
@@ -273,6 +291,7 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Cart
 
                        }
 
+                       swipeRefreshLayout.setRefreshing(false);
                     }
 
                 }

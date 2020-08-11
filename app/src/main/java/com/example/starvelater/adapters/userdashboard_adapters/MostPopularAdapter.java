@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -62,10 +63,10 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
             holder.title.setText(featuredRestaurants.get(position).getRestaurant_Name());
             holder.description.setText(featuredRestaurants.get(position).getAddress());
 
-            holder.image.setOnClickListener(new View.OnClickListener() {
+            holder.layoutMostPopular.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, RestaurantProfileActivity.class);
 
                     Bundle bundle = new Bundle();
                     bundle.putString("rest_ID",featuredRestaurants.get(position).getRestaurant_ID());
@@ -74,28 +75,9 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
                     bundle.putString("location", holder.description.getText().toString());
                     intent.putExtras(bundle);
 
-                    holder.image.getContext().startActivity(intent);
+                    context.startActivity(intent);
                 }
             });
-
-            holder.title.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
-
-                    Bundle bundle = new Bundle();
-                    bundle.putString("rest_ID",featuredRestaurants.get(position).getRestaurant_ID());
-                    bundle.putString("operationStatus",featuredRestaurants.get(position).getOperationStatus());
-                    bundle.putString("name", holder.title.getText().toString());
-                    bundle.putString("location", holder.description.getText().toString());
-                    intent.putExtras(bundle);
-
-                    holder.title.getContext().startActivity(intent);
-                }
-            });
-
-
-
     }
 
     @Override
@@ -109,6 +91,7 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
 
         ImageView image;
         TextView title, description,hiddenID;
+        LinearLayout layoutMostPopular;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -117,6 +100,7 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
             image = itemView.findViewById(R.id.featured_image);
             title = itemView.findViewById(R.id.featured_title);
             description = itemView.findViewById(R.id.featured_description);
+            layoutMostPopular = itemView.findViewById(R.id.most_popular_card_layout);
 
         }
     }

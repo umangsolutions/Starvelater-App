@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -41,45 +42,23 @@ public class UtilityAdapter extends RecyclerView.Adapter<UtilityAdapter.UtilityV
         holder.title.setText(utilityHelperClass.getTitle());
         holder.image.setImageResource(utilityHelperClass.getImage());
 
-        holder.title.setOnClickListener(new View.OnClickListener() {
+        holder.layoutMultiUtility.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 if (holder.title.getText().equals("Restaurant")) {
-                    Intent intent = new Intent(v.getContext(), All_Restaurants.class);
-                    holder.title.getContext().startActivity(intent);
-                }
-
-                if (holder.title.getText().equals("College Canteen")) {
-                    Intent intent = new Intent(v.getContext(), All_CollegeCanteen.class);
-                    holder.title.getContext().startActivity(intent);
-                }
-
-                if (holder.title.getText().equals("Corporate Cafe")) {
-                    Intent intent = new Intent(v.getContext(), All_CorporateCafe.class);
-                    holder.title.getContext().startActivity(intent);
-                }
-
-            }
-        });
-
-        holder.image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (holder.title.getText().equals("Restaurant")) {
-                    Intent intent = new Intent(v.getContext(), All_Restaurants.class);
+                    Intent intent = new Intent(view.getContext(), All_Restaurants.class);
                     holder.image.getContext().startActivity(intent);
                 }
 
                 if (holder.title.getText().equals("College Canteen")) {
-                    Intent intent = new Intent(v.getContext(), All_CollegeCanteen.class);
+                    Intent intent = new Intent(view.getContext(), All_CollegeCanteen.class);
                     holder.image.getContext().startActivity(intent);
                 }
 
                 if (holder.title.getText().equals("Corporate Cafe")) {
-                    Intent intent = new Intent(v.getContext(), All_CorporateCafe.class);
+                    Intent intent = new Intent(view.getContext(), All_CorporateCafe.class);
                     holder.image.getContext().startActivity(intent);
                 }
-
             }
         });
 
@@ -96,6 +75,7 @@ public class UtilityAdapter extends RecyclerView.Adapter<UtilityAdapter.UtilityV
 
         ImageView image;
         TextView title;
+        RelativeLayout layoutMultiUtility;
 
         public UtilityViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -103,6 +83,7 @@ public class UtilityAdapter extends RecyclerView.Adapter<UtilityAdapter.UtilityV
             //Hooks
             image = itemView.findViewById(R.id.multi_utility_icon);
             title = itemView.findViewById(R.id.multi_utility_title);
+            layoutMultiUtility = itemView.findViewById(R.id.multi_utility_layout);
 
 
         }

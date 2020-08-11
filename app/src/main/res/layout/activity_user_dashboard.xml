@@ -8,6 +8,7 @@
     android:background="@color/colorWhite"
     tools:context=".activities.user.UserDashboard">
 
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation_view"
         android:layout_width="match_parent"
@@ -18,6 +19,11 @@
         app:headerLayout="@layout/menu_header"
         app:menu="@menu/main_menu" />
 
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/refreshLayout">
     <LinearLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
@@ -126,320 +132,324 @@
 
         </RelativeLayout>
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorWhite">
-
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fitsSystemWindows="true"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:background="@color/colorWhite">
 
-                <!--  <RelativeLayout
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fitsSystemWindows="true"
+                    android:orientation="vertical">
 
-                      <TextView
-                          android:id="@+id/app_name"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_centerHorizontal="true"
-                          android:fontFamily="@font/calligraffitti"
-                          android:text="@string/tag_line"
-                          android:textColor="#424242"
-                          android:textSize="22sp"
-                          android:textStyle="bold" />
-
-                      <RelativeLayout
+                    <!--  <RelativeLayout
                           android:layout_width="match_parent"
-                          android:layout_height="40dp"
-                          android:layout_below="@id/app_name"
-                          android:layout_marginLeft="40dp"
-                          android:layout_marginTop="20dp"
-                          android:layout_marginRight="40dp"
-                          android:layout_marginBottom="20dp"
-                          android:background="@color/colorWhite"
-                          android:elevation="8dp">
+                          android:layout_height="wrap_content">
 
                           <TextView
+                              android:id="@+id/app_name"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
-                              android:layout_centerVertical="true"
-                              android:layout_marginLeft="15dp"
-                              android:text="@string/search_restaurants" />
+                              android:layout_centerHorizontal="true"
+                              android:fontFamily="@font/calligraffitti"
+                              android:text="@string/tag_line"
+                              android:textColor="#424242"
+                              android:textSize="22sp"
+                              android:textStyle="bold" />
 
-                          <ImageView
-                              android:layout_width="30dp"
-                              android:layout_height="30dp"
-                              android:layout_alignParentRight="true"
-                              android:layout_centerVertical="true"
-                              android:layout_marginRight="15dp"
-                              android:src="@drawable/ic_search" />
+                          <RelativeLayout
+                              android:layout_width="match_parent"
+                              android:layout_height="40dp"
+                              android:layout_below="@id/app_name"
+                              android:layout_marginLeft="40dp"
+                              android:layout_marginTop="20dp"
+                              android:layout_marginRight="40dp"
+                              android:layout_marginBottom="20dp"
+                              android:background="@color/colorWhite"
+                              android:elevation="8dp">
 
-                      </RelativeLayout>
-                  </RelativeLayout>-->
+                              <TextView
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:layout_centerVertical="true"
+                                  android:layout_marginLeft="15dp"
+                                  android:text="@string/search_restaurants" />
 
-                <!--<LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal">
+                              <ImageView
+                                  android:layout_width="30dp"
+                                  android:layout_height="30dp"
+                                  android:layout_alignParentRight="true"
+                                  android:layout_centerVertical="true"
+                                  android:layout_marginRight="15dp"
+                                  android:src="@drawable/ic_search" />
 
-                    <LinearLayout
+                          </RelativeLayout>
+                      </RelativeLayout>-->
+
+                    <!--<LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
-
-                        <RelativeLayout
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_margin="10dp"
-                            android:background="@drawable/card_1"
-                            android:elevation="8dp">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_centerInParent="true"
-                                android:src="@drawable/restaurants" />
-                        </RelativeLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/montaga"
-                            android:text="@string/restaurants"
-                            android:textAlignment="center"
-                            android:textColor="#212121" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
-
-                        <RelativeLayout
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_margin="10dp"
-                            android:background="@drawable/card_1"
-                            android:elevation="8dp">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_centerInParent="true"
-                                android:src="@drawable/college" />
-                        </RelativeLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/montaga"
-                            android:text="@string/college_canteen"
-                            android:textAlignment="center"
-                            android:textColor="#212121" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
-
-                        <RelativeLayout
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_margin="10dp"
-                            android:background="@drawable/card_1"
-                            android:elevation="8dp">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_centerInParent="true"
-                                android:src="@drawable/corporate" />
-                        </RelativeLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/montaga"
-                            android:text="@string/corporate_cafe"
-                            android:textAlignment="center"
-                            android:textColor="#212121" />
-                    </LinearLayout>
-
-
-                </LinearLayout>-->
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#fff"
-                    android:orientation="vertical"
-                    android:padding="10dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="2dp"
-                            android:fontFamily="@font/muli_black"
-                            android:text="@string/most_popular"
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorBlackHeading"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-                    </RelativeLayout>
-
-                    <com.facebook.shimmer.ShimmerFrameLayout
-                        android:id="@+id/most_popular_shimmer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:orientation="horizontal">
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
 
-                            <include layout="@layout/featured_card_placeholder_layout" />
+                            <RelativeLayout
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_margin="10dp"
+                                android:background="@drawable/card_1"
+                                android:elevation="8dp">
 
-                            <include layout="@layout/featured_card_placeholder_layout" />
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/restaurants" />
+                            </RelativeLayout>
 
-                            <include layout="@layout/featured_card_placeholder_layout" />
-
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montaga"
+                                android:text="@string/restaurants"
+                                android:textAlignment="center"
+                                android:textColor="#212121" />
                         </LinearLayout>
 
-                    </com.facebook.shimmer.ShimmerFrameLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/most_popular_recycler"
+                            <RelativeLayout
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_margin="10dp"
+                                android:background="@drawable/card_1"
+                                android:elevation="8dp">
+
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/college" />
+                            </RelativeLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montaga"
+                                android:text="@string/college_canteen"
+                                android:textAlignment="center"
+                                android:textColor="#212121" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_margin="10dp"
+                                android:background="@drawable/card_1"
+                                android:elevation="8dp">
+
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/corporate" />
+                            </RelativeLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montaga"
+                                android:text="@string/corporate_cafe"
+                                android:textAlignment="center"
+                                android:textColor="#212121" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>-->
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="-2dp"
-                        android:layout_marginTop="10dp"
                         android:background="#fff"
-                        android:visibility="gone" />
-                </LinearLayout>
+                        android:orientation="vertical"
+                        android:padding="10dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:background="#fff"
-                    android:orientation="vertical"
-                    android:padding="15dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/muli_black"
-                            android:text="@string/all_restaurants"
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorBlackHeading"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/restaurantsViewAll"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:fontFamily="@font/muli"
-                            android:textSize="14dp"
-                            android:text="@string/view_all" />
-
-                    </RelativeLayout>
-
-                    <com.facebook.shimmer.ShimmerFrameLayout
-                        android:id="@+id/all_restaurants_shimmer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <LinearLayout
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:orientation="horizontal">
+                            android:layout_height="wrap_content">
 
-                            <include layout="@layout/all_restaurants_card_place_holder_layout" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="2dp"
+                                android:fontFamily="@font/muli_black"
+                                android:text="@string/most_popular"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorBlackHeading"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
 
-                            <include layout="@layout/all_restaurants_card_place_holder_layout" />
+                        <com.facebook.shimmer.ShimmerFrameLayout
+                            android:id="@+id/most_popular_shimmer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
-                        </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:orientation="horizontal">
 
-                    </com.facebook.shimmer.ShimmerFrameLayout>
+                                <include layout="@layout/featured_card_placeholder_layout" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/all_restaurants"
+                                <include layout="@layout/featured_card_placeholder_layout" />
+
+                                <include layout="@layout/featured_card_placeholder_layout" />
+
+                            </LinearLayout>
+
+                        </com.facebook.shimmer.ShimmerFrameLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/most_popular_recycler"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="-2dp"
+                            android:layout_marginTop="10dp"
+                            android:background="#fff"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="-2dp"
-                        android:layout_marginTop="10dp"
-                        android:visibility="gone" />
+                        android:layout_marginTop="0dp"
+                        android:background="#fff"
+                        android:orientation="vertical"
+                        android:padding="15dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/muli_black"
+                                android:text="@string/all_restaurants"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorBlackHeading"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/restaurantsViewAll"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:fontFamily="@font/muli"
+                                android:textSize="14dp"
+                                android:text="@string/view_all" />
+
+                        </RelativeLayout>
+
+                        <com.facebook.shimmer.ShimmerFrameLayout
+                            android:id="@+id/all_restaurants_shimmer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:orientation="horizontal">
+
+                                <include layout="@layout/all_restaurants_card_place_holder_layout" />
+
+                                <include layout="@layout/all_restaurants_card_place_holder_layout" />
+
+                            </LinearLayout>
+
+                        </com.facebook.shimmer.ShimmerFrameLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/all_restaurants"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="-2dp"
+                            android:layout_marginTop="10dp"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/muli_black"
+                                android:text="@string/multi_utility"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorBlackHeading"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <!--<TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:fontFamily="@font/montaga"
+                                android:text="@string/view_all" />-->
+
+                        </RelativeLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/utility_recycler"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="-2dp"
+                            android:layout_marginTop="10dp" />
+
+                    </LinearLayout>
+
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:orientation="vertical"
-                    android:padding="10dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/muli_black"
-                            android:text="@string/multi_utility"
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorBlackHeading"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <!--<TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:fontFamily="@font/montaga"
-                            android:text="@string/view_all" />-->
-
-                    </RelativeLayout>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/utility_recycler"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="-2dp"
-                        android:layout_marginTop="10dp" />
-
-                </LinearLayout>
+            </ScrollView>
 
 
-            </LinearLayout>
-
-        </ScrollView>
 
     </LinearLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <include
         layout="@layout/progressbar"

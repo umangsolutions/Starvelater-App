@@ -6,6 +6,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -62,6 +63,8 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
     RecyclerView utilityRecycler;
     RecyclerView.Adapter adapter;
 
+    SwipeRefreshLayout swipeRefreshLayout;
+
     MyAppPrefsManager myAppPrefsManager;
 
     Spinner spinCity,spinArea;
@@ -103,6 +106,10 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
         setLocationLayout = findViewById(R.id.locationLayout);
 
         txtLocation = findViewById(R.id.location);
+
+        swipeRefreshLayout = findViewById(R.id.refreshLayout);
+
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
 
         progressBar = findViewById(R.id.progressBar);
         dialogProgressBar = findViewById(R.id.progressBar);
@@ -166,6 +173,36 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
             }
         });
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                next();
+            }
+        });
+
+
+        next();
+
+
+        setLocationLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogProgressBar.setVisibility(View.VISIBLE);
+                if(locationList.size() == 0){
+                    Toast.makeText(UserDashboard.this, "Low Internet Connectivity", Toast.LENGTH_SHORT).show();
+                }else {
+                    openSetLocationDialog(locationList);
+                }
+            }
+        });
+
+
+
+        navigationDrawer();
+        utilityRecycler();
+    }
+
+    private void next() {
         // Loading All Locations, calling Service
         ApiInterface apiInterface = RetrofitClient.getClient(UserDashboard.this).create(ApiInterface.class);
         apiInterface.processLocationData().enqueue(new Callback<LocationsModel>() {
@@ -181,9 +218,12 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
                         dialogProgressBar.setVisibility(View.GONE);
                         Toast.makeText(UserDashboard.this, "No Locations Found", Toast.LENGTH_SHORT).show();
                     }
+
+                    swipeRefreshLayout.setRefreshing(false);
                 }else{
                     dialogProgressBar.setVisibility(View.GONE);
                     Toast.makeText(UserDashboard.this, "Something Went Wrong !", Toast.LENGTH_SHORT).show();
+                    swipeRefreshLayout.setRefreshing(false);
                 }
             }
 
@@ -191,23 +231,11 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
             public void onFailure(Call<LocationsModel> call, Throwable t) {
                 dialogProgressBar.setVisibility(View.GONE);
                 Toast.makeText(UserDashboard.this, "Please Try Again!", Toast.LENGTH_SHORT).show();
+                swipeRefreshLayout.setRefreshing(false);
+
             }
         });
 
-        setLocationLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogProgressBar.setVisibility(View.VISIBLE);
-                if(locationList.size() == 0){
-                    Toast.makeText(UserDashboard.this, "Low Internet Connectivity", Toast.LENGTH_SHORT).show();
-                }else {
-                    openSetLocationDialog(locationList);
-                }
-            }
-        });
-
-        navigationDrawer();
-        utilityRecycler();
     }
 
     private void openSetLocationDialog(List<LocationsModel.DataBean> locationList) {

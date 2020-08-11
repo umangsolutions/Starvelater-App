@@ -5,7 +5,9 @@
     android:layout_height="wrap_content"
     android:fitsSystemWindows="true"
     android:focusable="true"
-    android:focusableInTouchMode="true"
+    android:id="@+id/all_restaurants_card_layout"
+    android:clickable="true"
+    android:background="?attr/selectableItemBackground"
     android:padding="10dp"
     android:weightSum="2">
 

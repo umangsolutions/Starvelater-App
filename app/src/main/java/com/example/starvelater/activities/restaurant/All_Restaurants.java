@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,6 +37,8 @@ public class All_Restaurants extends AppCompatActivity {
 
     private ShimmerFrameLayout restaurantsShimmerFrameLayout;
 
+    SwipeRefreshLayout swipeRefreshLayout;
+
     RecyclerView restaurantsList;
     MyAppPrefsManager myAppPrefsManager;
 
@@ -58,6 +61,10 @@ public class All_Restaurants extends AppCompatActivity {
 
         restaurantsList = findViewById(R.id.restaurant_List);
 
+        swipeRefreshLayout = findViewById(R.id.refreshLayout);
+
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorWhite));
+
         //progressBar = findViewById(R.id.progressBar);
 
         emptyView = findViewById(R.id.emptyView);
@@ -78,6 +85,13 @@ public class All_Restaurants extends AppCompatActivity {
                 Intent intent = new Intent(All_Restaurants.this, UserDashboard.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+            }
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                next();
             }
         });
 
@@ -144,6 +158,8 @@ public class All_Restaurants extends AppCompatActivity {
                             //Toast.makeText(All_Restaurants.this, "Something is", Toast.LENGTH_SHORT).show();
                         }
 
+                        swipeRefreshLayout.setRefreshing(false);
+
 
                     }
                 }
@@ -153,6 +169,8 @@ public class All_Restaurants extends AppCompatActivity {
                     //progressBar.setVisibility(View.GONE);
                     restaurantsShimmerFrameLayout.stopShimmer();
                     restaurantsShimmerFrameLayout.setVisibility(View.GONE);
+                    swipeRefreshLayout.setRefreshing(false);
+
                     Toast.makeText(All_Restaurants.this, "Please Try Again! Restaurants Not Found", Toast.LENGTH_SHORT).show();
                 }
             });

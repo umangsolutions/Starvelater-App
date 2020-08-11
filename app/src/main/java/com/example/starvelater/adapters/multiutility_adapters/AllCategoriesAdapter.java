@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -72,32 +73,17 @@ public class AllCategoriesAdapter extends RecyclerView.Adapter<AllCategoriesAdap
         holder.restLocation.setText(restaurantsList.get(position).getAddress());
         holder.restavgPrepTime.setText(restaurantsList.get(position).getAvgPrepTime() + " mins");
 
-
-        holder.restImage.setOnClickListener(new View.OnClickListener() {
+        holder.layoutAllRestaurants.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
+            public void onClick(View view) {
+                Intent intent = new Intent(context, RestaurantProfileActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("rest_ID",restaurantsList.get(position).getRestaurant_ID());
                 bundle.putString("operationStatus",restaurantsList.get(position).getOperationStatus());
                 bundle.putString("name", holder.restName.getText().toString());
                 bundle.putString("location", holder.restLocation.getText().toString());
                 intent.putExtras(bundle);
-                holder.restImage.getContext().startActivity(intent);
-            }
-        });
-
-        holder.restName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), RestaurantProfileActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("rest_ID",restaurantsList.get(position).getRestaurant_ID());
-                bundle.putString("operationStatus",restaurantsList.get(position).getOperationStatus());
-                bundle.putString("name", holder.restName.getText().toString());
-                bundle.putString("location", holder.restLocation.getText().toString());
-                intent.putExtras(bundle);
-                holder.restName.getContext().startActivity(intent);
+                context.startActivity(intent);
             }
         });
 
@@ -115,6 +101,7 @@ public class AllCategoriesAdapter extends RecyclerView.Adapter<AllCategoriesAdap
         TextView restLocation;
         ImageView restImage;
         TextView restavgPrepTime;
+        LinearLayout layoutAllRestaurants;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -122,6 +109,7 @@ public class AllCategoriesAdapter extends RecyclerView.Adapter<AllCategoriesAdap
             restLocation = itemView.findViewById(R.id.restaurant_location);
             restImage = itemView.findViewById(R.id.restaurant_image);
             restavgPrepTime = itemView.findViewById(R.id.restaurant_avgPrepTime);
+            layoutAllRestaurants = itemView.findViewById(R.id.all_restaurants_card_layout);
         }
     }
 }
